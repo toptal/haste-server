@@ -20,7 +20,7 @@ heist_document.prototype.load = function(key, callback) {
       var high = hljs.highlightAuto(res.data);
       callback({
         value: high.value,
-        uuid: key,
+        key: key,
         language: high.language
       });
     }
@@ -48,7 +48,7 @@ heist_document.prototype.save = function(data, callback) {
       var high = hljs.highlightAuto(data);
       callback({
         value: high.value,
-        uuid: res.uuid,
+        key: res.key,
         language: high.language
       });
     }
@@ -115,7 +115,7 @@ heist.prototype.lockDocument = function() {
     if (ret) {
       _this.$code.html(ret.value);
       _this.setTitle(ret.language ? ret.language : 'unknown');
-      window.history.pushState(null, _this.appName + '-' + ret.uuid, '/' + ret.uuid);
+      window.history.pushState(null, _this.appName + '-' + ret.key, '/' + ret.key);
       _this.$textarea.val('').hide();
       _this.$box.show();
     }
