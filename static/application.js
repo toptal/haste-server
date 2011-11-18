@@ -1,19 +1,15 @@
 ///// represents a single document
 
 var heist_document = function() {
-
   this.locked = false;
-
 };
 
+// Get this document from the server and lock it here
 heist_document.prototype.load = function(key, callback) {
-
   var _this = this;
-
   $.ajax('/documents/' + key, {
     type: 'get',
     dataType: 'json',
-
     success: function(res) {
       _this.locked = true;
       _this.data = res.data;
@@ -24,30 +20,23 @@ heist_document.prototype.load = function(key, callback) {
         language: high.language
       });
     },
-
     error: function(err) {
       callback(false);
     }
-
   });
-
 };
 
+// Save this document to the server and lock it here
 heist_document.prototype.save = function(data, callback) {
-
   if (this.locked) {
     return false;
   }
-
   this.data = data;
-
   var _this = this;
   $.ajax('/documents', {
-
     type: 'post',
     data: data,
     dataType: 'json',
-    
     success: function(res) {
       _this.locked = true;
       var high = hljs.highlightAuto(data);
@@ -57,22 +46,17 @@ heist_document.prototype.save = function(data, callback) {
         language: high.language
       });
     }
-
   });
-
 };
 
 ///// represents the paste application
 
 var heist = function(appName) {
-
   this.appName = appName;
   this.$textarea = $('textarea');
   this.$box = $('#box');
   this.$code = $('#box code');
-
   this.configureShortcuts();
-
 };
 
 // TODO add key of commands
@@ -166,7 +150,6 @@ heist.prototype.configureShortcuts = function() {
 };
 
 
-// TODO handle not found gracefully
 // TODO refuse to lock empty documents
 
 ///// Tab behavior in the textarea - 2 spaces per tab
