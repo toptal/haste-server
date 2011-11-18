@@ -44,4 +44,4 @@ http.createServer(function(request, response) {
 
 }).listen(config.port, config.host);
 
-console.info('listening on ' + config.host + ':' + config.port);
+winston.info('listening on ' + config.host + ':' + config.port);
