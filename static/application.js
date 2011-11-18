@@ -6,6 +6,28 @@ var heist_document = function() {
 
 };
 
+heist_document.prototype.load = function(key, callback) {
+
+  var _this = this;
+
+  $.ajax('/documents/' + key, {
+    type: 'get',
+    dataType: 'json',
+
+    success: function(res) {
+      _this.locked = true;
+      _this.data = res.data;
+      var high = hljs.highlightAuto(res.data);
+      callback({
+        value: high.value,
+        uuid: key,
+        language: high.language
+      });
+    }
+  });
+
+};
+
 heist_document.prototype.save = function(data, callback) {
 
   if (this.locked) {
@@ -60,9 +82,22 @@ heist.prototype.newDocument = function(ext) {
   this.doc = new heist_document();
   this.$box.hide();
   this.setTitle();
-  window.history.pushState(null, this.appName, '/');
   this.$textarea.val('').show().focus();
 }
+
+// Load a document and show it
+heist.prototype.loadDocument = function(key) {
+  var _this = this;
+  _this.doc = new heist_document();
+  _this.doc.load(key, function(ret) {
+    if (ret) {
+      _this.$code.html(ret.value);
+      _this.setTitle(ret.language ? ret.language : 'unknown');
+      _this.$textarea.val('').hide();
+      _this.$box.show();
+    }
+  });
+};
 
 // Duplicate the current document - only if locked
 heist.prototype.duplicateDocument = function() {
@@ -79,7 +114,7 @@ heist.prototype.lockDocument = function() {
   this.doc.save(this.$textarea.val(), function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
-      _this.setTitle(ret.language + '-' + ret.uuid);
+      _this.setTitle(ret.language ? ret.language : 'unknown');
       window.history.pushState(null, _this.appName + '-' + ret.uuid, '/' + ret.uuid);
       _this.$textarea.val('').hide();
       _this.$box.show();
@@ -112,11 +147,8 @@ heist.prototype.configureShortcuts = function() {
 
 // TODO handle not found gracefully
 // TODO refuse to lock empty documents
-// TODO support for browsers without pushstate
-// TODO support for push state navigation
 
 ///// Tab behavior in the textarea - 2 spaces per tab
-
 $(function() {
 
   $('textarea').keydown(function(evt) {

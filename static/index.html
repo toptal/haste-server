@@ -39,9 +39,19 @@
 
 		<script type="text/javascript">
 			$(function() {
+				// Set up
 				var app = new heist('heist');
-				app.newDocument();	
 				$('textarea').focus();
+				// Handle pops
+				window.onpopstate = function(evt) {
+					var path = evt.target.location.pathname;
+					if (path === '/') {
+						app.newDocument();	
+					}
+					else {
+						app.loadDocument(path.substring(1, path.length));
+					}
+				};
 			});
 		</script>
 
