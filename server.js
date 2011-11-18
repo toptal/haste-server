@@ -80,13 +80,14 @@ http.createServer(function(request, response) {
 
   var incoming = url.parse(request.url, false);
 
+  var handler = null;
   if (incoming.pathname.indexOf('/documents') === 0) {
-    var handler = new DocumentHandler();
-    handler.handle(request, response);
+    handler = new DocumentHandler();
   }
   else {
-    var handler = new StaticHandler('./static');
-    handler.handle(request, response);
+    handler = new StaticHandler('./static');
   }
+
+  handler.handle(request, response);
 
 }).listen(7777);
