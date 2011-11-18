@@ -12,7 +12,6 @@ winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, { colorize: true, level: 'verbose' });
 
 // TODO preparse static instead of using exists
-// TODO only parse url once for static files
 
 // Set the server up
 http.createServer(function(request, response) {
