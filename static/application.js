@@ -59,8 +59,6 @@ var haste = function(appName) {
   this.configureShortcuts();
 };
 
-// TODO add key of commands
-
 // Set the page title - include the appName
 haste.prototype.setTitle = function(ext) {
   var title = ext ? this.appName + ' - ' + ext : this.appName;
