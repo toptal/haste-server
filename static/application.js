@@ -23,7 +23,12 @@ heist_document.prototype.load = function(key, callback) {
         key: key,
         language: high.language
       });
+    },
+
+    error: function(err) {
+      callback(false);
     }
+
   });
 
 };
@@ -70,6 +75,8 @@ var heist = function(appName) {
 
 };
 
+// TODO add key of commands
+
 // Set the page title - include the appName
 heist.prototype.setTitle = function(ext) {
   var title = ext ? this.appName + ' - ' + ext : this.appName;
@@ -78,9 +85,12 @@ heist.prototype.setTitle = function(ext) {
 
 // Remove the current document (if there is one)
 // and set up for a new one
-heist.prototype.newDocument = function(ext) {
+heist.prototype.newDocument = function(hideHistory) {
   this.doc = new heist_document();
   this.$box.hide();
+  if (!hideHistory) {
+    window.history.pushState(null, this.appName, '/');
+  }
   this.setTitle();
   this.$textarea.val('').show().focus();
 }
@@ -95,6 +105,9 @@ heist.prototype.loadDocument = function(key) {
       _this.setTitle(ret.language ? ret.language : 'unknown');
       _this.$textarea.val('').hide();
       _this.$box.show();
+    }
+    else {
+      _this.newDocument();
     }
   });
 };

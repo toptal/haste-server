@@ -46,7 +46,7 @@
 				window.onpopstate = function(evt) {
 					var path = evt.target.location.pathname;
 					if (path === '/') {
-						app.newDocument();	
+						app.newDocument(true);	
 					}
 					else {
 						app.loadDocument(path.substring(1, path.length));

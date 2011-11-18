@@ -12,6 +12,7 @@ winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, { colorize: true, level: 'verbose' });
 
 // TODO preparse static instead of using exists
+// TODO implement command line
 
 // Set the server up
 http.createServer(function(request, response) {
