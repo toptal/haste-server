@@ -26,8 +26,6 @@ if (config.logging) {
   }
 }
 
-// TODO implement command line
-
 // build the store from the config on-demand - so that we don't load it
 // for statics
 var preferredStore = function() {
