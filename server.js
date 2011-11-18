@@ -7,8 +7,10 @@ var winston = require('winston');
 var StaticHandler = require('./lib/static_handler');
 var DocumentHandler = require('./lib/document_handler');
 
-// Load the configuration
+// Load the configuration and set some defaults
 var config = JSON.parse(fs.readFileSync('config.js', 'utf8'));
+config.port = config.port || 7777;
+config.host = config.host || 'localhost';
 
 // Configure logging - TODO make configurable
 winston.remove(winston.transports.Console);
@@ -40,4 +42,6 @@ http.createServer(function(request, response) {
   handler = new StaticHandler('./static');
   handler.handle(incoming.pathname, response);
 
-}).listen(7777);
+}).listen(config.port, config.host);
+
+console.info('listening on ' + config.host + ':' + config.port);
