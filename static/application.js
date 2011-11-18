@@ -1,13 +1,11 @@
 ///// represents a single document
 
-// TODO change name to haste
-
-var heist_document = function() {
+var haste_document = function() {
   this.locked = false;
 };
 
 // Get this document from the server and lock it here
-heist_document.prototype.load = function(key, callback) {
+haste_document.prototype.load = function(key, callback) {
   var _this = this;
   $.ajax('/documents/' + key, {
     type: 'get',
@@ -29,7 +27,7 @@ heist_document.prototype.load = function(key, callback) {
 };
 
 // Save this document to the server and lock it here
-heist_document.prototype.save = function(data, callback) {
+haste_document.prototype.save = function(data, callback) {
   if (this.locked) {
     return false;
   }
@@ -53,7 +51,7 @@ heist_document.prototype.save = function(data, callback) {
 
 ///// represents the paste application
 
-var heist = function(appName) {
+var haste = function(appName) {
   this.appName = appName;
   this.$textarea = $('textarea');
   this.$box = $('#box');
@@ -64,15 +62,15 @@ var heist = function(appName) {
 // TODO add key of commands
 
 // Set the page title - include the appName
-heist.prototype.setTitle = function(ext) {
+haste.prototype.setTitle = function(ext) {
   var title = ext ? this.appName + ' - ' + ext : this.appName;
   document.title = title;
 };
 
 // Remove the current document (if there is one)
 // and set up for a new one
-heist.prototype.newDocument = function(hideHistory) {
-  this.doc = new heist_document();
+haste.prototype.newDocument = function(hideHistory) {
+  this.doc = new haste_document();
   this.$box.hide();
   if (!hideHistory) {
     window.history.pushState(null, this.appName, '/');
@@ -82,9 +80,9 @@ heist.prototype.newDocument = function(hideHistory) {
 }
 
 // Load a document and show it
-heist.prototype.loadDocument = function(key) {
+haste.prototype.loadDocument = function(key) {
   var _this = this;
-  _this.doc = new heist_document();
+  _this.doc = new haste_document();
   _this.doc.load(key, function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
@@ -103,7 +101,7 @@ heist.prototype.loadDocument = function(key) {
 };
 
 // Duplicate the current document - only if locked
-heist.prototype.duplicateDocument = function() {
+haste.prototype.duplicateDocument = function() {
   if (this.doc.locked) {
     var currentData = this.doc.data;
     this.newDocument();
@@ -112,7 +110,7 @@ heist.prototype.duplicateDocument = function() {
 };
 
 // Lock the current document
-heist.prototype.lockDocument = function() {
+haste.prototype.lockDocument = function() {
   var _this = this;
   this.doc.save(this.$textarea.val(), function(ret) {
     if (ret) {
@@ -130,7 +128,7 @@ heist.prototype.lockDocument = function() {
 };
 
 // Configure keyboard shortcuts for the textarea
-heist.prototype.configureShortcuts = function() {
+haste.prototype.configureShortcuts = function() {
   var _this = this;
   $('body').keyup(function(evt) {
     // ^L or ^S for lock
