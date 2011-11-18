@@ -102,7 +102,11 @@ heist.prototype.loadDocument = function(key) {
   _this.doc.load(key, function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
-      _this.setTitle(ret.language ? ret.language : 'unknown');
+      var title = ret.key;
+      if (ret.language) {
+        title += ' - ' + ret.language;
+      }
+      _this.setTitle(title);
       _this.$textarea.val('').hide();
       _this.$box.show();
     }
@@ -127,7 +131,11 @@ heist.prototype.lockDocument = function() {
   this.doc.save(this.$textarea.val(), function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
-      _this.setTitle(ret.language ? ret.language : 'unknown');
+      var title = ret.key;
+      if (ret.language) {
+        title += ' - ' + ret.language;
+      }
+      _this.setTitle(title);
       window.history.pushState(null, _this.appName + '-' + ret.key, '/' + ret.key);
       _this.$textarea.val('').hide();
       _this.$box.show();
