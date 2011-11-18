@@ -1,17 +1,6 @@
-
-
-
-var application = function() {
-
-};
-
-
-
 // TODO implement save as a jquery method
-// TODO maybe remove jquery
 // TODO support for browsers without pushstate
 // TODO support for push state navigation
-// TODO layerX and layerY fix warnings
 var save = function(data, callback) {
   var high = hljs.highlightAuto(data);
   var pack = {
