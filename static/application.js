@@ -7,10 +7,14 @@ var heist_document = function() {
 };
 
 heist_document.prototype.save = function(data, callback) {
+
   if (this.locked) {
     return false;
   }
 
+  this.data = data;
+
+  var _this = this;
   $.ajax('/documents', {
 
     type: 'post',
@@ -18,7 +22,7 @@ heist_document.prototype.save = function(data, callback) {
     dataType: 'json',
     
     success: function(res) {
-      this.locked = true;
+      _this.locked = true;
       var high = hljs.highlightAuto(data);
       callback({
         value: high.value,
@@ -59,6 +63,15 @@ heist.prototype.newDocument = function(ext) {
   this.$textarea.val('').show().focus();
 }
 
+// Duplicate the current document - only if locked
+heist.prototype.duplicateDocument = function() {
+  if (this.doc.locked) {
+    var currentData = this.doc.data;
+    this.newDocument();
+    this.$textarea.val(currentData);
+  }
+};
+
 // Lock the current document
 heist.prototype.lockDocument = function() {
   var _this = this;
@@ -77,12 +90,20 @@ heist.prototype.lockDocument = function() {
 heist.prototype.configureShortcuts = function() {
   var _this = this;
   this.$textarea.keyup(function(evt) {
-    // ^L for lock
-    if (evt.ctrlKey && evt.keyCode === 76) {
+    // ^L or ^S for lock
+    if (evt.ctrlKey && (evt.keyCode === 76 || evt.keyCode === 83)) {
+      evt.preventDefault();
       _this.lockDocument();
     }
+    // ^N for new document
     else if (evt.ctrlKey && evt.keyCode === 78) {
+      evt.preventDefault();
       _this.newDocument();
+    }
+    // ^D for duplicate - only when locked
+    else if (_this.doc.locked && evt.ctrlKey && evt.keyCode === 68) {
+      evt.preventDefault();
+      _this.duplicateDocument();
     }
   });
 };
@@ -91,7 +112,6 @@ heist.prototype.configureShortcuts = function() {
 // TODO refuse to lock empty documents
 // TODO support for browsers without pushstate
 // TODO support for push state navigation
-// TODO ctrl-d for duplicate
 
 ///// Tab behavior in the textarea - 2 spaces per tab
 

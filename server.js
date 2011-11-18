@@ -6,6 +6,8 @@ var url = require('url');
 
 // TODO logging
 // TODO preparse static instead of using exists
+// TODO split into files
+// TODO only parse url once for static files
 
 //////////////
 
