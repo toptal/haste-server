@@ -23,7 +23,6 @@ heist_document.prototype.save = function(data, callback) {
 var heist = function(appName) {
 
   this.appName = appName;
-  this.setTitle();
   this.$textarea = $('textarea');
   this.$box = $('#box');
   this.$code = $('#box code');
@@ -43,6 +42,7 @@ heist.prototype.setTitle = function(ext) {
 heist.prototype.newDocument = function(ext) {
   this.doc = new heist_document();
   this.$box.hide();
+  this.setTitle();
   this.$textarea.val('').show().focus();
 }
 
@@ -64,8 +64,11 @@ heist.prototype.configureShortcuts = function() {
   var _this = this;
   this.$textarea.keyup(function(evt) {
     // ^L for lock
-    if (evt.ctrlKey && evt.which === 76) {
+    if (evt.ctrlKey && evt.keyCode === 76) {
       _this.lockDocument();
+    }
+    else if (evt.ctrlKey && evt.keyCode === 78) {
+      _this.newDocument();
     }
   });
 };
@@ -74,7 +77,6 @@ heist.prototype.configureShortcuts = function() {
 // TODO refuse to lock empty documents
 // TODO support for browsers without pushstate
 // TODO support for push state navigation
-// TODO ctrl-n for new
 // TODO ctrl-d for duplicate
 
 $(function() {
