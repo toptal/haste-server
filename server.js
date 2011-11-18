@@ -6,7 +6,6 @@ var winston = require('winston');
 
 var StaticHandler = require('./lib/static_handler');
 var DocumentHandler = require('./lib/document_handler');
-var FileDocumentStore = require('./lib/file_document_store');
 
 // Load the configuration and set some defaults
 var config = JSON.parse(fs.readFileSync('config.js', 'utf8'));
@@ -29,34 +28,42 @@ if (config.logging) {
 
 // TODO implement command line
 
-// Set the server up
-http.createServer(function(request, response) {
+// build the store from the config on-demand - so that we don't load it
+// for statics
+var preferredStore = function() {
+  if (!config.storage) {
+    config.storage = { type: 'file' };
+  }
+  if (!config.storage.type) {
+    config.storage.type = 'file';
+  }
+  var Store = require('./lib/' + config.storage.type + '_document_store');
+  return new Store(config.storage);
+};
 
+// Set the server up and listen forever
+http.createServer(function(request, response) {
   var incoming = url.parse(request.url, false);
   var handler = null;
-
   // Looking to add a new doc
   if (incoming.pathname.match(/^\/documents$/) && request.method == 'POST') {
     handler = new DocumentHandler({
       keyLength: config.keyLength,
-      store: new FileDocumentStore('./data')
+      store: preferredStore()
     });
     return handler.handlePost(request, response);
   }
-
   // Looking up a doc
   var match = incoming.pathname.match(/^\/documents\/([A-Za-z0-9]+)$/);
   if (request.method == 'GET' && match) {
     handler = new DocumentHandler({
-      store: new FileDocumentStore('./data')
+      store: preferredStore()
     });
     return handler.handleGet(match[1], response);
   }
-
   // Otherwise, look for static file
   handler = new StaticHandler('./static');
   handler.handle(incoming.pathname, response);
-
 }).listen(config.port, config.host);
 
 winston.info('listening on ' + config.host + ':' + config.port);

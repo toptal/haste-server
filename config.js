@@ -11,6 +11,11 @@
       "type": "Console",
       "colorize": true
     }
-  ]
+  ],
+
+  "storage": {
+    "type": "file",
+    "path": "./data"
+  }
 
 }
