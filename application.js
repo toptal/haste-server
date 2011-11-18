@@ -13,7 +13,6 @@ var application = function() {
 // TODO tab support
 // TODO support for push state navigation
 // TODO layerX and layerY fix warnings
-// TODO turn off spelling correction
 var save = function(data, callback) {
   var high = hljs.highlightAuto(data);
   var pack = {
