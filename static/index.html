@@ -37,13 +37,19 @@
 		<script type="text/javascript" src="highlight.min.js"></script>
 		<script type="text/javascript" src="application.js"></script>
 
+		<script type="text/javascript">
+			$(function() {
+				var app = new heist('heist');
+				app.newDocument();	
+			});
+		</script>
+
 	</head>
 
 	<body>
 
 		<pre id="box" style="display:none;"><code></code></pre>
-
-		<textarea spellcheck="false"></textarea>
+		<textarea spellcheck="false" style="display:none;"></textarea>
 
 	</body>
 
