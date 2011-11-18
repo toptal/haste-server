@@ -12,9 +12,19 @@ var config = JSON.parse(fs.readFileSync('config.js', 'utf8'));
 config.port = config.port || 7777;
 config.host = config.host || 'localhost';
 
-// Configure logging - TODO make configurable
-winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, { colorize: true, level: 'verbose' });
+// Set up the logger
+if (config.logging) {
+  try {
+    winston.remove(winston.transports.Console);
+  } catch(er) { }
+  var detail, type;
+  for (var i = 0; i < config.logging.length; i++) {
+    detail = config.logging[i];
+    type = detail.type;
+    delete detail.type;
+    winston.add(winston.transports[type], detail);
+  }
+}
 
 // TODO preparse static instead of using exists
 // TODO implement command line
