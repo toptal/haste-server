@@ -1,5 +1,7 @@
 ///// represents a single document
 
+// TODO change name to haste
+
 var heist_document = function() {
   this.locked = false;
 };
@@ -130,11 +132,13 @@ heist.prototype.lockDocument = function() {
 // Configure keyboard shortcuts for the textarea
 heist.prototype.configureShortcuts = function() {
   var _this = this;
-  this.$textarea.keyup(function(evt) {
+  $('body').keyup(function(evt) {
     // ^L or ^S for lock
     if (evt.ctrlKey && (evt.keyCode === 76 || evt.keyCode === 83)) {
-      evt.preventDefault();
-      _this.lockDocument();
+      if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
+        evt.preventDefault();
+        _this.lockDocument();
+      }
     }
     // ^N for new document
     else if (evt.ctrlKey && evt.keyCode === 78) {
@@ -148,9 +152,6 @@ heist.prototype.configureShortcuts = function() {
     }
   });
 };
-
-
-// TODO refuse to lock empty documents
 
 ///// Tab behavior in the textarea - 2 spaces per tab
 $(function() {
