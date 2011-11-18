@@ -26,7 +26,6 @@ if (config.logging) {
   }
 }
 
-// TODO preparse static instead of using exists
 // TODO implement command line
 
 // Set the server up
