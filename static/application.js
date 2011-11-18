@@ -60,6 +60,7 @@ heist.prototype.newDocument = function(ext) {
   this.doc = new heist_document();
   this.$box.hide();
   this.setTitle();
+  window.history.pushState(null, this.appName, '/');
   this.$textarea.val('').show().focus();
 }
 
@@ -79,7 +80,7 @@ heist.prototype.lockDocument = function() {
     if (ret) {
       _this.$code.html(ret.value);
       _this.setTitle(ret.language + '-' + ret.uuid);
-      // TODO add to push state
+      window.history.pushState(null, _this.appName + '-' + ret.uuid, '/' + ret.uuid);
       _this.$textarea.val('').hide();
       _this.$box.show();
     }
