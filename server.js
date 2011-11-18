@@ -1,13 +1,16 @@
 var http = require('http');
 var url = require('url');
+var fs = require('fs');
 
 var winston = require('winston');
 
 var StaticHandler = require('./lib/static_handler');
 var DocumentHandler = require('./lib/document_handler');
 
-/////////////
-// Configure logging TODO
+// Load the configuration
+var config = JSON.parse(fs.readFileSync('config.js', 'utf8'));
+
+// Configure logging - TODO make configurable
 winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, { colorize: true, level: 'verbose' });
 
@@ -22,7 +25,7 @@ http.createServer(function(request, response) {
 
   // Looking to add a new doc
   if (incoming.pathname.match(/^\/documents$/) && request.method == 'POST') {
-    handler = new DocumentHandler();
+    handler = new DocumentHandler({ keyLength: config.keyLength });
     return handler.handlePost(request, response);
   }
 
