@@ -6,6 +6,7 @@ var winston = require('winston');
 
 var StaticHandler = require('./lib/static_handler');
 var DocumentHandler = require('./lib/document_handler');
+var FileDocumentStore = require('./lib/file_document_store');
 
 // Load the configuration and set some defaults
 var config = JSON.parse(fs.readFileSync('config.js', 'utf8'));
@@ -36,14 +37,19 @@ http.createServer(function(request, response) {
 
   // Looking to add a new doc
   if (incoming.pathname.match(/^\/documents$/) && request.method == 'POST') {
-    handler = new DocumentHandler({ keyLength: config.keyLength });
+    handler = new DocumentHandler({
+      keyLength: config.keyLength,
+      store: new FileDocumentStore('./data')
+    });
     return handler.handlePost(request, response);
   }
 
   // Looking up a doc
   var match = incoming.pathname.match(/^\/documents\/([A-Za-z0-9]+)$/);
   if (request.method == 'GET' && match) {
-    handler = new DocumentHandler();
+    handler = new DocumentHandler({
+      store: new FileDocumentStore('./data')
+    });
     return handler.handleGet(match[1], response);
   }
 
