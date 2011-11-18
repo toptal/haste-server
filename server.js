@@ -50,9 +50,43 @@ StaticHandler.prototype.handle = function(request, response) {
 
 ///////////
 
+var documents = {};
+
+var DocumentHandler = function() {
+
+};
+
+DocumentHandler.prototype.handle = function(request, response) {
+  if (request.method == 'GET') {
+   
+  }
+  else if (request.method == 'POST') {
+    var key = '123';
+    request.on('data', function(data) {
+      if (!documents[key]) {
+        documents[key] = '';
+      } 
+      documents[key] += data.toString();
+    });
+    request.on('end', function(end) {
+      response.end(JSON.stringify({ uuid: key }));
+    });
+  }
+};
+
+///////////
+
 http.createServer(function(request, response) {
 
-  var handler = new StaticHandler('./static');
-  handler.handle(request, response);
+  var incoming = url.parse(request.url, false);
+
+  if (incoming.pathname.indexOf('/documents') === 0) {
+    var handler = new DocumentHandler();
+    handler.handle(request, response);
+  }
+  else {
+    var handler = new StaticHandler('./static');
+    handler.handle(request, response);
+  }
 
 }).listen(7777);

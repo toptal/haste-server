@@ -1,3 +1,4 @@
+///// represents a single document
 
 var heist_document = function() {
 
@@ -9,16 +10,28 @@ heist_document.prototype.save = function(data, callback) {
   if (this.locked) {
     return false;
   }
-  var high = hljs.highlightAuto(data);
-  var pack = {
-    language: high.language,
-    data: data
-  };
-  pack.value = high.value;
-  pack.uuid = '123456';
-  this.locked = true;
-  callback(pack);
+
+  $.ajax('/documents', {
+
+    type: 'post',
+    data: data,
+    dataType: 'json',
+    
+    success: function(res) {
+      this.locked = true;
+      var high = hljs.highlightAuto(data);
+      callback({
+        value: high.value,
+        uuid: res.uuid,
+        language: high.language
+      });
+    }
+
+  });
+
 };
+
+///// represents the paste application
 
 var heist = function(appName) {
 
@@ -52,7 +65,8 @@ heist.prototype.lockDocument = function() {
   this.doc.save(this.$textarea.val(), function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
-      _this.setTitle(ret.language);
+      _this.setTitle(ret.language + '-' + ret.uuid);
+      // TODO add to push state
       _this.$textarea.val('').hide();
       _this.$box.show();
     }
@@ -79,9 +93,9 @@ heist.prototype.configureShortcuts = function() {
 // TODO support for push state navigation
 // TODO ctrl-d for duplicate
 
-$(function() {
+///// Tab behavior in the textarea - 2 spaces per tab
 
-  $('textarea').focus();
+$(function() {
 
   $('textarea').keydown(function(evt) {
     if (evt.keyCode === 9) {
