@@ -35,6 +35,6 @@ http.createServer(function(request, response) {
 
   // Otherwise, look for static file
   handler = new StaticHandler('./static');
-  handler.handle(request, response);
+  handler.handle(incoming.pathname, response);
 
 }).listen(7777);
