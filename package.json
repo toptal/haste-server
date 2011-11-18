@@ -1,0 +1,50 @@
+{
+
+	"name": "haste",
+	"version": "0.0.1",
+
+	"private": true,
+
+	"description": "Private Paste",
+
+	"keywords": [ "paste", "pastebin" ],
+
+	"author": {
+		"name": "John Crepezzi",
+		"email": "john.crepezzi@gmail.com",
+		"url": "http://seejohncode.com/"
+	},
+
+	"main": "haste",
+
+	"dependencies": {
+		"winston": "*",
+    "hashlib": "*"
+	},
+
+	"devDependencies": {
+    "jasmine-node": "*"
+  },
+
+	"bundledDependencies": [],
+
+	"engines": {
+		"node": "*"
+	},
+
+	"bin": {
+		"haste-server": "./server.js"
+	},
+
+	"files": [ "server.js", "lib", "static" ],
+
+	"directories": {
+		"lib": "./lib"
+	},
+
+	"scripts": {
+		"start": "node server.js",
+    "test": "jasmine-node spec"
+	}
+
+}

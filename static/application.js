@@ -109,6 +109,7 @@ heist.prototype.configureShortcuts = function() {
 };
 
 
+// TODO handle not found gracefully
 // TODO refuse to lock empty documents
 // TODO support for browsers without pushstate
 // TODO support for push state navigation
