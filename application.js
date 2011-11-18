@@ -10,7 +10,6 @@ var application = function() {
 // TODO implement save as a jquery method
 // TODO maybe remove jquery
 // TODO support for browsers without pushstate
-// TODO tab support
 // TODO support for push state navigation
 // TODO layerX and layerY fix warnings
 var save = function(data, callback) {
