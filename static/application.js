@@ -74,7 +74,9 @@ haste.prototype.newDocument = function(hideHistory) {
     window.history.pushState(null, this.appName, '/');
   }
   this.setTitle();
-  this.$textarea.val('').show().focus();
+  this.$textarea.show('fast', function() {
+    this.focus();
+  });
 }
 
 // Load a document and show it
@@ -128,7 +130,7 @@ haste.prototype.lockDocument = function() {
 // Configure keyboard shortcuts for the textarea
 haste.prototype.configureShortcuts = function() {
   var _this = this;
-  $('body').keyup(function(evt) {
+  $('body').keydown(function(evt) {
     // ^L or ^S for lock
     if (evt.ctrlKey && (evt.keyCode === 76 || evt.keyCode === 83)) {
       if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
