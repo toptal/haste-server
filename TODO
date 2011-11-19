@@ -1,9 +1,10 @@
-rccache headers for static assets
+cache headers for static assets
 tests
 test in other browsers and add note to README
 maximum size of a haste
 fix any annoying visual quirks
 make twitter posting an option
+add FAVICON
 
 # shared version only
 some way to do announcements easily (and use for ads)
