@@ -1,5 +1,4 @@
 cache headers for static assets
-chng how file def is written
 make redis connection into a separate method
 
 tests
