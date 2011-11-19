@@ -8,6 +8,17 @@ Major design objectives:
 * Be really simple
 * Be easy to set up and use
 * By default, don't require any external database
+* API-driven
+
+Haste works really well with a little utility called haste-client, allowing you to do things like:
+
+`cat something | haste`
+
+which will output a URL to share, or
+
+`cat something | haste | pbcopy`
+
+to copy the URL to the clipboard.
 
 ## Installation
 
