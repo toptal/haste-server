@@ -12,6 +12,7 @@ haste_document.prototype.load = function(key, callback) {
     dataType: 'json',
     success: function(res) {
       _this.locked = true;
+      _this.key = key;
       _this.data = res.data;
       var high = hljs.highlightAuto(res.data);
       callback({
@@ -39,6 +40,7 @@ haste_document.prototype.save = function(data, callback) {
     dataType: 'json',
     success: function(res) {
       _this.locked = true;
+      _this.key = res.key;
       var high = hljs.highlightAuto(data);
       callback({
         value: high.value,
@@ -53,6 +55,7 @@ haste_document.prototype.save = function(data, callback) {
 
 var haste = function(appName) {
   this.appName = appName;
+  this.baseUrl = window.location.href; // since this is loaded first
   this.$textarea = $('textarea');
   this.$box = $('#box');
   this.$code = $('#box code');
@@ -147,6 +150,11 @@ haste.prototype.configureShortcuts = function() {
     else if (_this.doc.locked && evt.ctrlKey && evt.keyCode === 68) {
       evt.preventDefault();
       _this.duplicateDocument();
+    }
+    // ^T for redirecting to twitter
+    else if (_this.doc.locked && evt.ctrlKey && evt.keyCode == 84) {
+      evt.preventDefault();
+      window.open('https://twitter.com/share?url=' + encodeURI(_this.baseUrl + _this.doc.key));
     }
   });
 };
