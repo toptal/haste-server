@@ -14,8 +14,10 @@
   ],
 
   "storage": {
-    "type": "file",
-    "path": "./data"
+    "type": "redis",
+    "host": "localhost",
+    "port": 6379,
+    "db": 2
   }
 
 }

@@ -1,5 +1,9 @@
 cache headers for static assets
-redis storing
+chng how file def is written
+make redis work without in package
+make redis connection into a separate method
+
+tests
 
 # shared version only
 twitter posting with ^T

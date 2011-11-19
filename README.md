@@ -16,6 +16,40 @@ Major design objectives:
 3.  `npm install`
 4.  `npm start`
 
+## Storage
+
+## File
+
+To use file storage (the default) change the storage section in `config.js` to something like:
+
+``` json
+{
+	"path": "./data",
+	"type": "file"
+}
+```
+
+Where `path` represents where you want the files stored
+
+### Redis
+
+To use redis storage you must install the redis package in npm globall using
+
+`npm install redis --global`
+
+Once you've done that, your config section should look like:
+
+``` json
+{
+	"type": "redis",
+	"host": "localhost",
+	"port": 6379,
+	"db": 2
+}
+```
+
+All of which are optional except `type` with very logical default values.
+
 ## Author
 
 John Crepezzi <john.crepezzi@gmail.com>
