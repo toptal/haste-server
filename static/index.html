@@ -14,7 +14,7 @@
 		<script type="text/javascript">
 			$(function() {
 				// Set up
-				var app = new haste('haste');
+				var app = new haste('haste', { twitter: true });
 				// Handle pops
 				window.onpopstate = function(evt) {
 					var path = evt.target.location.pathname;

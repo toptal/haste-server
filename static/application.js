@@ -53,13 +53,14 @@ haste_document.prototype.save = function(data, callback) {
 
 ///// represents the paste application
 
-var haste = function(appName) {
+var haste = function(appName, options) {
   this.appName = appName;
   this.baseUrl = window.location.href; // since this is loaded first
   this.$textarea = $('textarea');
   this.$box = $('#box');
   this.$code = $('#box code');
   this.configureShortcuts();
+  this.options = options;
 };
 
 // Set the page title - include the appName
@@ -84,7 +85,9 @@ haste.prototype.fullKey = function() {
   text += '^s - save<br>';
   text += '^n - new<br>';
   text += '^d - duplicate<br>';
-  text += '^t - twitter';
+  if (this.options.twitter) {
+    text += '^t - twitter';
+  }
   $('#key').html(text);
 };
 
@@ -175,7 +178,7 @@ haste.prototype.configureShortcuts = function() {
       _this.duplicateDocument();
     }
     // ^T for redirecting to twitter
-    else if (_this.doc.locked && evt.ctrlKey && evt.keyCode == 84) {
+    else if (_this.options.twitter && _this.doc.locked && evt.ctrlKey && evt.keyCode == 84) {
       evt.preventDefault();
       window.open('https://twitter.com/share?url=' + encodeURI(_this.baseUrl + _this.doc.key));
     }
