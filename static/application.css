@@ -37,6 +37,7 @@ textarea {
 	color: #999;
 	font-size: 13px;
 	font-family: monospace;
+	line-height: 1.3em;
 }
 
 #key em {

@@ -68,6 +68,26 @@ haste.prototype.setTitle = function(ext) {
   document.title = title;
 };
 
+// Show the light key
+haste.prototype.lightKey = function() {
+  var text = '';
+  text += '<em>' + this.appName + '</em>';
+  text += '^s - save<br>';
+  text += '^n - new';
+  $('#key').html(text);
+};
+
+// Show the full key
+haste.prototype.fullKey = function() {
+  var text = '';
+  text += '<em>' + this.appName + '</em>';
+  text += '^s - save<br>';
+  text += '^n - new<br>';
+  text += '^d - duplicate<br>';
+  text += '^t - twitter';
+  $('#key').html(text);
+};
+
 // Remove the current document (if there is one)
 // and set up for a new one
 haste.prototype.newDocument = function(hideHistory) {
@@ -77,6 +97,7 @@ haste.prototype.newDocument = function(hideHistory) {
     window.history.pushState(null, this.appName, '/');
   }
   this.setTitle();
+  this.lightKey();
   this.$textarea.show('fast', function() {
     this.focus();
   });
@@ -94,6 +115,7 @@ haste.prototype.loadDocument = function(key) {
         title += ' - ' + ret.language;
       }
       _this.setTitle(title);
+      _this.fullKey();
       _this.$textarea.val('').hide();
       _this.$box.show();
     }
@@ -123,6 +145,7 @@ haste.prototype.lockDocument = function() {
         title += ' - ' + ret.language;
       }
       _this.setTitle(title);
+      _this.fullKey();
       window.history.pushState(null, _this.appName + '-' + ret.key, '/' + ret.key);
       _this.$textarea.val('').hide();
       _this.$box.show();
