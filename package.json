@@ -19,8 +19,7 @@
 
 	"dependencies": {
 		"winston": "*",
-    "hashlib": "*",
-		"package": "*"
+    "hashlib": "*"
 	},
 
 	"devDependencies": {
