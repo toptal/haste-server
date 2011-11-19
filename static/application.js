@@ -91,8 +91,8 @@ haste.prototype.fullKey = function() {
 // Remove the current document (if there is one)
 // and set up for a new one
 haste.prototype.newDocument = function(hideHistory) {
-  this.doc = new haste_document();
   this.$box.hide();
+  this.doc = new haste_document();
   if (!hideHistory) {
     window.history.pushState(null, this.appName, '/');
   }
@@ -101,7 +101,7 @@ haste.prototype.newDocument = function(hideHistory) {
   this.$textarea.show('fast', function() {
     this.focus();
   });
-}
+};
 
 // Load a document and show it
 haste.prototype.loadDocument = function(key) {

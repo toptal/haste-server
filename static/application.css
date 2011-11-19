@@ -1,6 +1,6 @@
 body {
 	background: #002B36;
-	padding: 0px;
+	padding: 20px;
 	margin: 0px;
 }
 
@@ -8,7 +8,7 @@ textarea {
 	background: transparent;
 	border: 0px;
 	color: #fff;
-	padding: 20px;
+	padding: 0px;
 	width: 100%;
 	height: 100%;
 	font-family: monospace;
@@ -24,7 +24,7 @@ textarea {
 }
 
 #box code {
-	padding: 20px;
+	padding: 0px;
 	background: transparent !important; /* don't hide hastebox */
 }
 
