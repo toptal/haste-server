@@ -59,8 +59,8 @@ var haste = function(appName, options) {
   this.$textarea = $('textarea');
   this.$box = $('#box');
   this.$code = $('#box code');
-  this.configureShortcuts();
   this.options = options;
+  this.configureShortcuts();
 };
 
 // Set the page title - include the appName
@@ -120,7 +120,7 @@ haste.prototype.loadDocument = function(key) {
       _this.setTitle(title);
       _this.fullKey();
       _this.$textarea.val('').hide();
-      _this.$box.show();
+      _this.$box.show().focus();
     }
     else {
       _this.newDocument();
@@ -151,7 +151,7 @@ haste.prototype.lockDocument = function() {
       _this.fullKey();
       window.history.pushState(null, _this.appName + '-' + ret.key, '/' + ret.key);
       _this.$textarea.val('').hide();
-      _this.$box.show();
+      _this.$box.show().focus();
     }
   });
 };
@@ -159,7 +159,7 @@ haste.prototype.lockDocument = function() {
 // Configure keyboard shortcuts for the textarea
 haste.prototype.configureShortcuts = function() {
   var _this = this;
-  $('body').keydown(function(evt) {
+  $(document.body).keydown(function(evt) {
     // ^L or ^S for lock
     if (evt.ctrlKey && (evt.keyCode === 76 || evt.keyCode === 83)) {
       if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {

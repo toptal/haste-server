@@ -12,19 +12,29 @@
 		<script type="text/javascript" src="application.js"></script>
 
 		<script type="text/javascript">
+			var app = null;
+			// Handle pops
+			var handlePop = function(evt) {
+				var path = evt.target.location.pathname;
+				if (path === '/') {
+					app.newDocument(true);	
+				}
+				else {
+					app.loadDocument(path.substring(1, path.length));
+				}
+			};
+			// If pop before loading jquery, delay load
+			window.onpopstate = function(evt) {
+				try {
+					handlePop(evt);
+				} catch(err) {
+					// not loaded yet
+				}
+			};
+			// Construct app and load if not loaded
 			$(function() {
-				// Set up
-				var app = new haste('haste', { twitter: true });
-				// Handle pops
-				window.onpopstate = function(evt) {
-					var path = evt.target.location.pathname;
-					if (path === '/') {
-						app.newDocument(true);	
-					}
-					else {
-						app.loadDocument(path.substring(1, path.length));
-					}
-				};
+				app = new haste('haste', { twitter: true });
+				handlePop({ target: window });
 			});
 		</script>
 
@@ -33,7 +43,7 @@
 	<body>
 
 		<div id="key"></div>
-		<pre id="box" style="display:none;"><code></code></pre>
+		<pre id="box" style="display:none;" tabindex="0"><code></code></pre>
 		<textarea spellcheck="false" style="display:none;"></textarea>
 
 	</body>
