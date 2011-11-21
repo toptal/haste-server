@@ -5,6 +5,8 @@
 
   "keyLength": 6,
 
+  "maxLength": 400000,
+
   "logging": [
     {
       "level": "verbose",

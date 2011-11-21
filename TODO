@@ -1,9 +1,9 @@
 cache headers for static assets
 tests
-maximum size of a haste
 fix any annoying visual quirks
 add FAVICON
 cache static in memory
+add feedback for errors to UI - esp. too long
 
 # shared version only
 some way to do announcements easily (and use for ads)

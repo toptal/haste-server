@@ -47,6 +47,7 @@ http.createServer(function(request, response) {
   if (incoming.pathname.match(/^\/documents$/) && request.method == 'POST') {
     handler = new DocumentHandler({
       keyLength: config.keyLength,
+      maxLength: config.maxLength,
       store: preferredStore()
     });
     return handler.handlePost(request, response);
