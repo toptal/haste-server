@@ -20,6 +20,12 @@ which will output a URL to share, or
 
 to copy the URL to the clipboard.
 
+## Tested Browsers
+
+* Firefox 8
+* Chrome 17
+* Safari 5.3
+
 ## Installation
 
 1.  Download the package, and expand it
