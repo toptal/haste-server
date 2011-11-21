@@ -4,7 +4,6 @@ maximum size of a haste
 fix any annoying visual quirks
 add FAVICON
 cache static in memory
-bug in ^n while editing
 
 # shared version only
 some way to do announcements easily (and use for ads)

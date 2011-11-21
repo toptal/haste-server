@@ -101,7 +101,7 @@ haste.prototype.newDocument = function(hideHistory) {
   }
   this.setTitle();
   this.lightKey();
-  this.$textarea.show('fast', function() {
+  this.$textarea.val('').show('fast', function() {
     this.focus();
   });
 };
@@ -170,7 +170,7 @@ haste.prototype.configureShortcuts = function() {
     // ^N for new document
     else if (evt.ctrlKey && evt.keyCode === 78) {
       evt.preventDefault();
-      _this.newDocument();
+      _this.newDocument(!_this.doc.key);
     }
     // ^D for duplicate - only when locked
     else if (_this.doc.locked && evt.ctrlKey && evt.keyCode === 68) {
