@@ -82,7 +82,6 @@ haste.prototype.lightKey = function() {
 haste.prototype.fullKey = function() {
   var text = '';
   text += '<em>' + this.appName + '</em>';
-  text += '^s - save<br>';
   text += '^n - new<br>';
   text += '^d - duplicate<br>';
   if (this.options.twitter) {
