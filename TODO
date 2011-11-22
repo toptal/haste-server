@@ -1,7 +1,6 @@
 cache headers for static assets (and on document GET)
 tests
-fix any annoying visual quirks
-add FAVICON
+add FAVICON (or force 404)
 cache static in memory
 add feedback for errors to UI - esp. too long
 copy URL to clipboard button
