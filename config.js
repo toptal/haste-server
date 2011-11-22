@@ -7,6 +7,8 @@
 
   "maxLength": 400000,
 
+  "cacheStaticAssets": true,
+
   "logging": [
     {
       "level": "verbose",

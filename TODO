@@ -3,8 +3,6 @@ tests
 add FAVICON (or force 404)
 add feedback for errors to UI - esp. too long
 add about page
-make asset caching optional
-todo store buffer instead of string while grabbing contents (if possible)
 
 # shared version only
 some way to do announcements easily (and use for ads)

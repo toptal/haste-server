@@ -37,6 +37,9 @@ if (!config.storage.type) {
 var Store = require('./lib/' + config.storage.type + '_document_store');
 var preferredStore = new Store(config.storage);
 
+// Configure a static handler for the static files
+var staticHandler = new StaticHandler('./static', !!config.cacheStaticAssets);
+
 // Set the server up and listen forever
 http.createServer(function(request, response) {
   var incoming = url.parse(request.url, false);
@@ -59,8 +62,7 @@ http.createServer(function(request, response) {
     return handler.handleGet(match[1], response);
   }
   // Otherwise, look for static file
-  handler = new StaticHandler('./static');
-  handler.handle(incoming.pathname, response);
+  staticHandler.handle(incoming.pathname, response);
 }).listen(config.port, config.host);
 
 winston.info('listening on ' + config.host + ':' + config.port);
