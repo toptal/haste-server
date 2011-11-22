@@ -5,7 +5,6 @@ add feedback for errors to UI - esp. too long
 add about page
 make asset caching optional
 todo store buffer instead of string while grabbing contents (if possible)
-write cache to use callback instead of using non-DRY code
 
 # shared version only
 some way to do announcements easily (and use for ads)
