@@ -1,4 +1,4 @@
-cache headers for static assets
+cache headers for static assets (and on document GET)
 tests
 fix any annoying visual quirks
 add FAVICON
@@ -6,7 +6,7 @@ cache static in memory
 add feedback for errors to UI - esp. too long
 copy URL to clipboard button
 add about page
-add conflict resolution for keys when creating a post
+support built-in expiration
 
 # shared version only
 some way to do announcements easily (and use for ads)
