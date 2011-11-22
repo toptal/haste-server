@@ -1,9 +1,11 @@
 cache headers for static assets (and on document GET)
 tests
 add feedback for errors to UI - esp. too long
-add about page
 fix that chrome bug where it loads the doc twice
 add link to about page
+allow power users to force highlight lang - by supplying an extension!!!!!!
+maybe start serving highlighting on the other end to save transfer on highlight.js
+start using CDNs for most assets
 
 # shared version only
 some way to do announcements easily (and use for ads)
