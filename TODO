@@ -1,6 +1,5 @@
 cache headers for static assets (and on document GET)
 tests
-add FAVICON (or force 404)
 add feedback for errors to UI - esp. too long
 add about page
 
