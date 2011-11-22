@@ -3,3 +3,4 @@ node_modules
 *.swp
 *.swo
 data
+*.DS_Store
