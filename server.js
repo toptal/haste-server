@@ -28,16 +28,14 @@ if (config.logging) {
 
 // build the store from the config on-demand - so that we don't load it
 // for statics
-var preferredStore = function() {
-  if (!config.storage) {
-    config.storage = { type: 'file' };
-  }
-  if (!config.storage.type) {
-    config.storage.type = 'file';
-  }
-  var Store = require('./lib/' + config.storage.type + '_document_store');
-  return new Store(config.storage);
-};
+if (!config.storage) {
+  config.storage = { type: 'file' };
+}
+if (!config.storage.type) {
+  config.storage.type = 'file';
+}
+var Store = require('./lib/' + config.storage.type + '_document_store');
+var preferredStore = new Store(config.storage);
 
 // Set the server up and listen forever
 http.createServer(function(request, response) {
@@ -48,7 +46,7 @@ http.createServer(function(request, response) {
     handler = new DocumentHandler({
       keyLength: config.keyLength,
       maxLength: config.maxLength,
-      store: preferredStore()
+      store: preferredStore
     });
     return handler.handlePost(request, response);
   }
@@ -56,7 +54,7 @@ http.createServer(function(request, response) {
   var match = incoming.pathname.match(/^\/documents\/([A-Za-z0-9]+)$/);
   if (request.method == 'GET' && match) {
     handler = new DocumentHandler({
-      store: preferredStore()
+      store: preferredStore
     });
     return handler.handleGet(match[1], response);
   }
