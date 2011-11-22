@@ -2,6 +2,8 @@ cache headers for static assets (and on document GET)
 tests
 add feedback for errors to UI - esp. too long
 add about page
+fix that chrome bug where it loads the doc twice
+add link to about page
 
 # shared version only
 some way to do announcements easily (and use for ads)

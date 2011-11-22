@@ -23,6 +23,10 @@
     "port": 6379,
     "db": 2,
     "expire": 3600
+  },
+
+  "documents": {
+    "about": "./about.md"
   }
 
 }

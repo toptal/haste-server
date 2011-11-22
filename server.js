@@ -37,8 +37,30 @@ if (!config.storage.type) {
 var Store = require('./lib/' + config.storage.type + '_document_store');
 var preferredStore = new Store(config.storage);
 
+// Send the static documents into the preferred store, skipping expirations
+for (var name in config.documents) {
+  var path = config.documents[name];
+  fs.readFile(path, 'utf8', function(err, data) {
+    if (data && !err) {
+      preferredStore.set(name, data, function(cb) {
+        winston.info('loaded static document', { name: name, path: path });
+      }, true);
+    }
+    else {
+      winston.warn('failed to load static document', { name: name, path: path });
+    }
+  });
+}
+
 // Configure a static handler for the static files
 var staticHandler = new StaticHandler('./static', !!config.cacheStaticAssets);
+
+// Configure the document handler
+var documentHandler = new DocumentHandler({
+  store: preferredStore,
+  maxLength: config.maxLength,
+  keyLength: config.keyLength
+});
 
 // Set the server up and listen forever
 http.createServer(function(request, response) {
@@ -46,20 +68,12 @@ http.createServer(function(request, response) {
   var handler = null;
   // Looking to add a new doc
   if (incoming.pathname.match(/^\/documents$/) && request.method == 'POST') {
-    handler = new DocumentHandler({
-      keyLength: config.keyLength,
-      maxLength: config.maxLength,
-      store: preferredStore
-    });
-    return handler.handlePost(request, response);
+    return documentHandler.handlePost(request, response);
   }
   // Looking up a doc
   var match = incoming.pathname.match(/^\/documents\/([A-Za-z0-9]+)$/);
   if (request.method == 'GET' && match) {
-    handler = new DocumentHandler({
-      store: preferredStore
-    });
-    return handler.handleGet(match[1], response);
+    return documentHandler.handleGet(match[1], response);
   }
   // Otherwise, look for static file
   staticHandler.handle(incoming.pathname, response);
