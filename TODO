@@ -6,7 +6,6 @@ add link to about page
 allow power users to force highlight lang - by supplying an extension!!!!!!
 maybe start serving highlighting on the other end to save transfer on highlight.js
 start using CDNs for most assets
-robots.txt nofollow
 kick expiration back by increment on each view
 
 # shared version only
