@@ -17,7 +17,7 @@ haste_document.prototype.load = function(key, callback, lang) {
       try {
         var high = lang ? hljs.highlight(lang, res.data) : hljs.highlightAuto(res.data);
       } catch(err) {
-        high = hljs.highlightAuto(res.data);
+        high = { value: res.data, language: null };
       }
       callback({
         value: high.value,
