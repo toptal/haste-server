@@ -14,10 +14,8 @@
 
 # shared version only
 * some way to do announcements easily (and use for ads)
-* start using CDNs for most assets (optional)
 
 
 # with brian's design
 * add feedback for errors to UI - esp. too long
-* add link to about page
 * copy URL to clipboard button
