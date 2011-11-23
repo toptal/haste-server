@@ -14,11 +14,15 @@ haste_document.prototype.load = function(key, callback, lang) {
       _this.locked = true;
       _this.key = key;
       _this.data = res.data;
-      var high = lang ? hljs.highlight(lang, res.data) : hljs.highlightAuto(res.data);
+      try {
+        var high = lang ? hljs.highlight(lang, res.data) : hljs.highlightAuto(res.data);
+      } catch(err) {
+        high = hljs.highlightAuto(res.data);
+      }
       callback({
         value: high.value,
         key: key,
-        language: lang || high.language
+        language: high.language || lang
       });
     },
     error: function(err) {
@@ -116,8 +120,11 @@ haste.prototype.newDocument = function(hideHistory) {
 
 // Map of common extensions
 haste.extensionMap = {
-  'rb': 'ruby',
-  'py': 'python'
+    rb: 'ruby', py: 'python', pl: 'perl', php: 'php', scala: 'scala', go: 'go',
+    xml: 'xml', html: 'xml', htm: 'xml', css: 'css', js: 'javascript', vbs: 'vbscript',
+    lua: 'lua', pas: 'delphi', java: 'java', cpp: 'cpp', cc: 'cpp', m: 'objectivec',
+    vala: 'vala', cs: 'cs', sql: 'sql', sm: 'smalltalk', lisp: 'lisp', ini: 'ini',
+    diff: 'diff', bash: 'bash', sh: 'bash', tex: 'tex', erl: 'erlang', hs: 'haskell'
 };
 
 // Map an extension to a language
