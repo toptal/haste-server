@@ -1,6 +1,6 @@
 # Haste
 
-<b>Sharing code is a good thing</b>, and it should be _really_ easy to do it.
+Sharing code is a good thing, and it should be _really_ easy to do it.
 A lot of times, I want to show you something I'm seeing - and that's where we use pastebins.
 
 Haste is the prettiest, easist to use pastebin ever made.
@@ -23,4 +23,6 @@ That's all there is to that, and you can install it with `gem install haste` rig
 
 ## Author
 
-John Crepezzi <john.crepezzi@gmail.com>
+Code by John Crepezzi <john.crepezzi@gmail.com>
+Design by Brian Dawson
+

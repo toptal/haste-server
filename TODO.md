@@ -7,6 +7,7 @@
 * Better about page text
 * test new interface in browsers
 * compress assets
+* fix issues with deploy
 
 
 # shared version only
