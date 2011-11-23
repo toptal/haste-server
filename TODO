@@ -3,7 +3,7 @@ tests
 add feedback for errors to UI - esp. too long
 fix that chrome bug where it loads the doc twice
 add link to about page
-allow power users to force highlight lang - by supplying an extension!!!!!!
+expand extension map
 maybe start serving highlighting on the other end to save transfer on highlight.js
 start using CDNs for most assets
 kick expiration back by increment on each view

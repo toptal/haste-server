@@ -5,7 +5,7 @@ var haste_document = function() {
 };
 
 // Get this document from the server and lock it here
-haste_document.prototype.load = function(key, callback) {
+haste_document.prototype.load = function(key, callback, lang) {
   var _this = this;
   $.ajax('/documents/' + key, {
     type: 'get',
@@ -14,11 +14,11 @@ haste_document.prototype.load = function(key, callback) {
       _this.locked = true;
       _this.key = key;
       _this.data = res.data;
-      var high = hljs.highlightAuto(res.data);
+      var high = lang ? hljs.highlight(lang, res.data) : hljs.highlightAuto(res.data);
       callback({
         value: high.value,
         key: key,
-        language: high.language
+        language: lang || high.language
       });
     },
     error: function(err) {
@@ -105,11 +105,26 @@ haste.prototype.newDocument = function(hideHistory) {
   });
 };
 
+// Map of common extensions
+haste.extensionMap = {
+  'rb': 'ruby',
+  'py': 'python'
+};
+
+// Map an extension to a language
+haste.prototype.lookupExtension = function(ext) {
+  var match = haste.extensionMap[ext];
+  return match; // if not found, will auto-detect
+};
+
 // Load a document and show it
 haste.prototype.loadDocument = function(key) {
+  // Split the key up
+  var parts = key.split('.', 2);
+  // Ask for what we want
   var _this = this;
   _this.doc = new haste_document();
-  _this.doc.load(key, function(ret) {
+  _this.doc.load(parts[0], function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
       var title = ret.key;
@@ -124,7 +139,7 @@ haste.prototype.loadDocument = function(key) {
     else {
       _this.newDocument();
     }
-  });
+  }, this.lookupExtension(parts[1]));
 };
 
 // Duplicate the current document - only if locked
