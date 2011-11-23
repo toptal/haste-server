@@ -6,6 +6,7 @@
 * kick expiration back by increment on each view
 * Add file extensions ourselves to push state
 * Proper markdown highlighting
+* Better about page text
 
 
 # shared version only
