@@ -8,6 +8,9 @@
 * Proper markdown highlighting
 * Better about page text
 * test new interface in browsers
+* compress assets
+* cache static assets in memory with connect
+* look for a better way to do router
 
 
 # shared version only

@@ -19,7 +19,8 @@
 
 	"dependencies": {
 		"winston": "*",
-    "hashlib": "*"
+    "hashlib": "*",
+    "connect": "*"
 	},
 
 	"devDependencies": {

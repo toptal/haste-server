@@ -3,8 +3,8 @@ var url = require('url');
 var fs = require('fs');
 
 var winston = require('winston');
+var connect = require('connect');
 
-var StaticHandler = require('./lib/static_handler');
 var DocumentHandler = require('./lib/document_handler');
 
 // Load the configuration and set some defaults
@@ -52,9 +52,6 @@ for (var name in config.documents) {
   });
 }
 
-// Configure a static handler for the static files
-var staticHandler = new StaticHandler('./static', !!config.cacheStaticAssets);
-
 // Configure the document handler
 var documentHandler = new DocumentHandler({
   store: preferredStore,
@@ -62,21 +59,31 @@ var documentHandler = new DocumentHandler({
   keyLength: config.keyLength
 });
 
-// Set the server up and listen forever
-http.createServer(function(request, response) {
-  var incoming = url.parse(request.url, false);
-  var handler = null;
-  // Looking to add a new doc
-  if (incoming.pathname.match(/^\/documents$/) && request.method == 'POST') {
-    return documentHandler.handlePost(request, response);
-  }
-  // Looking up a doc
-  var match = incoming.pathname.match(/^\/documents\/([A-Za-z0-9]+)$/);
-  if (request.method == 'GET' && match) {
-    return documentHandler.handleGet(match[1], response);
-  }
-  // Otherwise, look for static file
-  staticHandler.handle(incoming.pathname, response);
-}).listen(config.port, config.host);
+// Set the server up with a static cache
+connect.createServer(
+  connect.router(function(app) {
+    // add documents 
+    app.post('/documents', function(request, response, next) {
+      return documentHandler.handlePost(request, response);
+    });
+    // get documents
+    app.get('/documents/:id', function(request, response, next) {
+      return documentHandler.handleGet(req.params.id, response);
+    });
+  }),
+  // Otherwise, static
+  connect.staticCache(),
+  connect.static(__dirname + '/static', { maxAge: config.staticMaxAge }),
+  // Then we can loop back - and change these into '/' TODO
+  connect.router(function(app) {
+    app.get('/:id', function(request, response, next) {
+      request.url = request.originalUrl = '/';
+      next();
+    });
+  }),
+  // Static
+  connect.staticCache(),
+  connect.static(__dirname + '/static', { maxAge: config.staticMaxAge })
+).listen(config.port, config.host);
 
 winston.info('listening on ' + config.host + ':' + config.port);

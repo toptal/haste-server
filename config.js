@@ -7,7 +7,7 @@
 
   "maxLength": 400000,
 
-  "cacheStaticAssets": false,
+  "staticMaxAge": 86400,
 
   "logging": [
     {
