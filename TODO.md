@@ -1,7 +1,6 @@
 # TODO
 * tests
 * fix that chrome bug where it loads the doc twice
-* put back .rb work - broken by new router
 * expand extension map
 * kick expiration back by increment on each view
 * Add file extensions ourselves to push state
