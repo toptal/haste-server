@@ -8,7 +8,6 @@
 * Better about page text
 * test new interface in browsers
 * compress assets
-* look for a better way to do router
 
 
 # shared version only

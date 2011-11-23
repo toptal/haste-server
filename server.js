@@ -61,6 +61,7 @@ var documentHandler = new DocumentHandler({
 
 // Set the server up with a static cache
 connect.createServer(
+  // First look for api calls
   connect.router(function(app) {
     // add documents 
     app.post('/documents', function(request, response, next) {
@@ -74,14 +75,15 @@ connect.createServer(
   // Otherwise, static
   connect.staticCache(),
   connect.static(__dirname + '/static', { maxAge: config.staticMaxAge }),
-  // Then we can loop back - and change these into '/' TODO
+  // Then we can loop back - and everything else should be a token,
+  // so route it back to /index.html
   connect.router(function(app) {
     app.get('/:id', function(request, response, next) {
-      request.url = request.originalUrl = '/';
+      request.url = request.originalUrl = '/index.html';
       next();
     });
   }),
-  // Static
+  // And then let static take over
   connect.staticCache(),
   connect.static(__dirname + '/static', { maxAge: config.staticMaxAge })
 ).listen(config.port, config.host);
