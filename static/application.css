@@ -33,18 +33,80 @@ textarea {
 
 #key {
 	position: fixed;
-	top: 20px;
-	right: 20px;
-	text-align: right;
-	z-index: -1000; /* watch out */
-	color: #999;
-	font-size: 13px;
-	font-family: monospace;
-	line-height: 1.3em;
+	top: 0px;
+	right: 0px;
+	z-index: +1000; /* watch out */
 }
 
-#key em {
-	display: block;
-	margin-bottom: 5px;
-	color: #ccc !important;
+#key .box1 {
+	padding: 5px;
+	text-align: center;
+	background: #00222b;
 }
+
+#key .box2 {
+	padding: 5px;
+	background: #08323c;
+	font-size: 0px;
+}
+
+#key .box1 a.logo, #key .box1 a.logo:visited {
+	display: inline-block;
+	background: url(logo.png);
+	width: 126px;
+	height: 42px;
+}
+
+#key .box1 a.logo:hover {
+	background-position: 0 bottom;
+}
+
+#key .box2 .function {
+	background: url(function-icons.png);
+	width: 32px;
+	height: 37px;
+	display: inline-block;
+}
+
+#key .box2 .function.enabled:hover {
+	cursor: hand;
+	cursor: pointer;
+}
+
+#key .box3 {
+	background: #173e48;
+	font-family: Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 14px;
+	padding: 10px 15px;
+}
+
+#key .box3 .label {
+	color: #fff;
+	font-weight: bold;
+}
+
+#key .box3 .shortcut {
+	color: #c4dce3;
+	font-weight: normal;
+}
+
+#key .box2 .function.save { background-position: 0px top; }
+#key .box2 .function.enabled.save { background-position: 0px center; }
+#key .box2 .function.enabled.save:hover { background-position: 0px bottom; }
+
+#key .box2 .function.new { background-position: -32px top; }
+#key .box2 .function.enabled.new { background-position: -32px center; }
+#key .box2 .function.enabled.new:hover { background-position: -32px bottom; }
+
+#key .box2 .function.duplicate { background-position: -64px top; }
+#key .box2 .function.enabled.duplicate { background-position: -64px center; }
+#key .box2 .function.enabled.duplicate:hover { background-position: -64px bottom; }
+
+#key .box2 .function.link { background-position: -96px top; }
+#key .box2 .function.enabled.link { background-position: -96px center; }
+#key .box2 .function.enabled.link:hover { background-position: -96px bottom; }
+
+#key .box2 .function.twitter { background-position: -128px top; }
+#key .box2 .function.enabled.twitter { background-position: -128px center; }
+#key .box2 .function.enabled.twitter:hover { background-position: -128px bottom; }

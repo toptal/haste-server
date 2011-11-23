@@ -7,7 +7,7 @@
 
   "maxLength": 400000,
 
-  "cacheStaticAssets": true,
+  "cacheStaticAssets": false,
 
   "logging": [
     {
