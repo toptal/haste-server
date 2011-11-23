@@ -68,7 +68,7 @@ connect.createServer(
     });
     // get documents
     app.get('/documents/:id', function(request, response, next) {
-      return documentHandler.handleGet(req.params.id, response);
+      return documentHandler.handleGet(request.params.id, response);
     });
   }),
   // Otherwise, static
