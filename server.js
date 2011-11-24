@@ -73,7 +73,6 @@ connect.createServer(
     });
   }),
   // Otherwise, static
-  connect.staticCache(),
   connect.static(__dirname + '/static', { maxAge: config.staticMaxAge }),
   // Then we can loop back - and everything else should be a token,
   // so route it back to /index.html
@@ -84,7 +83,6 @@ connect.createServer(
     });
   }),
   // And then let static take over
-  connect.staticCache(),
   connect.static(__dirname + '/static', { maxAge: config.staticMaxAge })
 ).listen(config.port, config.host);
 
