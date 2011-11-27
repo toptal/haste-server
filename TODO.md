@@ -5,7 +5,6 @@
 * Add file extensions ourselves to push state
 * Proper markdown highlighting
 * Better about page text
-* test new interface in browsers
 * auto-compress assets
 * add feedback for errors to UI - esp. too long
 
