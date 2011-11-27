@@ -8,7 +8,6 @@
 * test new interface in browsers
 * compress assets
 * fix issues with deploy
-* get staticCache back in
 
 
 # shared version only
