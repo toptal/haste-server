@@ -8,7 +8,6 @@
 * test new interface in browsers
 * auto-compress assets
 * add feedback for errors to UI - esp. too long
-* fix the copy URL button
 
 # shared version only
 * some way to do announcements easily (and use for ads)

@@ -81,11 +81,13 @@ haste.prototype.setTitle = function(ext) {
 // Show the light key
 haste.prototype.lightKey = function() {
   this.configureKey(['new', 'save']);
+  this.removeClip();
 };
 
 // Show the full key
 haste.prototype.fullKey = function() {
   this.configureKey(['new', 'duplicate', 'twitter', 'link']);
+  this.configureClip();
 };
 
 // Set the key up for certain things to be enabled
@@ -178,12 +180,30 @@ haste.prototype.lockDocument = function() {
         title += ' - ' + ret.language;
       }
       _this.setTitle(title);
-      _this.fullKey();
       window.history.pushState(null, _this.appName + '-' + ret.key, '/' + ret.key);
+      _this.fullKey();
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
     }
   });
+};
+
+// set up a clip that will copy the current url
+haste.prototype.configureClip = function() {
+  var clip = this.clipper = new ZeroClipboard.Client();
+  this.clipper.setHandCursor(true);
+  this.clipper.setCSSEffects(false);
+  // and then set and show
+  this.clipper.setText(window.location.href);
+  $('#key .box2 .link').html(this.clipper.getHTML(32, 37));
+};
+
+// hide the current clip, if it exists
+haste.prototype.removeClip = function() {
+  if (this.clipper) {
+    this.clipper.destroy();
+  }
+  $('#key .box2 .link').html('');
 };
 
 haste.prototype.configureButtons = function() {
@@ -238,9 +258,8 @@ haste.prototype.configureButtons = function() {
     {
       $where: $('#key .box2 .link'),
       label: 'Copy URL',
-      action: function() {
-        alert('not yet implemented');
-      }
+      letBubble: true,
+      action: function() { }
     }
   ];
   for (var i = 0; i < this.buttons.length; i++) {
@@ -276,7 +295,9 @@ haste.prototype.configureShortcuts = function() {
     for (var i = 0 ; i < _this.buttons.length; i++) {
       button = _this.buttons[i];
       if (button.shortcut && button.shortcut(evt)) {
-        evt.preventDefault();
+        if (!button.letBubble) {
+          evt.preventDefault();
+        }
         button.action();
         return;
       }
