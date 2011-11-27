@@ -6,7 +6,7 @@
 * Proper markdown highlighting
 * Better about page text
 * test new interface in browsers
-* compress assets
+* auto-compress assets
 * fix issues with deploy
 * get staticCache back in
 
