@@ -39,4 +39,4 @@ own risk. Not responsible for any loss of data or removed pastes.
 ## Author
 
 Code by John Crepezzi <john.crepezzi@gmail.com>
-Key Design by Brian Dawson
+Key Design by Brian Dawson <bridawson@gmail.com>
