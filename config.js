@@ -3,7 +3,7 @@
   "host": "localhost",
   "port": 7777,
 
-  "keyLength": 6,
+  "keyLength": 10,
 
   "maxLength": 400000,
 
