@@ -37,6 +37,26 @@ if (!config.storage.type) {
 var Store = require('./lib/' + config.storage.type + '_document_store');
 var preferredStore = new Store(config.storage);
 
+// Compress the static javascript assets
+if (config.recompressStaticAssets) {
+  var jsp = require("uglify-js").parser;
+  var pro = require("uglify-js").uglify;
+  var list = fs.readdirSync('./static');
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var orig_code, ast;
+    if ((item.indexOf('.js') === item.length - 3) && (item.indexOf('.min.js') === -1)) {
+      dest = item.substring(0, item.length - 3) + '.min' + item.substring(item.length - 3);
+      orig_code = fs.readFileSync('./static/' + item, 'utf8');
+      ast = jsp.parse(orig_code);
+      ast = pro.ast_mangle(ast);
+      ast = pro.ast_squeeze(ast);
+      fs.writeFileSync('./static/' + dest, pro.gen_code(ast), 'utf8');
+      winston.info('compressed ' + item + ' into ' + dest);
+    }
+  }
+}
+
 // Send the static documents into the preferred store, skipping expirations
 for (var name in config.documents) {
   var path = config.documents[name];
@@ -73,6 +93,7 @@ connect.createServer(
     });
   }),
   // Otherwise, static
+  connect.staticCache(),
   connect.static(__dirname + '/static', { maxAge: config.staticMaxAge }),
   // Then we can loop back - and everything else should be a token,
   // so route it back to /index.html
@@ -82,7 +103,6 @@ connect.createServer(
       next();
     });
   }),
-  // And then let static take over
   connect.static(__dirname + '/static', { maxAge: config.staticMaxAge })
 ).listen(config.port, config.host);
 

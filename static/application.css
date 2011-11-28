@@ -68,6 +68,10 @@ textarea {
 	display: inline-block;
 }
 
+#key .box2 .link embed {
+	vertical-align: bottom; /* fix for zeroClipboard style */
+}
+
 #key .box2 .function.enabled:hover {
 	cursor: hand;
 	cursor: pointer;
