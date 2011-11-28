@@ -114,22 +114,22 @@ textarea {
 	font-weight: normal;
 }
 
-#box2 .function.save { background-position: 0px top; }
-#box2 .function.enabled.save { background-position: 0px center; }
-#box2 .function.enabled.save:hover { background-position: 0px bottom; }
+#box2 .function.save { background-position: -5px top; }
+#box2 .function.enabled.save { background-position: -5px center; }
+#box2 .function.enabled.save:hover { background-position: -5px bottom; }
 
-#box2 .function.new { background-position: -32px top; }
-#box2 .function.enabled.new { background-position: -32px center; }
-#box2 .function.enabled.new:hover { background-position: -32px bottom; }
+#box2 .function.new { background-position: -42px top; }
+#box2 .function.enabled.new { background-position: -42px center; }
+#box2 .function.enabled.new:hover { background-position: -42px bottom; }
 
-#box2 .function.duplicate { background-position: -64px top; }
-#box2 .function.enabled.duplicate { background-position: -64px center; }
-#box2 .function.enabled.duplicate:hover { background-position: -64px bottom; }
+#box2 .function.duplicate { background-position: -79px top; }
+#box2 .function.enabled.duplicate { background-position: -79px center; }
+#box2 .function.enabled.duplicate:hover { background-position: -79px bottom; }
 
-#box2 .function.link { background-position: -96px top; }
-#box2 .function.enabled.link { background-position: -96px center; }
-#box2 .function.enabled.link:hover { background-position: -96px bottom; }
+#box2 .function.link { background-position: -116px top; }
+#box2 .function.enabled.link { background-position: -116px center; }
+#box2 .function.enabled.link:hover { background-position: -116px bottom; }
 
-#box2 .function.twitter { background-position: -128px top; }
-#box2 .function.enabled.twitter { background-position: -128px center; }
-#box2 .function.enabled.twitter:hover { background-position: -128px bottom; }
+#box2 .function.twitter { background-position: -153px top; }
+#box2 .function.enabled.twitter { background-position: -153px center; }
+#box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
