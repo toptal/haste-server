@@ -24,7 +24,7 @@
     "host": "localhost",
     "port": 6379,
     "db": 2,
-    "expire": 3600
+    "expire": 2592000
   },
 
   "documents": {
