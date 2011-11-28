@@ -1,7 +1,6 @@
 # TODO for OSS
 * tests
 * Add file extensions ourselves to push state
-* Collapse CSS rules to get rid of the #key .box1 nonsense
 * add feedback for errors to UI - esp. too long
 * make sure file store still functions appropriately
 

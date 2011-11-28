@@ -69,7 +69,7 @@ var haste = function(appName, options) {
   this.configureButtons();
   // If twitter is disabled, hide the button
   if (!options.twitter) {
-    $('#key .box2 .twitter').hide();
+    $('#box2 .twitter').hide();
   }
 };
 
@@ -94,7 +94,7 @@ haste.prototype.fullKey = function() {
 // Set the key up for certain things to be enabled
 haste.prototype.configureKey = function(enable) {
   var $this, i = 0;
-  $('#key .box2 .function').each(function() {
+  $('#box2 .function').each(function() {
     $this = $(this);
     for (i = 0; i < enable.length; i++) {
       if ($this.hasClass(enable[i])) {
@@ -197,7 +197,7 @@ haste.prototype.configureClip = function() {
   this.clipper.setCSSEffects(false);
   // and then set and show
   this.clipper.setText(window.location.href);
-  $('#key .box2 .link').html(this.clipper.getHTML(32, 37));
+  $('#box2 .link').html(this.clipper.getHTML(32, 37));
 };
 
 // hide the current clip, if it exists
@@ -205,14 +205,14 @@ haste.prototype.removeClip = function() {
   if (this.clipper) {
     this.clipper.destroy();
   }
-  $('#key .box2 .link').html('');
+  $('#box2 .link').html('');
 };
 
 haste.prototype.configureButtons = function() {
   var _this = this;
   this.buttons = [
     {
-      $where: $('#key .box2 .save'),
+      $where: $('#box2 .save'),
       label: 'Save',
       shortcutDescription: 'control + s',
       shortcut: function(evt) {
@@ -225,7 +225,7 @@ haste.prototype.configureButtons = function() {
       }
     },
     {
-      $where: $('#key .box2 .new'),
+      $where: $('#box2 .new'),
       label: 'New',
       shortcut: function(evt) {
         return evt.ctrlKey && evt.keyCode === 78  
@@ -236,7 +236,7 @@ haste.prototype.configureButtons = function() {
       }
     },
     {
-      $where: $('#key .box2 .duplicate'),
+      $where: $('#box2 .duplicate'),
       label: 'Duplicate & Edit',
       shortcut: function(evt) {
         return _this.doc.locked && evt.ctrlKey && evt.keyCode === 68;
@@ -247,7 +247,7 @@ haste.prototype.configureButtons = function() {
       }
     },
     {
-      $where: $('#key .box2 .twitter'),
+      $where: $('#box2 .twitter'),
       label: 'Twitter',
       shortcut: function(evt) {
         return _this.options.twitter && _this.doc.locked && evt.ctrlKey && evt.keyCode == 84;
@@ -258,7 +258,7 @@ haste.prototype.configureButtons = function() {
       }
     },
     {
-      $where: $('#key .box2 .link'),
+      $where: $('#box2 .link'),
       label: 'Copy URL',
       letBubble: true,
       action: function() { }
@@ -279,14 +279,14 @@ haste.prototype.configureButton = function(options) {
   });
   // Show the label
   options.$where.mouseenter(function(evt) {
-    $('#key .box3 .label').text(options.label);
-    $('#key .box3 .shortcut').text(options.shortcutDescription || '');
-    $('#key .box3').show();
+    $('#box3 .label').text(options.label);
+    $('#box3 .shortcut').text(options.shortcutDescription || '');
+    $('#box3').show();
     $(this).append($('#pointer').remove().show());
   });
   // Hide the label
   options.$where.mouseleave(function(evt) {
-    $('#key .box3').hide();
+    $('#box3').hide();
     $('#pointer').hide();
   });
 };

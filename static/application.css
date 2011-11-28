@@ -4,6 +4,8 @@ body {
 	margin: 0px;
 }
 
+/* textarea */
+
 textarea {
 	background: transparent;
 	border: 0px;
@@ -16,6 +18,8 @@ textarea {
 	resize: none;
 	font-size: 13px;
 }
+
+/* code box when locked */
 
 #box {
 	padding: 0px;
@@ -31,6 +35,8 @@ textarea {
 	background: transparent !important; /* don't hide hastebox */
 }
 
+/* key */
+
 #key {
 	position: fixed;
 	top: 0px;
@@ -38,30 +44,30 @@ textarea {
 	z-index: +1000; /* watch out */
 }
 
-#key .box1 {
+#box1 {
 	padding: 5px;
 	text-align: center;
 	background: #00222b;
 }
 
-#key .box2 {
+#box2 {
 	background: #08323c;
 	font-size: 0px;
 	padding: 0px 5px;
 }
 
-#key .box1 a.logo, #key .box1 a.logo:visited {
+#box1 a.logo, #box1 a.logo:visited {
 	display: inline-block;
 	background: url(logo.png);
 	width: 126px;
 	height: 42px;
 }
 
-#key .box1 a.logo:hover {
+#box1 a.logo:hover {
 	background-position: 0 bottom;
 }
 
-#key .box2 .function {
+#box2 .function {
 	background: url(function-icons.png);
 	width: 32px;
 	height: 37px;
@@ -69,11 +75,11 @@ textarea {
 	position: relative;
 }
 
-#key .box2 .link embed {
+#box2 .link embed {
 	vertical-align: bottom; /* fix for zeroClipboard style */
 }
 
-#key .box2 .function.enabled:hover {
+#box2 .function.enabled:hover {
 	cursor: hand;
 	cursor: pointer;
 }
@@ -90,7 +96,7 @@ textarea {
 	right: 0px;
 }
 
-#key .box3 {
+#box3 {
 	background: #173e48;
 	font-family: Helvetica, sans-serif;
 	font-size: 12px;
@@ -98,32 +104,32 @@ textarea {
 	padding: 10px 15px;
 }
 
-#key .box3 .label {
+#box3 .label {
 	color: #fff;
 	font-weight: bold;
 }
 
-#key .box3 .shortcut {
+#box3 .shortcut {
 	color: #c4dce3;
 	font-weight: normal;
 }
 
-#key .box2 .function.save { background-position: 0px top; }
-#key .box2 .function.enabled.save { background-position: 0px center; }
-#key .box2 .function.enabled.save:hover { background-position: 0px bottom; }
+#box2 .function.save { background-position: 0px top; }
+#box2 .function.enabled.save { background-position: 0px center; }
+#box2 .function.enabled.save:hover { background-position: 0px bottom; }
 
-#key .box2 .function.new { background-position: -32px top; }
-#key .box2 .function.enabled.new { background-position: -32px center; }
-#key .box2 .function.enabled.new:hover { background-position: -32px bottom; }
+#box2 .function.new { background-position: -32px top; }
+#box2 .function.enabled.new { background-position: -32px center; }
+#box2 .function.enabled.new:hover { background-position: -32px bottom; }
 
-#key .box2 .function.duplicate { background-position: -64px top; }
-#key .box2 .function.enabled.duplicate { background-position: -64px center; }
-#key .box2 .function.enabled.duplicate:hover { background-position: -64px bottom; }
+#box2 .function.duplicate { background-position: -64px top; }
+#box2 .function.enabled.duplicate { background-position: -64px center; }
+#box2 .function.enabled.duplicate:hover { background-position: -64px bottom; }
 
-#key .box2 .function.link { background-position: -96px top; }
-#key .box2 .function.enabled.link { background-position: -96px center; }
-#key .box2 .function.enabled.link:hover { background-position: -96px bottom; }
+#box2 .function.link { background-position: -96px top; }
+#box2 .function.enabled.link { background-position: -96px center; }
+#box2 .function.enabled.link:hover { background-position: -96px bottom; }
 
-#key .box2 .function.twitter { background-position: -128px top; }
-#key .box2 .function.enabled.twitter { background-position: -128px center; }
-#key .box2 .function.enabled.twitter:hover { background-position: -128px bottom; }
+#box2 .function.twitter { background-position: -128px top; }
+#box2 .function.enabled.twitter { background-position: -128px center; }
+#box2 .function.enabled.twitter:hover { background-position: -128px bottom; }
