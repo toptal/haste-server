@@ -5,4 +5,3 @@
 * Add file extensions ourselves to push state
 * Better about page text
 * add feedback for errors to UI - esp. too long
-* html escape everything
