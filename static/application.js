@@ -82,13 +82,11 @@ haste.prototype.setTitle = function(ext) {
 // Show the light key
 haste.prototype.lightKey = function() {
   this.configureKey(['new', 'save']);
-  this.removeClip();
 };
 
 // Show the full key
 haste.prototype.fullKey = function() {
   this.configureKey(['new', 'duplicate', 'twitter', 'link']);
-  this.configureClip();
 };
 
 // Set the key up for certain things to be enabled
@@ -190,24 +188,6 @@ haste.prototype.lockDocument = function() {
   });
 };
 
-// set up a clip that will copy the current url
-haste.prototype.configureClip = function() {
-  var clip = this.clipper = new ZeroClipboard.Client();
-  this.clipper.setHandCursor(true);
-  this.clipper.setCSSEffects(false);
-  // and then set and show
-  this.clipper.setText(window.location.href);
-  $('#box2 .link').html(this.clipper.getHTML(32, 37));
-};
-
-// hide the current clip, if it exists
-haste.prototype.removeClip = function() {
-  if (this.clipper) {
-    this.clipper.destroy();
-  }
-  $('#box2 .link').html('');
-};
-
 haste.prototype.configureButtons = function() {
   var _this = this;
   this.buttons = [
@@ -256,12 +236,6 @@ haste.prototype.configureButtons = function() {
       action: function() {
         window.open('https://twitter.com/share?url=' + encodeURI(_this.baseUrl + _this.doc.key));
       }
-    },
-    {
-      $where: $('#box2 .link'),
-      label: 'Copy URL',
-      letBubble: true,
-      action: function() { }
     }
   ];
   for (var i = 0; i < this.buttons.length; i++) {
@@ -273,7 +247,7 @@ haste.prototype.configureButton = function(options) {
   // Handle the click action
   options.$where.click(function(evt) {
     evt.preventDefault();
-    if ($(this).hasClass('enabled')) {
+    if (!options.clickDisabled && $(this).hasClass('enabled')) {
       options.action();
     }
   });
@@ -299,9 +273,7 @@ haste.prototype.configureShortcuts = function() {
     for (var i = 0 ; i < _this.buttons.length; i++) {
       button = _this.buttons[i];
       if (button.shortcut && button.shortcut(evt)) {
-        if (!button.letBubble) {
-          evt.preventDefault();
-        }
+        evt.preventDefault();
         button.action();
         return;
       }
