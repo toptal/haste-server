@@ -45,9 +45,9 @@ textarea {
 }
 
 #key .box2 {
-	padding: 5px;
 	background: #08323c;
 	font-size: 0px;
+	padding: 0px 5px;
 }
 
 #key .box1 a.logo, #key .box1 a.logo:visited {
@@ -66,11 +66,24 @@ textarea {
 	width: 32px;
 	height: 37px;
 	display: inline-block;
+	position: relative;
 }
 
 #key .box2 .function.enabled:hover {
 	cursor: hand;
 	cursor: pointer;
+}
+
+#pointer {
+	display: block;
+	height: 5px;
+	width: 10px;
+	background: url(hover-dropdown-tip.png);
+	bottom: 0px;
+	position: absolute;
+	margin: auto;
+	left: 0px;
+	right: 0px;
 }
 
 #key .box3 {

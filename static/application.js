@@ -254,10 +254,12 @@ haste.prototype.configureButton = function(options) {
     $('#key .box3 .label').text(options.label);
     $('#key .box3 .shortcut').text(options.shortcutDescription || '');
     $('#key .box3').show();
+    $(this).append($('#pointer').remove().show());
   });
   // Hide the label
   options.$where.mouseleave(function(evt) {
     $('#key .box3').hide();
+    $('#pointer').hide();
   });
 };
 

@@ -7,6 +7,7 @@
 * Add file extensions ourselves to push state
 * Proper markdown highlighting
 * Better about page text
+* Collapse CSS rules to get rid of the #key .box1 nonsense
 
 
 # shared version only
