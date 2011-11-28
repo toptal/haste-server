@@ -89,7 +89,8 @@ connect.createServer(
     });
     // get documents
     app.get('/documents/:id', function(request, response, next) {
-      return documentHandler.handleGet(request.params.id, response);
+      var skipExpire = !!config.documents[request.params.id];
+      return documentHandler.handleGet(request.params.id, response, skipExpire);
     });
   }),
   // Otherwise, static
