@@ -24,5 +24,4 @@ That's all there is to that, and you can install it with `gem install haste` rig
 ## Author
 
 Code by John Crepezzi <john.crepezzi@gmail.com>
-Design by Brian Dawson
-
+Key Design by Brian Dawson

@@ -6,7 +6,3 @@
 * Better about page text
 * add feedback for errors to UI - esp. too long
 * html escape everything
-
-# shared version only
-* some way to do announcements easily (and use for ads)
-* fix issues with deploy
