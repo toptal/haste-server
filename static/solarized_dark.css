@@ -51,7 +51,8 @@ pre .built_in,
 pre .lisp .title,
 pre .identifier,
 pre .title .keymethods,
-pre .id {
+pre .id,
+pre .header {
   color: #268bd2;
 }
 
@@ -91,6 +92,7 @@ pre .deletion {
   color: #dc322f;
 }
 
-pre .tex .formula {
+pre .tex .formula,
+pre .code {
   background: #073642;
 }
