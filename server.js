@@ -3,8 +3,8 @@ var url = require('url');
 var fs = require('fs');
 
 var winston = require('winston');
+var connect = require('connect');
 
-var StaticHandler = require('./lib/static_handler');
 var DocumentHandler = require('./lib/document_handler');
 
 // Load the configuration and set some defaults
@@ -37,6 +37,26 @@ if (!config.storage.type) {
 var Store = require('./lib/' + config.storage.type + '_document_store');
 var preferredStore = new Store(config.storage);
 
+// Compress the static javascript assets
+if (config.recompressStaticAssets) {
+  var jsp = require("uglify-js").parser;
+  var pro = require("uglify-js").uglify;
+  var list = fs.readdirSync('./static');
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var orig_code, ast;
+    if ((item.indexOf('.js') === item.length - 3) && (item.indexOf('.min.js') === -1)) {
+      dest = item.substring(0, item.length - 3) + '.min' + item.substring(item.length - 3);
+      orig_code = fs.readFileSync('./static/' + item, 'utf8');
+      ast = jsp.parse(orig_code);
+      ast = pro.ast_mangle(ast);
+      ast = pro.ast_squeeze(ast);
+      fs.writeFileSync('./static/' + dest, pro.gen_code(ast), 'utf8');
+      winston.info('compressed ' + item + ' into ' + dest);
+    }
+  }
+}
+
 // Send the static documents into the preferred store, skipping expirations
 for (var name in config.documents) {
   var path = config.documents[name];
@@ -52,9 +72,6 @@ for (var name in config.documents) {
   });
 }
 
-// Configure a static handler for the static files
-var staticHandler = new StaticHandler('./static', !!config.cacheStaticAssets);
-
 // Configure the document handler
 var documentHandler = new DocumentHandler({
   store: preferredStore,
@@ -62,21 +79,32 @@ var documentHandler = new DocumentHandler({
   keyLength: config.keyLength
 });
 
-// Set the server up and listen forever
-http.createServer(function(request, response) {
-  var incoming = url.parse(request.url, false);
-  var handler = null;
-  // Looking to add a new doc
-  if (incoming.pathname.match(/^\/documents$/) && request.method == 'POST') {
-    return documentHandler.handlePost(request, response);
-  }
-  // Looking up a doc
-  var match = incoming.pathname.match(/^\/documents\/([A-Za-z0-9]+)$/);
-  if (request.method == 'GET' && match) {
-    return documentHandler.handleGet(match[1], response);
-  }
-  // Otherwise, look for static file
-  staticHandler.handle(incoming.pathname, response);
-}).listen(config.port, config.host);
+// Set the server up with a static cache
+connect.createServer(
+  // First look for api calls
+  connect.router(function(app) {
+    // add documents 
+    app.post('/documents', function(request, response, next) {
+      return documentHandler.handlePost(request, response);
+    });
+    // get documents
+    app.get('/documents/:id', function(request, response, next) {
+      var skipExpire = !!config.documents[request.params.id];
+      return documentHandler.handleGet(request.params.id, response, skipExpire);
+    });
+  }),
+  // Otherwise, static
+  connect.staticCache(),
+  connect.static(__dirname + '/static', { maxAge: config.staticMaxAge }),
+  // Then we can loop back - and everything else should be a token,
+  // so route it back to /index.html
+  connect.router(function(app) {
+    app.get('/:id', function(request, response, next) {
+      request.url = request.originalUrl = '/index.html';
+      next();
+    });
+  }),
+  connect.static(__dirname + '/static', { maxAge: config.staticMaxAge })
+).listen(config.port, config.host);
 
 winston.info('listening on ' + config.host + ':' + config.port);

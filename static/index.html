@@ -2,14 +2,15 @@
 
 	<head>
 
-		<title>haste</title>
+		<title>hastebin</title>
 
 		<link rel="stylesheet" type="text/css" href="solarized_dark.css"/>
 		<link rel="stylesheet" type="text/css" href="application.css"/>
 
-		<script type="text/javascript" src="jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 		<script type="text/javascript" src="highlight.min.js"></script>
-		<script type="text/javascript" src="application.js"></script>
+		<script type="text/javascript" src="application.min.js"></script>
+		<script type="text/javascript" src="ZeroClipboard.min.js"></script>
 
 		<meta name="robots" content="noindex,nofollow"/>
 
@@ -18,24 +19,20 @@
 			// Handle pops
 			var handlePop = function(evt) {
 				var path = evt.target.location.pathname;
-				if (path === '/') {
-					app.newDocument(true);	
-				}
-				else {
-					app.loadDocument(path.substring(1, path.length));
-				}
+				if (path === '/') { app.newDocument(true); }
+				else { app.loadDocument(path.substring(1, path.length)); }
 			};
-			// If pop before loading jquery, delay load
-			window.onpopstate = function(evt) {
-				try {
-					handlePop(evt);
-				} catch(err) {
-					// not loaded yet
-				}
-			};
-			// Construct app and load if not loaded
+			// Set up the pop state to handle loads, skipping the first load
+			// to make chrome behave like others:
+			// http://code.google.com/p/chromium/issues/detail?id=63040
+			setTimeout(function() {
+				window.onpopstate = function(evt) {
+					try { handlePop(evt); } catch(err) { /* not loaded yet */ }
+				};
+			}, 1000);
+			// Construct app and load initial path
 			$(function() {
-				app = new haste('haste', { twitter: true });
+				app = new haste('hastebin', { twitter: true });
 				handlePop({ target: window });
 			});
 		</script>
@@ -47,14 +44,14 @@
 		<div id="key">
 		  <div id="pointer" style="display:none;"></div>
 			<div class="box1">
-				<a href="/about" class="logo"></a>
+				<a href="/about.md" class="logo"></a>
 			</div>
 			<div class="box2">
-				<a href="#" class="save function"></a>
-				<a href="#" class="new function"></a>
-				<a href="#" class="duplicate function"></a>
-				<a href="#" class="link function"></a>
-				<a href="#" class="twitter function"></a>
+				<div class="save function"></div>
+				<div class="new function"></div>
+				<div class="duplicate function"></div>
+				<div class="link function"></div>
+				<div class="twitter function"></div>
 			</div>
 			<div class="box3" style="display:none;">
 				<div class="label"></div>

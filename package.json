@@ -19,7 +19,9 @@
 
 	"dependencies": {
 		"winston": "*",
-    "hashlib": "*"
+    "hashlib": "*",
+    "connect": "*",
+    "uglify-js": "*"
 	},
 
 	"devDependencies": {
