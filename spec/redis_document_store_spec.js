@@ -1,7 +1,18 @@
 var RedisDocumentStore = require('../lib/redis_document_store');
 
+var winston = require('winston');
+winston.remove(winston.transports.Console);
+
 describe('redis_document_store', function() {
 
+  /* reconnect to redis on each test */
+  afterEach(function() {
+    if (RedisDocumentStore.client) {
+      RedisDocumentStore.client.quit();
+      RedisDocumentStore.client = false;
+    }
+  });
+  
   describe('set', function() {
 
     it('should be able to set a key and have an expiration set', function() {
