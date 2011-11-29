@@ -36,6 +36,13 @@ While the contents of hastebin.com are not directly crawled by any search robot 
 obeys "robots.txt", there should be no great expectation of privacy.  Post things at your
 own risk. Not responsible for any loss of data or removed pastes.
 
+## Open Source
+
+Haste can easily be installed behind your network, and its all open source!
+
+* [haste-client](https://github.com/seejohnrun/haste-client)
+* [haste-server](https://github.com/seejohnrun/haste-server)
+
 ## Author
 
 Code by John Crepezzi <john.crepezzi@gmail.com>
