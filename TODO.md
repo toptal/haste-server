@@ -5,4 +5,3 @@
 
 # shared version only
 * some way to do announcements easily (and use for ads)
-* start using CDNs for most assets (optional)
