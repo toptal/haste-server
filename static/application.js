@@ -258,7 +258,7 @@ haste.prototype.configureButtons = function() {
       },
       shortcutDescription: 'control + t',
       action: function() {
-        window.open('https://twitter.com/share?url=' + encodeURI(_this.baseUrl + _this.doc.key));
+        window.open('https://twitter.com/share?url=' + encodeURI(window.location.href));
       }
     }
   ];
