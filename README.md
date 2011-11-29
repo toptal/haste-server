@@ -27,9 +27,21 @@ which will output a URL to share containing the contents of `cat something`'s ST
 3.  `npm install`
 4.  `npm start`
 
+## Settings
+
+* `host` - the host the server runs on (default localhost)
+* `port` - the port the server runs on (default 7777)
+* `keyLength` - the length of the keys to user (default 10)
+* `maxLength` - maximum length of a paste (default none)
+* `staticMaxAge` - max age for static assets (86400)
+* `recompressStatisAssets` - whether or not to compile static js assets (true)
+* `documents` - static documents to serve (ex: http://hastebin.com/about.com) in addition to static assets.  These will never expire.
+* `storage` - storage options (see below)
+* `logging` - logging preferences
+
 ## Storage
 
-## File
+### File
 
 To use file storage (the default) change the storage section in `config.js` to something like:
 
@@ -58,6 +70,8 @@ Once you've done that, your config section should look like:
 	"db": 2
 }
 ```
+
+You can also set an `expire` option to the number of seconds to expire keys in.  This is off by default, but will constantly kick back expirations on each view or post.
 
 All of which are optional except `type` with very logical default values.
 
