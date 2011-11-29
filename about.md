@@ -10,6 +10,8 @@ Haste is the prettiest, easist to use pastebin ever made.
 Type what you want me to see, click "Save", and then copy the URL.  Send that URL
 to someone and they'll see what you see.
 
+To make a new entry, click "New" (or type 'control + n')
+
 ## From the Console
 
 Most of the time I want to show you some text, its coming from my current console session.
