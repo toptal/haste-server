@@ -1,24 +1,18 @@
 # Haste
 
-Haste is an open-source pastebin software written in node.js, which is easily installable in any network.  By default, it is filesystem backed, but it can also be set up to work with Redis quickly.
+Haste is an open-source pastebin software written in node.js, which is easily installable in any network.  It can be backed by either redis or filesystem, and has a very easy adapter interface for other stores.
 
 Major design objectives:
 
 * Be really pretty
 * Be really simple
 * Be easy to set up and use
-* By default, don't require any external database
-* API-driven
 
 Haste works really well with a little utility called haste-client, allowing you to do things like:
 
 `cat something | haste`
 
-which will output a URL to share, or
-
-`cat something | haste | pbcopy`
-
-to copy the URL to the clipboard.
+which will output a URL to share containing the contents of `cat something`'s STDOUT
 
 ## Tested Browsers
 
