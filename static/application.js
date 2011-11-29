@@ -120,19 +120,31 @@ haste.prototype.newDocument = function(hideHistory) {
 };
 
 // Map of common extensions
+// Note: this list does not need to include anything that IS its extension,
+// due to the behavior of lookupTypeByExtension and lookupExtensionByType
+// Note: optimized for lookupTypeByExtension
 haste.extensionMap = {
-    rb: 'ruby', py: 'python', pl: 'perl', php: 'php', scala: 'scala', go: 'go',
-    xml: 'xml', html: 'xml', htm: 'xml', css: 'css', js: 'javascript', vbs: 'vbscript',
-    lua: 'lua', pas: 'delphi', java: 'java', cpp: 'cpp', cc: 'cpp', m: 'objectivec',
-    vala: 'vala', cs: 'cs', sql: 'sql', sm: 'smalltalk', lisp: 'lisp', ini: 'ini',
-    diff: 'diff', bash: 'bash', sh: 'bash', tex: 'tex', erl: 'erlang', hs: 'haskell',
-    md: 'markdown'
+  rb: 'ruby', py: 'python', pl: 'perl', php: 'php', scala: 'scala', go: 'go',
+  xml: 'xml', html: 'xml', htm: 'xml', css: 'css', js: 'javascript', vbs: 'vbscript',
+  lua: 'lua', pas: 'delphi', java: 'java', cpp: 'cpp', cc: 'cpp', m: 'objectivec',
+  vala: 'vala', cs: 'cs', sql: 'sql', sm: 'smalltalk', lisp: 'lisp', ini: 'ini',
+  diff: 'diff', bash: 'bash', sh: 'bash', tex: 'tex', erl: 'erlang', hs: 'haskell',
+  md: 'markdown'
 };
 
-// Map an extension to a language
-haste.prototype.lookupExtension = function(ext) {
-  var match = haste.extensionMap[ext];
-  return match; // if not found, will auto-detect
+// Look up the extension preferred for a type
+// If not found, return the type itself - which we'll place as the extension
+haste.prototype.lookupExtensionByType = function(type) {
+  for (var key in haste.extensionMap) {
+    if (haste.extensionMap[key] === type) return key;
+  }
+  return type;
+};
+
+// Look up the type for a given extension
+// If not found, return the extension - which we'll attempt to use as the type
+haste.prototype.lookupTypeByExtension = function(ext) {
+  return haste.extensionMap[ext] || ext;
 };
 
 // Load a document and show it
@@ -145,11 +157,14 @@ haste.prototype.loadDocument = function(key) {
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
-      var title = ret.key;
+      _this.setTitle(ret.key);
+      var file = '/' + ret.key;
       if (ret.language) {
-        title += ' - ' + ret.language;
+        file += '.' + _this.lookupExtensionByType(ret.language);
       }
-      _this.setTitle(title);
+      if (window.location.path != file) {
+        window.history.pushState(null, _this.appName + '-' + ret.key, file);
+      }
       _this.fullKey();
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
@@ -157,7 +172,7 @@ haste.prototype.loadDocument = function(key) {
     else {
       _this.newDocument();
     }
-  }, this.lookupExtension(parts[1]));
+  }, this.lookupTypeByExtension(parts[1]));
 };
 
 // Duplicate the current document - only if locked
@@ -175,12 +190,12 @@ haste.prototype.lockDocument = function() {
   this.doc.save(this.$textarea.val(), function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
-      var title = ret.key;
+      _this.setTitle(ret.key);
+      var file = '/' + ret.key;
       if (ret.language) {
-        title += ' - ' + ret.language;
+        file += '.' + _this.lookupExtensionByType(ret.language);
       }
-      _this.setTitle(title);
-      window.history.pushState(null, _this.appName + '-' + ret.key, '/' + ret.key);
+      window.history.pushState(null, _this.appName + '-' + ret.key, file);
       _this.fullKey();
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
