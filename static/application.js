@@ -220,7 +220,7 @@ haste.prototype.configureButtons = function() {
       label: 'Save',
       shortcutDescription: 'control + s',
       shortcut: function(evt) {
-        return evt.ctrlKey && (evt.keyCode === 76 || evt.keyCode === 83);
+        return evt.ctrlKey && (evt.keyCode === 83);
       },
       action: function() {
         if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
