@@ -19,9 +19,10 @@ We should make it really easy to take code from the console and send it to peopl
 
 `cat something | haste` # http://hastebin.com/1238193
 
-You can even take this a step further (on OSX) and cut out the last step of copying the URL with:
+You can even take this a step further, and cut out the last step of copying the URL with:
 
-`cat something | haste | pbcopy`
+* osx: `cat something | haste | pbcopy`
+* linux: `cat something | haste | xsel`
 
 After running that, the STDOUT output of `cat something` will show up at a URL which has
 been conveniently copied to your clipboard.
