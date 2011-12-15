@@ -167,13 +167,6 @@ haste.prototype.loadDocument = function(key) {
     if (ret) {
       _this.$code.html(ret.value);
       _this.setTitle(ret.key);
-      var file = '/' + ret.key;
-      if (ret.language) {
-        file += '.' + _this.lookupExtensionByType(ret.language);
-      }
-      if (window.location.path != file) {
-        window.history.pushState(null, _this.appName + '-' + ret.key, file);
-      }
       _this.fullKey();
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
