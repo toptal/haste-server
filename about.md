@@ -28,6 +28,8 @@ After running that, the STDOUT output of `cat something` will show up at a URL w
 been conveniently copied to your clipboard.
 
 That's all there is to that, and you can install it with `gem install haste` right now.
+  * osx: you will need to have an up to date version of Xcode
+  * linux: you will need to have rubygems and ruby-devel installed
 
 ## Duration
 
