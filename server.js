@@ -83,6 +83,12 @@ var documentHandler = new DocumentHandler({
 connect.createServer(
   // First look for api calls
   connect.router(function(app) {
+    // get raw documents - support getting with extension
+    app.get('/raw/:id', function(request, response, next) {
+      var skipExpire = !!config.documents[request.params.id];
+      var key = request.params.id.split('.')[0];
+      return documentHandler.handleRawGet(key, response, skipExpire);
+    });
     // add documents 
     app.post('/documents', function(request, response, next) {
       return documentHandler.handlePost(request, response);
