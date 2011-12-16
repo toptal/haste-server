@@ -1,6 +1,6 @@
 body {
 	background: #002B36;
-	padding: 20px;
+	padding: 20px 50px;
 	margin: 0px;
 }
 
@@ -19,6 +19,20 @@ textarea {
 	font-size: 13px;
 }
 
+/* the line numbers */
+
+#linenos {
+  color: #003366;
+	z-index: -1000;
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	width: 30px; /* 30 to get 20 away from box */
+	font-size: 13px;
+	font-family: monospace;
+	text-align: right;
+}
+
 /* code box when locked */
 
 #box {
@@ -27,6 +41,7 @@ textarea {
 	width: 100%;
 	border: 0px;
 	outline: none;
+	font-size: 13px;
 }
 
 #box code {
