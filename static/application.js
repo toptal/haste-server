@@ -57,12 +57,20 @@ haste_document.prototype.save = function(data, callback) {
       _this.locked = true;
       _this.key = res.key;
       var high = hljs.highlightAuto(data);
-      callback({
+      callback(null, {
         value: high.value,
         key: res.key,
         language: high.language,
         lineCount: data.split("\n").length
       });
+    },
+    error: function(res) {
+      try {
+        callback($.parseJSON(res.responseText));
+      }
+      catch (e) {
+        callback({message: 'Something went wrong!'});
+      }
     }
   });
 };
@@ -89,6 +97,15 @@ var haste = function(appName, options) {
 haste.prototype.setTitle = function(ext) {
   var title = ext ? this.appName + ' - ' + ext : this.appName;
   document.title = title;
+};
+
+// Show a message box
+haste.prototype.showMessage = function(msg, cls) {
+  var msgBox = $('<li class="'+(cls || 'info')+'">'+msg+'</li>');
+  $('#messages').prepend(msgBox);
+  setTimeout(function() {
+    msgBox.slideUp('fast', function() { $(this).remove(); });
+  }, 3000);
 };
 
 // Show the light key
@@ -209,8 +226,11 @@ haste.prototype.duplicateDocument = function() {
 // Lock the current document
 haste.prototype.lockDocument = function() {
   var _this = this;
-  this.doc.save(this.$textarea.val(), function(ret) {
-    if (ret) {
+  this.doc.save(this.$textarea.val(), function(err, ret) {
+    if (err) {
+      _this.showMessage(err.message, 'error');
+    }
+    else if (ret) {
       _this.$code.html(ret.value);
       _this.setTitle(ret.key);
       var file = '/' + ret.key;

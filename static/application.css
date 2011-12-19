@@ -110,7 +110,7 @@ textarea {
 	right: 0px;
 }
 
-#box3 {
+#box3, #messages li {
 	background: #173e48;
 	font-family: Helvetica, sans-serif;
 	font-size: 12px;
@@ -118,7 +118,7 @@ textarea {
 	padding: 10px 15px;
 }
 
-#box3 .label {
+#box3 .label, #messages li {
 	color: #fff;
 	font-weight: bold;
 }
@@ -147,3 +147,22 @@ textarea {
 #box2 .function.twitter { background-position: -153px top; }
 #box2 .function.enabled.twitter { background-position: -153px center; }
 #box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
+
+#messages {
+	position:fixed;
+	top:0px;
+	right:138px;
+	margin:0;
+	padding:0;
+	width:400px;
+}
+
+#messages li {
+	background:rgba(23,62,72,0.8);
+	margin:0 auto;
+	list-style:none;
+}
+
+#messages li.error {
+	background:rgba(102,8,0,0.8);
+}
