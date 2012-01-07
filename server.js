@@ -72,11 +72,18 @@ for (var name in config.documents) {
   });
 }
 
+// Pick up a key generator
+var pwOptions = config.keyGenerator || {};
+pwOptions.type = pwOptions.type || 'random';
+var gen = require('./lib/key_generators/' + pwOptions.type);
+var keyGenerator = new gen(pwOptions);
+
 // Configure the document handler
 var documentHandler = new DocumentHandler({
   store: preferredStore,
   maxLength: config.maxLength,
-  keyLength: config.keyLength
+  keyLength: config.keyLength,
+  keyGenerator: keyGenerator
 });
 
 // Set the server up with a static cache

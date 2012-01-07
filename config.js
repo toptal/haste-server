@@ -19,6 +19,10 @@
     }
   ],
 
+  "keyGenerator": {
+    "type": "phonetic"
+  },
+
   "storage": {
     "type": "redis",
     "host": "localhost",

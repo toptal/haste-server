@@ -38,6 +38,32 @@ which will output a URL to share containing the contents of `cat something`'s ST
 * `documents` - static documents to serve (ex: http://hastebin.com/about.com) in addition to static assets.  These will never expire.
 * `storage` - storage options (see below)
 * `logging` - logging preferences
+* `keyGenerator` - key generator options (see below)
+
+## Key Generation
+
+### Phonetic
+
+Attempts to generate phonetic keys, similar to `pwgen`
+
+``` json
+{
+	"type": "phonetic"
+}
+```
+
+### Random
+
+Generates a random key
+
+``` json
+{
+	"type": "random",
+  "keyspace": "abcdef"
+}
+```
+
+The _optional_ keySpace argument is a string of acceptable characters for the key.
 
 ## Storage
 
