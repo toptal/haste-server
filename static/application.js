@@ -4,6 +4,15 @@ var haste_document = function() {
   this.locked = false;
 };
 
+// Escapes HTML tag characters
+haste_document.prototype.htmlEscape = function(s) {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/>/g, '&gt;')
+    .replace(/</g, '&lt;')
+    .replace(/"/g, '&quot;');
+};
+
 // Get this document from the server and lock it here
 haste_document.prototype.load = function(key, callback, lang) {
   var _this = this;
@@ -17,7 +26,7 @@ haste_document.prototype.load = function(key, callback, lang) {
       try {
         var high;
         if (lang === 'txt') {
-          high = { value: res.data };
+          high = { value: _this.htmlEscape(res.data) };
         }
         else if (lang) {
           high = hljs.highlight(lang, res.data);
