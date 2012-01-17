@@ -82,9 +82,9 @@ Where `path` represents where you want the files stored
 
 ### Redis
 
-To use redis storage you must install the redis package in npm globall using
+To use redis storage you must install the redis package in npm
 
-`npm install redis --global`
+`npm install redis`
 
 Once you've done that, your config section should look like:
 
@@ -100,6 +100,27 @@ Once you've done that, your config section should look like:
 You can also set an `expire` option to the number of seconds to expire keys in.  This is off by default, but will constantly kick back expirations on each view or post.
 
 All of which are optional except `type` with very logical default values.
+
+### Memcached
+
+To use memcached storage you must install the `memcache` package via npm
+
+`npm install memcache`
+
+Once you've done that, your config section should look like:
+
+``` json
+{
+	"type": "memcached",
+	"host": "127.0.0.1",
+	"port": 11211
+}
+```
+
+You can also set an `expire` option to the number of seconds to expire keys in.  This behaves just like the redis expirations, but does not push expirations forward on GETs.
+
+All of which are optional except `type` with very logical default values.
+
 
 ## Author
 
