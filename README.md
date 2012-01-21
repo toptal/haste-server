@@ -1,6 +1,9 @@
 # Haste
 
-Haste is an open-source pastebin software written in node.js, which is easily installable in any network.  It can be backed by either redis or filesystem, and has a very easy adapter interface for other stores.  A publicly available version can be found at [hastebin.com](http://hastebin.com)
+Haste is an open-source pastebin software written in node.js, which is easily
+installable in any network.  It can be backed by either redis or filesystem,
+and has a very easy adapter interface for other stores.  A publicly available
+version can be found at [hastebin.com](http://hastebin.com)
 
 Major design objectives:
 
@@ -8,11 +11,13 @@ Major design objectives:
 * Be really simple
 * Be easy to set up and use
 
-Haste works really well with a little utility called haste-client, allowing you to do things like:
+Haste works really well with a little utility called haste-client, allowing you
+to do things like:
 
 `cat something | haste`
 
-which will output a URL to share containing the contents of `cat something`'s STDOUT
+which will output a URL to share containing the contents of `cat something`'s
+STDOUT
 
 ## Tested Browsers
 
@@ -35,7 +40,8 @@ which will output a URL to share containing the contents of `cat something`'s ST
 * `maxLength` - maximum length of a paste (default none)
 * `staticMaxAge` - max age for static assets (86400)
 * `recompressStatisAssets` - whether or not to compile static js assets (true)
-* `documents` - static documents to serve (ex: http://hastebin.com/about.com) in addition to static assets.  These will never expire.
+* `documents` - static documents to serve (ex: http://hastebin.com/about.com)
+  in addition to static assets.  These will never expire.
 * `storage` - storage options (see below)
 * `logging` - logging preferences
 * `keyGenerator` - key generator options (see below)
@@ -63,13 +69,15 @@ Generates a random key
 }
 ```
 
-The _optional_ keySpace argument is a string of acceptable characters for the key.
+The _optional_ keySpace argument is a string of acceptable characters
+for the key.
 
 ## Storage
 
 ### File
 
-To use file storage (the default) change the storage section in `config.js` to something like:
+To use file storage (the default) change the storage section in `config.js` to
+something like:
 
 ``` json
 {
@@ -97,7 +105,9 @@ Once you've done that, your config section should look like:
 }
 ```
 
-You can also set an `expire` option to the number of seconds to expire keys in.  This is off by default, but will constantly kick back expirations on each view or post.
+You can also set an `expire` option to the number of seconds to expire keys in.
+This is off by default, but will constantly kick back expirations on each view
+or post.
 
 All of which are optional except `type` with very logical default values.
 
@@ -117,7 +127,9 @@ Once you've done that, your config section should look like:
 }
 ```
 
-You can also set an `expire` option to the number of seconds to expire keys in.  This behaves just like the redis expirations, but does not push expirations forward on GETs.
+You can also set an `expire` option to the number of seconds to expire keys in.
+This behaves just like the redis expirations, but does not push expirations
+forward on GETs.
 
 All of which are optional except `type` with very logical default values.
 
@@ -132,11 +144,23 @@ John Crepezzi <john.crepezzi@gmail.com>
 
 Copyright © 2011 John Crepezzi
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ‘Software’), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the ‘Software’), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE
 
 ### Other components:
 

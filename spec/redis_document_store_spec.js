@@ -1,4 +1,4 @@
-var RedisDocumentStore = require('../lib/redis_document_store');
+var RedisDocumentStore = require('../lib/document_stores/redis');
 
 var winston = require('winston');
 winston.remove(winston.transports.Console);
