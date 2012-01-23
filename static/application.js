@@ -300,7 +300,7 @@ haste.prototype.configureButtons = function() {
       },
       shortcutDescription: 'control + shift + r',
       action: function() {
-        window.open('/raw/' + _this.doc.key);
+        window.location.href = '/raw/' + _this.doc.key;
       }
     },
     {
