@@ -19,13 +19,13 @@
 
 	"dependencies": {
 		"winston": "*",
-    "hashlib": "*",
     "connect": "*",
     "uglify-js": "*"
 	},
 
 	"devDependencies": {
-    "jasmine-node": "*"
+    "mocha": "*",
+    "should": "*"
   },
 
 	"bundledDependencies": [],
@@ -46,7 +46,7 @@
 
 	"scripts": {
 		"start": "node server.js",
-    "test": "jasmine-node spec"
+    "test": "mocha -r should spec/*"
 	}
 
 }

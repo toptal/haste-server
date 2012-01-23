@@ -34,7 +34,7 @@ if (!config.storage) {
 if (!config.storage.type) {
   config.storage.type = 'file';
 }
-var Store = require('./lib/' + config.storage.type + '_document_store');
+var Store = require('./lib/document_stores/' + config.storage.type);
 var preferredStore = new Store(config.storage);
 
 // Compress the static javascript assets
@@ -45,8 +45,10 @@ if (config.recompressStaticAssets) {
   for (var i = 0; i < list.length; i++) {
     var item = list[i];
     var orig_code, ast;
-    if ((item.indexOf('.js') === item.length - 3) && (item.indexOf('.min.js') === -1)) {
-      dest = item.substring(0, item.length - 3) + '.min' + item.substring(item.length - 3);
+    if ((item.indexOf('.js') === item.length - 3) &&
+        (item.indexOf('.min.js') === -1)) {
+      dest = item.substring(0, item.length - 3) + '.min' +
+        item.substring(item.length - 3);
       orig_code = fs.readFileSync('./static/' + item, 'utf8');
       ast = jsp.parse(orig_code);
       ast = pro.ast_mangle(ast);
@@ -67,7 +69,10 @@ for (var name in config.documents) {
       }, true);
     }
     else {
-      winston.warn('failed to load static document', { name: name, path: path });
+      winston.warn(
+        'failed to load static document',
+        { name: name, path: path }
+      );
     }
   });
 }
@@ -96,14 +101,18 @@ connect.createServer(
       var key = request.params.id.split('.')[0];
       return documentHandler.handleRawGet(key, response, skipExpire);
     });
-    // add documents 
+    // add documents
     app.post('/documents', function(request, response, next) {
       return documentHandler.handlePost(request, response);
     });
     // get documents
     app.get('/documents/:id', function(request, response, next) {
       var skipExpire = !!config.documents[request.params.id];
-      return documentHandler.handleGet(request.params.id, response, skipExpire);
+      return documentHandler.handleGet(
+        request.params.id,
+        response,
+        skipExpire
+      );
     });
   }),
   // Otherwise, static
