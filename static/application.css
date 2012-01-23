@@ -140,9 +140,9 @@ textarea {
 #box2 .function.enabled.duplicate { background-position: -79px center; }
 #box2 .function.enabled.duplicate:hover { background-position: -79px bottom; }
 
-#box2 .function.link { background-position: -116px top; }
-#box2 .function.enabled.link { background-position: -116px center; }
-#box2 .function.enabled.link:hover { background-position: -116px bottom; }
+#box2 .function.raw { background-position: -116px top; }
+#box2 .function.enabled.raw { background-position: -116px center; }
+#box2 .function.enabled.raw:hover { background-position: -116px bottom; }
 
 #box2 .function.twitter { background-position: -153px top; }
 #box2 .function.enabled.twitter { background-position: -153px center; }

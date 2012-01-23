@@ -88,7 +88,6 @@ haste_document.prototype.save = function(data, callback) {
 
 var haste = function(appName, options) {
   this.appName = appName;
-  this.baseUrl = window.location.href; // since this is loaded first
   this.$textarea = $('textarea');
   this.$box = $('#box');
   this.$code = $('#box code');
@@ -124,7 +123,7 @@ haste.prototype.lightKey = function() {
 
 // Show the full key
 haste.prototype.fullKey = function() {
-  this.configureKey(['new', 'duplicate', 'twitter', 'link']);
+  this.configureKey(['new', 'duplicate', 'twitter', 'raw']);
 };
 
 // Set the key up for certain things to be enabled
@@ -291,6 +290,17 @@ haste.prototype.configureButtons = function() {
       shortcutDescription: 'control + d',
       action: function() {
         _this.duplicateDocument();
+      }
+    },
+    {
+      $where: $('#box2 .raw'),
+      label: 'Just Text',
+      shortcut: function(evt) {
+        return evt.ctrlKey && evt.shiftKey && evt.keyCode === 82;
+      },
+      shortcutDescription: 'control + shift + r',
+      action: function() {
+        window.open('/raw/' + _this.doc.key);
       }
     },
     {
