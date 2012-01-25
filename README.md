@@ -166,3 +166,4 @@ SOFTWARE
 
 * jQuery: MIT/GPL license
 * highlight.js: Copyright © 2006, Ivan Sagalaev
+* highlightjs-coffeescript: WTFPL - Copyright © 2011, Dmytrii Nagirniak
