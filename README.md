@@ -11,13 +11,14 @@ Major design objectives:
 * Be really simple
 * Be easy to set up and use
 
-Haste works really well with a little utility called haste-client, allowing you
+Haste works really well with a little utility called
+[haste-client](https://github.com/seejohnrun/haste-client), allowing you
 to do things like:
 
 `cat something | haste`
 
 which will output a URL to share containing the contents of `cat something`'s
-STDOUT
+STDOUT.  Check the README there for more details and usages.
 
 ## Tested Browsers
 
