@@ -19,7 +19,7 @@
 
 	"dependencies": {
 		"winston": "*",
-    "connect": "*",
+    "connect": "< 2",
     "uglify-js": "*"
 	},
 
