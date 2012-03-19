@@ -1,68 +1,35 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
 
-	<head>
+    <title>Hastebin</title>
 
-		<title>hastebin</title>
+    <link rel="stylesheet" href="application.css" />
 
-		<link rel="stylesheet" type="text/css" href="solarized_dark.css"/>
-		<link rel="stylesheet" type="text/css" href="application.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="codemirror.min.js"></script>
+    <script src="underscore.min.js"></script>
+    <script src="backbone.min.js"></script>
+    <script src="application.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1><a href="about.md">Hastebin</a></h1>
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="highlight.min.js"></script>
-		<script type="text/javascript" src="application.min.js"></script>
+      <nav>
+        <ul>
+          <li><a href="#" class="save">Save</a></li>
+          <li><a href="#" class="new">New</a></li>
+          <li><a href="#" class="edit">Edit</a></li>
+          <li><a href="#" class="raw">Raw</a></li>
+          <li><a href="#" class="twitter">Twitter</a></li>
+        </ul>
+      </nav>
+    </header>
 
-		<meta name="robots" content="noindex,nofollow"/>
-
-		<script type="text/javascript">
-			var app = null;
-			// Handle pops
-			var handlePop = function(evt) {
-				var path = evt.target.location.pathname;
-				if (path === '/') { app.newDocument(true); }
-				else { app.loadDocument(path.substring(1, path.length)); }
-			};
-			// Set up the pop state to handle loads, skipping the first load
-			// to make chrome behave like others:
-			// http://code.google.com/p/chromium/issues/detail?id=63040
-			setTimeout(function() {
-				window.onpopstate = function(evt) {
-					try { handlePop(evt); } catch(err) { /* not loaded yet */ }
-				};
-			}, 1000);
-			// Construct app and load initial path
-			$(function() {
-				app = new haste('hastebin', { twitter: true });
-				handlePop({ target: window });
-			});
-		</script>
-
-	</head>
-
-	<body>
-		<ul id="messages"></ul>
-
-		<div id="key">
-		  <div id="pointer" style="display:none;"></div>
-			<div id="box1">
-				<a href="/about.md" class="logo"></a>
-			</div>
-			<div id="box2">
-				<div class="save function"></div>
-				<div class="new function"></div>
-				<div class="duplicate function"></div>
-				<div class="raw function"></div>
-				<div class="twitter function"></div>
-			</div>
-			<div id="box3" style="display:none;">
-				<div class="label"></div>
-				<div class="shortcut"></div>
-			</div>
-		</div>
-
-		<div id="linenos"></div>
-		<pre id="box" style="display:none;" tabindex="0"><code></code></pre>
-		<textarea spellcheck="false" style="display:none;"></textarea>
-
-	</body>
-
+    <div id="editor">
+      <textarea></textarea>
+    </div>
+  </body>
 </html>
