@@ -55,7 +55,7 @@ Attempts to generate phonetic keys, similar to `pwgen`
 
 ``` json
 {
-	"type": "phonetic"
+  "type": "phonetic"
 }
 ```
 
@@ -65,7 +65,7 @@ Generates a random key
 
 ``` json
 {
-	"type": "random",
+  "type": "random",
   "keyspace": "abcdef"
 }
 ```
@@ -82,8 +82,8 @@ something like:
 
 ``` json
 {
-	"path": "./data",
-	"type": "file"
+  "path": "./data",
+  "type": "file"
 }
 ```
 
@@ -99,10 +99,10 @@ Once you've done that, your config section should look like:
 
 ``` json
 {
-	"type": "redis",
-	"host": "localhost",
-	"port": 6379,
-	"db": 2
+  "type": "redis",
+  "host": "localhost",
+  "port": 6379,
+  "db": 2
 }
 ```
 
@@ -122,9 +122,9 @@ Once you've done that, your config section should look like:
 
 ``` json
 {
-	"type": "memcached",
-	"host": "127.0.0.1",
-	"port": 11211
+  "type": "memcached",
+  "host": "127.0.0.1",
+  "port": 11211
 }
 ```
 
