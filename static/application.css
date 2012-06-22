@@ -42,6 +42,7 @@ textarea {
 	border: 0px;
 	outline: none;
 	font-size: 13px;
+	padding-right: 360px;
 }
 
 #box code {
