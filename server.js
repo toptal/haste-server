@@ -60,21 +60,19 @@ if (config.recompressStaticAssets) {
 }
 
 // Send the static documents into the preferred store, skipping expirations
+var path, data;
 for (var name in config.documents) {
-  var path = config.documents[name];
-  fs.readFile(path, 'utf8', function(err, data) {
-    if (data && !err) {
-      preferredStore.set(name, data, function(cb) {
-        winston.info('loaded static document', { name: name, path: path });
-      }, true);
-    }
-    else {
-      winston.warn(
-        'failed to load static document',
-        { name: name, path: path }
-      );
-    }
-  });
+  path = config.documents[name];
+  data = fs.readFileSync(path, 'utf8');
+  winston.info('loading static document', { name: name, path: path });
+  if (data) {
+    preferredStore.set(name, data, function(cb) {
+      winston.debug('loaded static document', { success: cb });
+    }, true);
+  }
+  else {
+    winston.warn('failed to load static document', { name: name, path: path });
+  }
 }
 
 // Pick up a key generator
