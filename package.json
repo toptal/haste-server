@@ -14,9 +14,9 @@
   },
   "main": "haste",
   "dependencies": {
-    "winston": "*",
-    "connect": "< 2",
-    "uglify-js": "*"
+    "winston": "0.6.2",
+    "connect": "1.9.2",
+    "uglify-js": "1.3.3"
   },
   "devDependencies": {
     "mocha": "*",
@@ -40,6 +40,5 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha -r should spec/*"
-  },
-  "subdomain": "hastebin"
+  }
 }
