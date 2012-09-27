@@ -143,7 +143,7 @@ John Crepezzi <john.crepezzi@gmail.com>
 
 (The MIT License)
 
-Copyright © 2011 John Crepezzi
+Copyright © 2011-2012 John Crepezzi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the ‘Software’), to deal in
