@@ -34,8 +34,17 @@ if (!config.storage) {
 if (!config.storage.type) {
   config.storage.type = 'file';
 }
-var Store = require('./lib/document_stores/' + config.storage.type);
-var preferredStore = new Store(config.storage);
+
+var Store, preferredStore;
+if (config.storage.type === 'redistogo') {
+  var redisClient = require('redis-url').connect(process.env.REDISTOGO_URL);
+  Store = require('./lib/document_stores/redis');
+  preferredStore = new Store(config.storage, redisClient);
+}
+else {
+  Store = require('./lib/document_stores/' + config.storage.type);
+  preferredStore = new Store(config.storage);
+}
 
 // Compress the static javascript assets
 if (config.recompressStaticAssets) {
