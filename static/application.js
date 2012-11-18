@@ -208,8 +208,7 @@ haste.prototype.addLineNumbers = function(data) {
 };
 
 haste.prototype.getCharacterWidth = function() {
-  var $div = $("<div></div>");
-  $("body").append($div);
+  var $div = $("#sandbox");
   $div.html('a');
   $div.css('width','auto')
       .css('font', $("code").css('font'))
