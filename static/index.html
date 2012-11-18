@@ -33,6 +33,7 @@
 			$(function() {
 				app = new haste('hastebin', { twitter: true });
 				handlePop({ target: window });
+				$(window).bind("resize", function() {app.resize();});
 			});
 		</script>
 
