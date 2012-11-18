@@ -42,12 +42,17 @@ textarea {
 	border: 0px;
 	outline: none;
 	font-size: 13px;
-	padding-right: 360px;
 }
 
 #box code {
 	padding: 0px;
-	background: transparent !important; /* don't hide hastebox */
+	word-break: break-all;
+	-ms-word-break: break-all;
+	/* Chrome*/
+    word-break: break-word;
+	hyphens: auto;
+	-webkit-hyphens: auto;
+   	-moz-hyphens: auto;
 }
 
 /* key */
@@ -56,7 +61,7 @@ textarea {
 	position: fixed;
 	top: 0px;
 	right: 0px;
-	z-index: +1000; /* watch out */
+	z-index: +1000; /* watch out */	
 }
 
 #box1 {
