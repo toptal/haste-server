@@ -20,6 +20,14 @@ to do things like:
 which will output a URL to share containing the contents of `cat something`'s
 STDOUT.  Check the README there for more details and usages.
 
+## Support
+
+Please consider paying what you feel this project is worth:
+
+<a href="https://www.stripeme.com/pay/1r2f">
+  <img alt="Pay" src="https://www.stripeme.com/pay.jpg" />
+</a>
+
 ## Tested Browsers
 
 * Firefox 8
