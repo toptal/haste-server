@@ -308,9 +308,9 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .twitter'),
       label: 'Twitter',
       shortcut: function(evt) {
-        return _this.options.twitter && _this.doc.locked && evt.ctrlKey && evt.keyCode == 84;
+        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
       },
-      shortcutDescription: 'control + t',
+      shortcutDescription: 'control + shift + t',
       action: function() {
         window.open('https://twitter.com/share?url=' + encodeURI(window.location.href));
       }
