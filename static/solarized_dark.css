@@ -17,6 +17,8 @@ pre .lisp .string,
 pre .javadoc {
   color: #586e75;
   font-style: italic;
+  display: inline-block;
+  line-height: 1em;
 }
 
 pre .keyword,
