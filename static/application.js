@@ -168,7 +168,7 @@ haste.extensionMap = {
   lua: 'lua', pas: 'delphi', java: 'java', cpp: 'cpp', cc: 'cpp', m: 'objectivec',
   vala: 'vala', cs: 'cs', sql: 'sql', sm: 'smalltalk', lisp: 'lisp', ini: 'ini',
   diff: 'diff', bash: 'bash', sh: 'bash', tex: 'tex', erl: 'erlang', hs: 'haskell',
-  md: 'markdown', txt: '', coffee: 'coffee'
+  md: 'markdown', txt: '', coffee: 'coffee', json: 'javascript'
 };
 
 // Look up the extension preferred for a type
@@ -308,9 +308,9 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .twitter'),
       label: 'Twitter',
       shortcut: function(evt) {
-        return _this.options.twitter && _this.doc.locked && evt.ctrlKey && evt.keyCode == 84;
+        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
       },
-      shortcutDescription: 'control + t',
+      shortcutDescription: 'control + shift + t',
       action: function() {
         window.open('https://twitter.com/share?url=' + encodeURI(window.location.href));
       }
