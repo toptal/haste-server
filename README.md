@@ -142,7 +142,6 @@ forward on GETs.
 
 All of which are optional except `type` with very logical default values.
 
-
 ## Author
 
 John Crepezzi <john.crepezzi@gmail.com>
