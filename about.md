@@ -38,7 +38,8 @@ right now.
 
 ## Duration
 
-Pastes will stay for 30 days from their last view.
+Pastes will stay for 30 days from their last view.  They may be removed earlier
+and without notice.
 
 ## Privacy
 
