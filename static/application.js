@@ -94,6 +94,7 @@ var haste = function(appName, options) {
   this.$code = $('#box code');
   this.$linenos = $('#linenos');
   this.options = options;
+  this.ignoreLast = false;
   this.configureShortcuts();
   this.configureButtons();
   // If twitter is disabled, hide the button
@@ -186,14 +187,38 @@ haste.prototype.lookupTypeByExtension = function(ext) {
   return haste.extensionMap[ext] || ext;
 };
 
+// Focus on a specific line
+haste.prototype.goToLine = function(lineNum) {
+  // If no line number is explicitly specified, grab it off the hash
+  lineNum = lineNum || parseInt(window.location.hash.substring(2));
+  // If there was a line before, remove the highlight from it
+  if (typeof this.line != 'undefined') {
+    this.line.removeClass("highlight");
+  }
+  // Scroll to the line and add a highlight to it
+  this.line = $("#linenos span[rel='#L"+ lineNum +"']").addClass("highlight");
+  window.scrollTo(0, this.line.offset().top);
+};
+
 // Add line numbers to the document
 // For the specified number of lines
 haste.prototype.addLineNumbers = function(lineCount) {
   var h = '';
   for (var i = 0; i < lineCount; i++) {
-    h += (i + 1).toString() + '<br/>';
+    num = (i + 1).toString();
+    h += '<span rel="#L' + num + '">' + num + '</span><br/>';
   }
+  
+  var _this = this;
+  listener = function(event) {
+    event.preventDefault();
+    _this.ignoreLast = true;
+    window.location.hash = $(this).attr('rel');
+    _this.goToLine($(this).attr('rel').substring(2));
+  };
+  
   $('#linenos').html(h);
+  $('#linenos span').click(listener);
 };
 
 // Remove the line numbers
@@ -216,6 +241,9 @@ haste.prototype.loadDocument = function(key) {
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
       _this.addLineNumbers(ret.lineCount);
+      if (typeof window.location.hash != 'undefined' && window.location.hash != "") {
+        _this.goToLine();
+      }
     }
     else {
       _this.newDocument();

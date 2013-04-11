@@ -18,7 +18,8 @@
 			// Handle pops
 			var handlePop = function(evt) {
 				var path = evt.target.location.pathname;
-				if (path === '/') { app.newDocument(true); }
+				if (app.ignoreLast) { app.ignoreLast = false; }
+				else if (path === '/') { app.newDocument(true); }
 				else { app.loadDocument(path.substring(1, path.length)); }
 			};
 			// Set up the pop state to handle loads, skipping the first load

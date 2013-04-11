@@ -22,8 +22,7 @@ textarea {
 /* the line numbers */
 
 #linenos {
-  color: #7d7d7d;
-	z-index: -1000;
+	color: #7d7d7d;
 	position: absolute;
 	top: 20px;
 	left: 0px;
@@ -31,6 +30,14 @@ textarea {
 	font-size: 13px;
 	font-family: monospace;
 	text-align: right;
+}
+
+#linenos span {
+	cursor: pointer;
+}
+
+#linenos .highlight {
+	color: #dfdfe9;
 }
 
 /* code box when locked */
