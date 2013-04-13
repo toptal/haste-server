@@ -194,9 +194,10 @@ haste.prototype.goToLine = function(lineNum) {
   // If there was a line before, remove the highlight from it
   if (typeof this.line != 'undefined') {
     this.line.removeClass("highlight");
+    $(".line[rel='L"+ lineNum +"']").removeClass("highlight");
   }
   // Scroll to the line and add a highlight to it
-  this.line = $("#linenos span[rel='#L"+ lineNum +"']").addClass("highlight");
+  this.line = $("#linenos span[rel='#L"+ lineNum +"'], .line[rel='L"+ lineNum +"']").addClass("highlight");
   window.scrollTo(0, this.line.offset().top);
 };
 
@@ -226,6 +227,16 @@ haste.prototype.removeLineNumbers = function() {
   $('#linenos').html('&gt;');
 };
 
+// Injects code with line spans in to the code box
+haste.prototype.setCode = function(code) {
+  var lines = new Array();
+  $.each(code.split("\n"), function (index, value) {
+    var index = index + 1; // Because line numbers aren't 0 based :)
+    lines[index] = "<span class='line' rel='L" + index + "'>" + value + "</span>\n";
+  });
+  this.$code.html(lines.join(""));
+}
+
 // Load a document and show it
 haste.prototype.loadDocument = function(key) {
   // Split the key up
@@ -235,7 +246,7 @@ haste.prototype.loadDocument = function(key) {
   _this.doc = new haste_document();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
-      _this.$code.html(ret.value);
+      _this.setCode(ret.value);
       _this.setTitle(ret.key);
       _this.fullKey();
       _this.$textarea.val('').hide();
@@ -268,7 +279,7 @@ haste.prototype.lockDocument = function() {
       _this.showMessage(err.message, 'error');
     }
     else if (ret) {
-      _this.$code.html(ret.value);
+      _this.setCode(ret.value);
       _this.setTitle(ret.key);
       var file = '/' + ret.key;
       if (ret.language) {

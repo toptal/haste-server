@@ -98,3 +98,7 @@ pre .tex .formula,
 pre .code {
   background: #073642;
 }
+
+.line.highlight {
+  background-color: #004A5E;
+}
