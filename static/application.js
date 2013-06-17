@@ -1,11 +1,11 @@
 ///// represents a single document
 
-var haste_document = function() {
+var HasteDocument = function() {
   this.locked = false;
 };
 
 // Escapes HTML tag characters
-haste_document.prototype.htmlEscape = function(s) {
+HasteDocument.prototype.htmlEscape = function(s) {
   return s
     .replace(/&/g, '&amp;')
     .replace(/>/g, '&gt;')
@@ -14,7 +14,7 @@ haste_document.prototype.htmlEscape = function(s) {
 };
 
 // Get this document from the server and lock it here
-haste_document.prototype.load = function(key, callback, lang) {
+HasteDocument.prototype.load = function(key, callback, lang) {
   var _this = this;
   $.ajax('/documents/' + key, {
     type: 'get',
@@ -52,7 +52,7 @@ haste_document.prototype.load = function(key, callback, lang) {
 };
 
 // Save this document to the server and lock it here
-haste_document.prototype.save = function(data, callback) {
+HasteDocument.prototype.save = function(data, callback) {
   if (this.locked) {
     return false;
   }
@@ -146,7 +146,7 @@ haste.prototype.configureKey = function(enable) {
 // and set up for a new one
 haste.prototype.newDocument = function(hideHistory) {
   this.$box.hide();
-  this.doc = new haste_document();
+  this.doc = new HasteDocument();
   if (!hideHistory) {
     window.history.pushState(null, this.appName, '/');
   }
@@ -207,7 +207,7 @@ haste.prototype.loadDocument = function(key) {
   var parts = key.split('.', 2);
   // Ask for what we want
   var _this = this;
-  _this.doc = new haste_document();
+  _this.doc = new HasteDocument();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
@@ -263,7 +263,8 @@ haste.prototype.configureButtons = function() {
       label: 'Save',
       shortcutDescription: 'control + s',
       shortcut: function(evt) {
-        return evt.ctrlKey && (evt.keyCode === 83);
+
+        return (evt.ctrlKey || evt.metaKey) && evt.keyCode === 83;
       },
       action: function() {
         if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
