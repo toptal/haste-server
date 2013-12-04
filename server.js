@@ -116,8 +116,10 @@ connect.createServer(
     // get documents
     app.get('/documents/:id', function(request, response, next) {
       var skipExpire = !!config.documents[request.params.id];
+      var parsedUrl = url.parse(request.url, true);
       return documentHandler.handleGet(
         request.params.id,
+        parsedUrl.query.callback,
         response,
         skipExpire
       );
