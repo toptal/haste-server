@@ -1,11 +1,16 @@
 {
-  "name": "haste",
+  "name": "C_Haste",
   "version": "0.1.0",
   "private": true,
-  "description": "Private Pastebin Server",
+  "description": "Hastbin modified by michidk/CodeBukkit",
   "keywords": [
     "paste",
-    "pastebin"
+    "pastebin",
+    "haste",
+    "hastebin",
+    "michidk",
+    "xxmicloxx",
+    "CodeBukkit"
   ],
   "author": {
     "name": "John Crepezzi",
