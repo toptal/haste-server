@@ -50,7 +50,7 @@ pastes.
 
 ## Open Source
 
-Haste can easily be installed behind your network, and its all open source!
+Haste can easily be installed behind your network, and it's all open source!
 
 * [haste-client](https://github.com/seejohnrun/haste-client)
 * [haste-server](https://github.com/seejohnrun/haste-server)
