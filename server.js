@@ -1,16 +1,12 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
+var config = require('config');
 
 var winston = require('winston');
 var connect = require('connect');
 
 var DocumentHandler = require('./lib/document_handler');
-
-// Load the configuration and set some defaults
-var config = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
-config.port = process.env.PORT || config.port || 7777;
-config.host = process.env.HOST || config.host || 'localhost';
 
 // Set up the logger
 if (config.logging) {
