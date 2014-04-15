@@ -33,6 +33,7 @@
 			$(function() {
 				app = new haste('hastebin', { twitter: true });
 				handlePop({ target: window });
+				$(window).bind("resize", function() {app.resize();});
 			});
 		</script>
 
@@ -62,7 +63,8 @@
 		<div id="linenos"></div>
 		<pre id="box" style="display:none;" tabindex="0"><code></code></pre>
 		<textarea spellcheck="false" style="display:none;"></textarea>
-
+		<div id="sandbox">
+		</div>
 	</body>
 
 </html>

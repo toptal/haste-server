@@ -39,10 +39,10 @@ haste_document.prototype.load = function(key, callback, lang) {
         high = hljs.highlightAuto(res.data);
       }
       callback({
+        data: res.data,
         value: high.value,
         key: key,
-        language: high.language || lang,
-        lineCount: res.data.split("\n").length
+        language: high.language || lang
       });
     },
     error: function(err) {
@@ -70,8 +70,7 @@ haste_document.prototype.save = function(data, callback) {
       callback(null, {
         value: high.value,
         key: res.key,
-        language: high.language,
-        lineCount: data.split("\n").length
+        language: high.language
       });
     },
     error: function(res) {
@@ -188,17 +187,43 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 
 // Add line numbers to the document
 // For the specified number of lines
-haste.prototype.addLineNumbers = function(lineCount) {
+haste.prototype.addLineNumbers = function(data) {
   var h = '';
+  var nlines = 0;
+  var lines = data.split("\n");
+  var lineCount = lines.length;
+  var cwidth = this.getCharacterWidth();
+  var code_width = $("code").width();
+
   for (var i = 0; i < lineCount; i++) {
+    if(i>0) {
+      nlines = Math.ceil((cwidth*lines[i-1].length)/code_width);
+      for(j=0;j<nlines-1;j++) {
+        h += "<br/>";
+      }
+    }
     h += (i + 1).toString() + '<br/>';
   }
   $('#linenos').html(h);
 };
 
+haste.prototype.getCharacterWidth = function() {
+  var $div = $("#sandbox");
+  $div.html('a');
+  $div.css('width','auto')
+      .css('font', $("code").css('font'))
+      .css('display', 'none')
+      .css('position','absolute');
+  return $div.width();
+};
+
 // Remove the line numbers
 haste.prototype.removeLineNumbers = function() {
   $('#linenos').html('&gt;');
+};
+
+haste.prototype.resize = function() {
+  this.addLineNumbers(this.doc.data);
 };
 
 // Load a document and show it
@@ -215,7 +240,7 @@ haste.prototype.loadDocument = function(key) {
       _this.fullKey();
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
-      _this.addLineNumbers(ret.lineCount);
+      _this.addLineNumbers(ret.data);
     }
     else {
       _this.newDocument();
@@ -250,7 +275,7 @@ haste.prototype.lockDocument = function() {
       _this.fullKey();
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
-      _this.addLineNumbers(ret.lineCount);
+      _this.addLineNumbers(ret.data);
     }
   });
 };
