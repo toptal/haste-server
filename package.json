@@ -18,7 +18,8 @@
     "connect": "1.9.2",
     "redis-url": "0.1.0",
     "redis": "0.8.1",
-    "uglify-js": "1.3.3"
+    "uglify-js": "1.3.3",
+    "busboy": "0.2.4"
   },
   "devDependencies": {
     "mocha": "*",
