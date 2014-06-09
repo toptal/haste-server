@@ -37,7 +37,7 @@ if (!config.storage.type) {
 
 var Store, preferredStore;
 
-if (process.env.REDISTOGO_URL) {
+if (process.env.REDISTOGO_URL && config.storage.type === 'redis') {
   var redisClient = require('redis-url').connect(process.env.REDISTOGO_URL);
   Store = require('./lib/document_stores/redis');
   preferredStore = new Store(config.storage, redisClient);
