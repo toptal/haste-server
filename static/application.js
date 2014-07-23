@@ -275,7 +275,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .new'),
       label: 'New',
       shortcut: function(evt) {
-        return evt.ctrlKey && evt.keyCode === 78  
+        return evt.ctrlKey && evt.keyCode === 78;
       },
       shortcutDescription: 'control + n',
       action: function() {
@@ -363,7 +363,7 @@ haste.prototype.configureShortcuts = function() {
 $(function() {
 
   $('textarea').keydown(function(evt) {
-    if (evt.keyCode === 9) {
+    if (evt.keyCode === 9 && ! evt.ctrlKey) {
       evt.preventDefault();
       var myValue = '  ';
       // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery
