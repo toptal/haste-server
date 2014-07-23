@@ -362,12 +362,13 @@ haste.prototype.configureShortcuts = function() {
 ///// Tab behavior in the textarea - 2 spaces per tab
 $(function() {
   $('textarea').keydown(function(evt) {
+    var sel, startPos, endPos, scrollTop,
+        myValue = '  ';
     if (evt.ctrlKey || evt.keyCode !== 9) {
       return true;
     }
 
     evt.preventDefault();
-    var myValue = '  ';
     // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery
     // For browsers like Internet Explorer
     if (document.selection) {
@@ -378,9 +379,9 @@ $(function() {
     }
     // Mozilla and Webkit
     else if (this.selectionStart || this.selectionStart == '0') {
-      var startPos = this.selectionStart;
-      var endPos = this.selectionEnd;
-      var scrollTop = this.scrollTop;
+      startPos = this.selectionStart;
+      endPos = this.selectionEnd;
+      scrollTop = this.scrollTop;
       this.value = this.value.substring(0, startPos) + myValue +
         this.value.substring(endPos,this.value.length);
       this.focus();
