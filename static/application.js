@@ -361,35 +361,36 @@ haste.prototype.configureShortcuts = function() {
 
 ///// Tab behavior in the textarea - 2 spaces per tab
 $(function() {
-
   $('textarea').keydown(function(evt) {
-    if (evt.keyCode === 9 && ! evt.ctrlKey) {
-      evt.preventDefault();
-      var myValue = '  ';
-      // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery
-      // For browsers like Internet Explorer
-      if (document.selection) {
-        this.focus();
-        sel = document.selection.createRange();
-        sel.text = myValue;
-        this.focus();
-      }
-      // Mozilla and Webkit
-      else if (this.selectionStart || this.selectionStart == '0') {
-        var startPos = this.selectionStart;
-        var endPos = this.selectionEnd;
-        var scrollTop = this.scrollTop;
-        this.value = this.value.substring(0, startPos) + myValue +
-          this.value.substring(endPos,this.value.length);
-        this.focus();
-        this.selectionStart = startPos + myValue.length;
-        this.selectionEnd = startPos + myValue.length;
-        this.scrollTop = scrollTop;
-      }
-      else {
-        this.value += myValue;
-        this.focus();
-      }
+    if (evt.ctrlKey || evt.keyCode !== 9) {
+      return true;
+    }
+
+    evt.preventDefault();
+    var myValue = '  ';
+    // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery
+    // For browsers like Internet Explorer
+    if (document.selection) {
+      this.focus();
+      sel = document.selection.createRange();
+      sel.text = myValue;
+      this.focus();
+    }
+    // Mozilla and Webkit
+    else if (this.selectionStart || this.selectionStart == '0') {
+      var startPos = this.selectionStart;
+      var endPos = this.selectionEnd;
+      var scrollTop = this.scrollTop;
+      this.value = this.value.substring(0, startPos) + myValue +
+        this.value.substring(endPos,this.value.length);
+      this.focus();
+      this.selectionStart = startPos + myValue.length;
+      this.selectionEnd = startPos + myValue.length;
+      this.scrollTop = scrollTop;
+    }
+    else {
+      this.value += myValue;
+      this.focus();
     }
   });
 
