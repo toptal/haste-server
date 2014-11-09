@@ -1,0 +1,12 @@
+diff -rupN static-orig/application.js static/application.js
+--- static-orig/application.js	2014-11-07 00:28:04.326519263 +0100
++++ static/application.js	2014-11-09 00:02:28.498067362 +0100
+@@ -365,7 +365,7 @@ $(function() {
+   $('textarea').keydown(function(evt) {
+     if (evt.keyCode === 9) {
+       evt.preventDefault();
+-      var myValue = '  ';
++      var myValue = '    ';
+       // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery
+       // For browsers like Internet Explorer
+       if (document.selection) {
