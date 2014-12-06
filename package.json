@@ -19,7 +19,8 @@
     "redis-url": "0.1.0",
     "redis": "0.8.1",
     "uglify-js": "1.3.3",
-    "busboy": "0.2.4"
+    "busboy": "0.2.4",
+	 "yargs": "1.3.3"
   },
   "devDependencies": {
     "mocha": "*",

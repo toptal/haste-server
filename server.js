@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
@@ -5,10 +7,21 @@ var fs = require('fs');
 var winston = require('winston');
 var connect = require('connect');
 
-var DocumentHandler = require('./lib/document_handler');
+var argv = require('yargs')
+	.alias('c', 'config')
+	.alias('d', 'docroot')
+	.describe('c', 'Load config from file')
+	.describe('d', 'Document root for static content')
+	.argv;
+
+var docroot = argv.docroot;
+
+var DocumentHandler = require(docroot + '/lib/document_handler');
 
 // Load the configuration and set some defaults
-var config = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
+//var confStatic = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
+var config = JSON.parse(fs.readFileSync(argv.config, 'utf8'));
+//var config = confArg //|| confStatic;
 config.port = process.env.PORT || config.port || 7777;
 config.host = process.env.HOST || config.host || 'localhost';
 
@@ -39,11 +52,11 @@ var Store, preferredStore;
 
 if (process.env.REDISTOGO_URL && config.storage.type === 'redis') {
   var redisClient = require('redis-url').connect(process.env.REDISTOGO_URL);
-  Store = require('./lib/document_stores/redis');
+  Store = require(docroot + '/lib/document_stores/redis');
   preferredStore = new Store(config.storage, redisClient);
 }
 else {
-  Store = require('./lib/document_stores/' + config.storage.type);
+  Store = require(docroot + '/lib/document_stores/' + config.storage.type);
   preferredStore = new Store(config.storage);
 }
 
@@ -51,7 +64,7 @@ else {
 if (config.recompressStaticAssets) {
   var jsp = require("uglify-js").parser;
   var pro = require("uglify-js").uglify;
-  var list = fs.readdirSync('./static');
+  var list = fs.readdirSync(docroot + '/static');
   for (var i = 0; i < list.length; i++) {
     var item = list[i];
     var orig_code, ast;
@@ -59,11 +72,11 @@ if (config.recompressStaticAssets) {
         (item.indexOf('.min.js') === -1)) {
       dest = item.substring(0, item.length - 3) + '.min' +
         item.substring(item.length - 3);
-      orig_code = fs.readFileSync('./static/' + item, 'utf8');
+      orig_code = fs.readFileSync(docroot + '/static/' + item, 'utf8');
       ast = jsp.parse(orig_code);
       ast = pro.ast_mangle(ast);
       ast = pro.ast_squeeze(ast);
-      fs.writeFileSync('./static/' + dest, pro.gen_code(ast), 'utf8');
+      fs.writeFileSync(docroot + '/static/' + dest, pro.gen_code(ast), 'utf8');
       winston.info('compressed ' + item + ' into ' + dest);
     }
   }
@@ -88,7 +101,7 @@ for (var name in config.documents) {
 // Pick up a key generator
 var pwOptions = config.keyGenerator || {};
 pwOptions.type = pwOptions.type || 'random';
-var gen = require('./lib/key_generators/' + pwOptions.type);
+var gen = require(docroot + '/lib/key_generators/' + pwOptions.type);
 var keyGenerator = new gen(pwOptions);
 
 // Configure the document handler

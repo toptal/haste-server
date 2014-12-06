@@ -32,7 +32,7 @@
   },
 
   "documents": {
-    "about": "./about.md"
+    "about": "/data/applications/haste-server/about.md"
   }
 
 }
