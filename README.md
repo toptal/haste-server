@@ -123,7 +123,7 @@ Once you've done that, your config section should look like:
 ``` json
 {
   "type": "postgres",
-  "connectionUrl": "postgres://user:password@host:5432/database
+  "connectionUrl": "postgres://user:password@host:5432/database"
 }
 ```
 
