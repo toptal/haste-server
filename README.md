@@ -31,7 +31,8 @@ STDOUT.  Check the README there for more details and usages.
 1.  Download the package, and expand it
 2.  Explore the settings inside of config.js, but the defaults should be good
 3.  `npm install`
-4.  `npm start`
+4.  install the `redis` storage using your system package manager or with `npm install redis`
+5.  `npm start`
 
 ## Settings
 
