@@ -23,6 +23,15 @@
     "type": "phonetic"
   },
 
+  "rateLimits": {
+    "categories": {
+      "normal": {
+        "totalRequests": 500,
+        "every": 60000
+      }
+    }
+  },
+
   "storage": {
     "type": "redis",
     "host": "0.0.0.0",

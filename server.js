@@ -4,6 +4,9 @@ var fs = require('fs');
 
 var winston = require('winston');
 var connect = require('connect');
+var route = require('connect-route');
+var connect_st = require('st');
+var connect_rate_limit = require('connect-ratelimit');
 
 var DocumentHandler = require('./lib/document_handler');
 
@@ -99,42 +102,61 @@ var documentHandler = new DocumentHandler({
   keyGenerator: keyGenerator
 });
 
-// Set the server up with a static cache
-connect.createServer(
-  // First look for api calls
-  connect.router(function(app) {
-    // get raw documents - support getting with extension
-    app.get('/raw/:id', function(request, response, next) {
-      var skipExpire = !!config.documents[request.params.id];
-      var key = request.params.id.split('.')[0];
-      return documentHandler.handleRawGet(key, response, skipExpire);
-    });
-    // add documents
-    app.post('/documents', function(request, response, next) {
-      return documentHandler.handlePost(request, response);
-    });
-    // get documents
-    app.get('/documents/:id', function(request, response, next) {
-      var skipExpire = !!config.documents[request.params.id];
-      return documentHandler.handleGet(
-        request.params.id,
-        response,
-        skipExpire
-      );
-    });
-  }),
-  // Otherwise, static
-  connect.staticCache(),
-  connect.static(__dirname + '/static', { maxAge: config.staticMaxAge }),
-  // Then we can loop back - and everything else should be a token,
-  // so route it back to /index.html
-  connect.router(function(app) {
-    app.get('/:id', function(request, response, next) {
-      request.url = request.originalUrl = '/index.html';
-      next();
-    });
-  }),
-  connect.static(__dirname + '/static', { maxAge: config.staticMaxAge })
-).listen(config.port, config.host);
+var app = connect();
+
+// Rate limit all requests
+if (config.rateLimits) {
+  config.rateLimits.end = true;
+  app.use(connect_rate_limit(config.rateLimits));
+}
+
+// first look at API calls
+app.use(route(function(router) {
+  // get raw documents - support getting with extension
+  router.get('/raw/:id', function(request, response, next) {
+    var skipExpire = !!config.documents[request.params.id];
+    var key = request.params.id.split('.')[0];
+    return documentHandler.handleRawGet(key, response, skipExpire);
+  });
+  // add documents
+  router.post('/documents', function(request, response, next) {
+    return documentHandler.handlePost(request, response);
+  });
+  // get documents
+  router.get('/documents/:id', function(request, response, next) {
+    var skipExpire = !!config.documents[request.params.id];
+    return documentHandler.handleGet(
+      request.params.id,
+      response,
+      skipExpire
+    );
+  });
+}));
+
+// Otherwise, try to match static files
+app.use(connect_st({
+  path: __dirname + '/static',
+  content: { maxAge: config.staticMaxAge },
+  passthrough: true,
+  index: false
+}));
+
+// Then we can loop back - and everything else should be a token,
+// so route it back to /
+app.use(route(function(router) {
+  router.get('/:id', function(request, response, next) {
+    request.sturl = '/';
+    next();
+  });
+}));
+
+// And match index
+app.use(connect_st({
+  path: __dirname + '/static',
+  content: { maxAge: config.staticMaxAge },
+  index: 'index.html'
+}));
+
+http.createServer(app).listen(config.port, config.host);
 
 winston.info('listening on ' + config.host + ':' + config.port);
