@@ -46,6 +46,16 @@ STDOUT.  Check the README there for more details and usages.
 * `storage` - storage options (see below)
 * `logging` - logging preferences
 * `keyGenerator` - key generator options (see below)
+* `rateLimits` - settings for rate limiting (see below)
+
+## Rate Limiting
+
+When present, the `rateLimits` option enables built-in rate limiting courtesy
+of `connect-ratelimit`.  Any of the options supported by that library can be
+used and set in `config.json`.
+
+See the README for [connect-ratelimit](https://github.com/dharmafly/connect-ratelimit)
+for more information!
 
 ## Key Generation
 
