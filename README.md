@@ -171,10 +171,6 @@ forward on GETs.
 
 All of which are optional except `type` with very logical default values.
 
-## External Providers
-
-* You can get a hastebin setup quickly via [Cloudron](https://cloudron.io/appstore.html#com.hastebin.cloudronapp)
-
 ## Author
 
 John Crepezzi <john.crepezzi@gmail.com>
