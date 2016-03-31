@@ -7,6 +7,8 @@ body {
 /* textarea */
 
 textarea {
+	position: absolute;
+	top: 120px;
 	background: transparent;
 	border: 0px;
 	color: #fff;
@@ -22,10 +24,10 @@ textarea {
 /* the line numbers */
 
 #linenos {
-  color: #7d7d7d;
+  	color: #7d7d7d;
 	z-index: -1000;
 	position: absolute;
-	top: 20px;
+	top: 120px;
 	left: 0px;
 	width: 30px; /* 30 to get 20 away from box */
 	font-size: 13px;
@@ -36,6 +38,8 @@ textarea {
 /* code box when locked */
 
 #box {
+	position: absolute;
+	top: 120px;
 	padding: 0px;
 	margin: 0px;
 	width: 100%;
@@ -53,9 +57,7 @@ textarea {
 /* key */
 
 #key {
-	position: fixed;
-	top: 0px;
-	right: 0px;
+	margin: auto;
 	z-index: +1000; /* watch out */
 }
 
@@ -69,6 +71,7 @@ textarea {
 	background: #08323c;
 	font-size: 0px;
 	padding: 0px 5px;
+	text-align: right;
 }
 
 #box1 a.logo, #box1 a.logo:visited {
@@ -111,7 +114,10 @@ textarea {
 	right: 0px;
 }
 
-#box3, #messages li {
+#box3 {
+	position: fixed;
+	right: 50px;
+	width: 140px;
 	background: #173e48;
 	font-family: Helvetica, sans-serif;
 	font-size: 12px;
