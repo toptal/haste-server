@@ -8,6 +8,8 @@ var route = require('connect-route');
 var connect_st = require('st');
 var connect_rate_limit = require('connect-ratelimit');
 
+var RAW_USER_AGENTS = /(curl|wget|httpie|lwp-request)/i;
+
 var DocumentHandler = require('./lib/document_handler');
 
 // Load the configuration and set some defaults
@@ -125,11 +127,11 @@ app.use(route(function(router) {
   // get documents
   router.get('/documents/:id', function(request, response, next) {
     var skipExpire = !!config.documents[request.params.id];
-    return documentHandler.handleGet(
-      request.params.id,
-      response,
-      skipExpire
-    );
+    var args = [request.params.id, response, skipExpire];
+    var fn = RAW_USER_AGENTS.test(request.headers['user-agent'] || '')
+               ? documentHandler.handleRawGet
+               : documentHandler.handleGet;
+    return fn.apply(documentHandler, args);
   });
 }));
 
