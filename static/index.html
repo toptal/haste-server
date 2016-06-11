@@ -4,7 +4,7 @@
 
 		<title>hastebin</title>
 
-		<link rel="stylesheet" type="text/css" href="solarized_dark.css"/>
+		<link rel="stylesheet" type="text/css" href="themes.css"/>
 		<link rel="stylesheet" type="text/css" href="application.css"/>
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -33,6 +33,17 @@
 			$(function() {
 				app = new haste('hastebin', { twitter: true });
 				handlePop({ target: window });
+
+				$('.dropdown dt span').click(function() {
+					$('.dropdown dd ul').toggle();
+				});
+
+				$('.dropdown dd ul li > span').click(function() {
+					$('.dropdown dd ul').hide();
+					app.setTheme($(this).find('.value').text());
+				});
+
+				app.setTheme($('.dropdown dd ul li:first > span .value').text());
 			});
 		</script>
 
@@ -54,8 +65,24 @@
 				<div class="twitter function"></div>
 			</div>
 			<div id="box3" style="display:none;">
-				<div class="label"></div>
-				<div class="shortcut"></div>
+				<div class="function-info">
+					<div class="label"></div>
+					<div class="shortcut"></div>
+				</div>
+			</div>
+			<div id="box4">
+				<div class="theme"></div>
+				<dl class="dropdown">
+					<dt>
+						<span>Theme</span></dt>
+					<dd>
+						<ul>
+							<li><span><span class="selected-theme">&bull;</span>Solarized Dark<span class="value">solarized-dark</span></span></li>
+							<li><span><span class="selected-theme">&bull;</span>Tomorrow<span class="value">tomorrow</span></span></li>
+							<li><span><span class="selected-theme">&bull;</span>Tomorrow Night<span class="value">tomorrow-night</span></span></li>
+						</ul>
+					</dd>
+				</dl>
 			</div>
 		</div>
 

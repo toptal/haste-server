@@ -1,101 +1,256 @@
 /*
- *
  * Solarized Dark
  * Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmail.com>
- *
  */
 
-solarized-dark pre code {
-  display: block; padding: 0.5em;
-  background: #002b36; color: #92a0a0;
+.solarized-dark {
+  background: #002b36;
+  color: #92a0a0;
 }
 
-solarized-dark pre .comment,
-solarized-dark pre .template_comment,
-solarized-dark pre .diff .header,
-solarized-dark pre .doctype,
-solarized-dark pre .lisp .string,
-solarized-dark pre .javadoc {
+.solarized-dark pre .comment,
+.solarized-dark pre .template_comment,
+.solarized-dark pre .diff .header,
+.solarized-dark pre .doctype,
+.solarized-dark pre .lisp .string,
+.solarized-dark pre .javadoc {
   color: #586e75;
   font-style: italic;
   display: inline-block;
   line-height: 1em;
 }
 
-solarized-dark pre .keyword,
-solarized-dark pre .css .rule .keyword,
-solarized-dark pre .winutils,
-solarized-dark pre .javascript .title,
-solarized-dark pre .method,
-solarized-dark pre .addition,
-solarized-dark pre .css .tag,
-solarized-dark pre .lisp .title {
+.solarized-dark pre .keyword,
+.solarized-dark pre .css .rule .keyword,
+.solarized-dark pre .winutils,
+.solarized-dark pre .javascript .title,
+.solarized-dark pre .method,
+.solarized-dark pre .addition,
+.solarized-dark pre .css .tag,
+.solarized-dark pre .lisp .title {
   color: #859900;
 }
 
-solarized-dark pre .number,
-solarized-dark pre .command,
-solarized-dark pre .string,
-solarized-dark pre .tag .value,
-solarized-dark pre .phpdoc,
-solarized-dark pre .tex .formula,
-solarized-dark pre .regexp,
-solarized-dark pre .hexcolor {
+.solarized-dark pre .number,
+.solarized-dark pre .command,
+.solarized-dark pre .string,
+.solarized-dark pre .tag .value,
+.solarized-dark pre .phpdoc,
+.solarized-dark pre .tex .formula,
+.solarized-dark pre .regexp,
+.solarized-dark pre .hexcolor {
   color: #2aa198;
 }
 
-solarized-dark pre .title,
-solarized-dark pre .localvars,
-solarized-dark pre .function .title,
-solarized-dark pre .chunk,
-solarized-dark pre .decorator,
-solarized-dark pre .builtin,
-solarized-dark pre .built_in,
-solarized-dark pre .lisp .title,
-solarized-dark pre .identifier,
-solarized-dark pre .title .keymethods,
-solarized-dark pre .id,
-solarized-dark pre .header {
+.solarized-dark pre .title,
+.solarized-dark pre .localvars,
+.solarized-dark pre .function .title,
+.solarized-dark pre .chunk,
+.solarized-dark pre .decorator,
+.solarized-dark pre .builtin,
+.solarized-dark pre .built_in,
+.solarized-dark pre .lisp .title,
+.solarized-dark pre .identifier,
+.solarized-dark pre .title .keymethods,
+.solarized-dark pre .id,
+.solarized-dark pre .header {
   color: #268bd2;
 }
 
-solarized-dark pre .tag .title,
-solarized-dark pre .rules .property,
-solarized-dark pre .django .tag .keyword {
+.solarized-dark pre .tag .title,
+.solarized-dark pre .rules .property,
+.solarized-dark pre .django .tag .keyword {
   font-weight: bold;
 }
 
-solarized-dark pre .attribute,
-solarized-dark pre .variable,
-solarized-dark pre .instancevar,
-solarized-dark pre .lisp .body,
-solarized-dark pre .smalltalk .number,
-solarized-dark pre .constant,
-solarized-dark pre .class .title,
-solarized-dark pre .parent,
-solarized-dark pre .haskell .label {
+.solarized-dark pre .attribute,
+.solarized-dark pre .variable,
+.solarized-dark pre .instancevar,
+.solarized-dark pre .lisp .body,
+.solarized-dark pre .smalltalk .number,
+.solarized-dark pre .constant,
+.solarized-dark pre .class .title,
+.solarized-dark pre .parent,
+.solarized-dark pre .haskell .label {
   color: #b58900;
 }
 
-solarized-dark pre .preprocessor,
-solarized-dark pre .pi,
-solarized-dark pre .shebang,
-solarized-dark pre .symbol,
-solarized-dark pre .diff .change,
-solarized-dark pre .special,
-solarized-dark pre .keymethods,
-solarized-dark pre .attr_selector,
-solarized-dark pre .important,
-solarized-dark pre .subst,
-solarized-dark pre .cdata {
+.solarized-dark pre .preprocessor,
+.solarized-dark pre .pi,
+.solarized-dark pre .shebang,
+.solarized-dark pre .symbol,
+.solarized-dark pre .diff .change,
+.solarized-dark pre .special,
+.solarized-dark pre .keymethods,
+.solarized-dark pre .attr_selector,
+.solarized-dark pre .important,
+.solarized-dark pre .subst,
+.solarized-dark pre .cdata {
   color: #cb4b16;
 }
 
-solarized-dark pre .deletion {
+.solarized-dark pre .deletion {
   color: #dc322f;
 }
 
-solarized-dark pre .tex .formula,
-solarized-dark pre .code {
+.solarized-dark pre .tex .formula,
+.solarized-dark pre .code {
   background: #073642;
+}
+
+
+/*
+ * Tomorrow
+ * http://jmblog.github.com/color-themes-for-google-code-highlightjs
+ * Original theme - https://github.com/chriskempson/tomorrow-theme
+ * http://jmblog.github.com/color-themes-for-google-code-highlightjs
+ */
+
+.tomorrow pre .comment,
+.tomorrow pre .title {
+  color: #8e908c;
+}
+
+.tomorrow pre .variable,
+.tomorrow pre .attribute,
+.tomorrow pre .tag,
+.tomorrow pre .regexp,
+.tomorrow pre .ruby .constant,
+.tomorrow pre .xml .tag .title,
+.tomorrow pre .xml .pi,
+.tomorrow pre .xml .doctype,
+.tomorrow pre .html .doctype,
+.tomorrow pre .css .id,
+.tomorrow pre .css .class,
+.tomorrow pre .css .pseudo {
+  color: #c82829;
+}
+
+.tomorrow pre .number,
+.tomorrow pre .preprocessor,
+.tomorrow pre .built_in,
+.tomorrow pre .literal,
+.tomorrow pre .params,
+.tomorrow pre .constant {
+  color: #f5871f;
+}
+
+.tomorrow pre .class,
+.tomorrow pre .ruby .class .title,
+.tomorrow pre .css .rules .attribute {
+  color: #eab700;
+}
+
+.tomorrow pre .string,
+.tomorrow pre .value,
+.tomorrow pre .inheritance,
+.tomorrow pre .header,
+.tomorrow pre .ruby .symbol,
+.tomorrow pre .xml .cdata {
+  color: #718c00;
+}
+
+.tomorrow pre .css .hexcolor {
+  color: #3e999f;
+}
+
+.tomorrow pre .function,
+.tomorrow pre .python .decorator,
+.tomorrow pre .python .title,
+.tomorrow pre .ruby .function .title,
+.tomorrow pre .ruby .title .keyword,
+.tomorrow pre .perl .sub,
+.tomorrow pre .javascript .title,
+.tomorrow pre .coffeescript .title {
+  color: #4271ae;
+}
+
+.tomorrow pre .keyword,
+.tomorrow pre .javascript .function {
+  color: #8959a8;
+}
+
+.tomorrow {
+  background: white;
+  color: #4d4d4c;
+  font-family: Menlo, Monaco, Consolas, monospace;
+}
+
+
+
+/*
+ * Tomorrow Night
+ * http://jmblog.github.com/color-themes-for-google-code-highlightjs
+ * Original theme - https://github.com/chriskempson/tomorrow-theme
+ * http://jmblog.github.com/color-themes-for-google-code-highlightjs
+ */
+
+.tomorrow-night pre .comment,
+.tomorrow-night pre .title {
+  color: #969896;
+}
+
+.tomorrow-night pre .variable,
+.tomorrow-night pre .attribute,
+.tomorrow-night pre .tag,
+.tomorrow-night pre .regexp,
+.tomorrow-night pre .ruby .constant,
+.tomorrow-night pre .xml .tag .title,
+.tomorrow-night pre .xml .pi,
+.tomorrow-night pre .xml .doctype,
+.tomorrow-night pre .html .doctype,
+.tomorrow-night pre .css .id,
+.tomorrow-night pre .css .class,
+.tomorrow-night pre .css .pseudo {
+  color: #cc6666;
+}
+
+.tomorrow-night pre .number,
+.tomorrow-night pre .preprocessor,
+.tomorrow-night pre .built_in,
+.tomorrow-night pre .literal,
+.tomorrow-night pre .params,
+.tomorrow-night pre .constant {
+  color: #de935f;
+}
+
+.tomorrow-night pre .class,
+.tomorrow-night pre .ruby .class .title,
+.tomorrow-night pre .css .rules .attribute {
+  color: #f0c674;
+}
+
+.tomorrow-night pre .string,
+.tomorrow-night pre .value,
+.tomorrow-night pre .inheritance,
+.tomorrow-night pre .header,
+.tomorrow-night pre .ruby .symbol,
+.tomorrow-night pre .xml .cdata {
+  color: #b5bd68;
+}
+
+.tomorrow-night pre .css .hexcolor {
+  color: #8abeb7;
+}
+
+.tomorrow-night pre .function,
+.tomorrow-night pre .python .decorator,
+.tomorrow-night pre .python .title,
+.tomorrow-night pre .ruby .function .title,
+.tomorrow-night pre .ruby .title .keyword,
+.tomorrow-night pre .perl .sub,
+.tomorrow-night pre .javascript .title,
+.tomorrow-night pre .coffeescript .title {
+  color: #81a2be;
+}
+
+.tomorrow-night pre .keyword,
+.tomorrow-night pre .javascript .function {
+  color: #b294bb;
+}
+
+.tomorrow-night {
+  background: #1d1f21;
+  color: #c5c8c6;
+  font-family: Menlo, Monaco, Consolas, monospace;
 }

@@ -43,11 +43,20 @@ textarea {
 	outline: none;
 	font-size: 13px;
 	padding-right: 360px;
+	box-sizing: border-box;
 }
 
 #box code {
 	padding: 0px;
-	background: transparent !important; /* don't hide hastebox */
+	background: transparent;
+}
+
+body,
+#box code * {
+    -webkit-transition: background-color 0.25s linear, color 0.25s linear;
+    -moz-transition: background-color 0.25s linear, color 0.25s linear;
+    -o-transition: background-color 0.25s linear, color 0.25s linear;
+	transition: background-color 0.25s linear, color 0.25s linear;
 }
 
 /* key */
@@ -111,7 +120,18 @@ textarea {
 	right: 0px;
 }
 
-#box3, #messages li {
+#box3 {
+	position: relative;
+	width: 100%;
+	height: 0;
+	z-index: 3;
+}
+
+#box3 .function-info, #messages li {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
 	background: #173e48;
 	font-family: Helvetica, sans-serif;
 	font-size: 12px;
@@ -148,6 +168,106 @@ textarea {
 #box2 .function.twitter { background-position: -153px top; }
 #box2 .function.enabled.twitter { background-position: -153px center; }
 #box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
+
+#box4 {
+	height: 37px;
+	background-color: #08323c;
+	position: relative;
+}
+
+#box4 .theme {
+	pointer-events: none;
+	background: url(function-icons.png);
+	background-position: -190px center;
+	width: 32px;
+	height: 37px;
+	display: inline-block;
+	position: absolute;
+	left: 5px;
+	top: 0;
+	cursor: pointer;
+}
+
+dl.dropdown {
+	color: #c4dce3;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.dropdown span.selected-theme {
+	font-size: 37px;
+	line-height: 24px;
+	position: absolute;
+	left: 12px;
+	top: 0;
+	display: none;
+}
+
+.dropdown li[selected] span.selected-theme {
+	display: block;
+}
+
+.dropdown dt,
+.dropdown li {
+	cursor: pointer;
+}
+
+.dropdown dd,
+.dropdown dt,
+.dropdown ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+.dropdown dd {
+	position: relative;
+}
+
+.dropdown dt span {
+	background-color: #08323c;
+    display: block;
+	width: 100%;
+    line-height: 37px;
+	height: 37px;
+	overflow: hidden;
+	display: block;
+}
+
+.dropdown dt span,
+.dropdown dd ul li > span {
+	padding-left: 37px;
+	overflow: hidden;
+	display: block;
+}
+
+.dropdown dd ul li > span {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	position: relative;
+}
+
+.dropdown dd ul {
+	background-color: #08323c;
+	display: none;
+    list-style: none;
+	padding: 5px 0px;
+	position: absolute; 
+    left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+
+.dropdown span.value {
+	display: none;
+}
+
+.dropdown dd ul li > span:hover {
+	background-color: #173e48;
+}
 
 #messages {
 	position:fixed;

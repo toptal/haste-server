@@ -108,6 +108,20 @@ haste.prototype.setTitle = function(ext) {
   document.title = title;
 };
 
+haste.prototype.setTheme = function(theme) {
+  $('body').attr('class', theme);
+  $('.dropdown dd ul li').removeAttr('selected');
+  
+  var matchedTheme = $.grep($('.dropdown dd ul li > span'), function (elem) {
+    return $(elem).find('.value').text() == theme;
+  });
+
+  if (matchedTheme.length) {
+    $('.dropdown dt span').html($(matchedTheme[0]).html());
+    $(matchedTheme).parent().attr('selected', '');
+  }
+};
+
 // Show a message box
 haste.prototype.showMessage = function(msg, cls) {
   var msgBox = $('<li class="'+(cls || 'info')+'">'+msg+'</li>');
