@@ -131,6 +131,9 @@ app.use(route(function(router) {
       skipExpire
     );
   });
+  router.get('/documents/:id/remove/:secret', function(request, response, next) {
+    return documentHandler.handleDelete(request.params.id, request.params.secret, response);
+  });
 }));
 
 // Otherwise, try to match static files
