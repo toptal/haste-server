@@ -29,8 +29,7 @@
   },
   "bundledDependencies": [],
   "engines": {
-    "node": "0.10.35",
-    "npm": "1.1.49"
+    "node": "0.10.35"
   },
   "bin": {
     "haste-server": "./server.js"
