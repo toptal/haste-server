@@ -148,6 +148,7 @@ textarea {
 #box2 .function.twitter { background-position: -153px top; }
 #box2 .function.enabled.twitter { background-position: -153px center; }
 #box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
+#box2 .button-picture{ border-width: 0; font-size: inherit; }
 
 #messages {
 	position:fixed;
@@ -167,3 +168,4 @@ textarea {
 #messages li.error {
 	background:rgba(102,8,0,0.8);
 }
+
