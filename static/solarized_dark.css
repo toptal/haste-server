@@ -4,97 +4,81 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
 
 */
 
-pre code {
-  display: block; padding: 0.5em;
-  background: #002b36; color: #92a0a0;
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #002b36;
+  color: #839496;
 }
 
-pre .comment,
-pre .template_comment,
-pre .diff .header,
-pre .doctype,
-pre .lisp .string,
-pre .javadoc {
+.hljs-comment,
+.hljs-quote {
   color: #586e75;
-  font-style: italic;
-  display: inline-block;
-  line-height: 1em;
 }
 
-pre .keyword,
-pre .css .rule .keyword,
-pre .winutils,
-pre .javascript .title,
-pre .method,
-pre .addition,
-pre .css .tag,
-pre .lisp .title {
+/* Solarized Green */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-addition {
   color: #859900;
 }
 
-pre .number,
-pre .command,
-pre .string,
-pre .tag .value,
-pre .phpdoc,
-pre .tex .formula,
-pre .regexp,
-pre .hexcolor {
+/* Solarized Cyan */
+.hljs-number,
+.hljs-string,
+.hljs-meta .hljs-meta-string,
+.hljs-literal,
+.hljs-doctag,
+.hljs-regexp {
   color: #2aa198;
 }
 
-pre .title,
-pre .localvars,
-pre .function .title,
-pre .chunk,
-pre .decorator,
-pre .builtin,
-pre .built_in,
-pre .lisp .title,
-pre .identifier,
-pre .title .keymethods,
-pre .id,
-pre .header {
+/* Solarized Blue */
+.hljs-title,
+.hljs-section,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
   color: #268bd2;
 }
 
-pre .tag .title,
-pre .rules .property,
-pre .django .tag .keyword {
-  font-weight: bold;
-}
-
-pre .attribute,
-pre .variable,
-pre .instancevar,
-pre .lisp .body,
-pre .smalltalk .number,
-pre .constant,
-pre .class .title,
-pre .parent,
-pre .haskell .label {
+/* Solarized Yellow */
+.hljs-attribute,
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-class .hljs-title,
+.hljs-type {
   color: #b58900;
 }
 
-pre .preprocessor,
-pre .pi,
-pre .shebang,
-pre .symbol,
-pre .diff .change,
-pre .special,
-pre .keymethods,
-pre .attr_selector,
-pre .important,
-pre .subst,
-pre .cdata {
+/* Solarized Orange */
+.hljs-symbol,
+.hljs-bullet,
+.hljs-subst,
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-link {
   color: #cb4b16;
 }
 
-pre .deletion {
+/* Solarized Red */
+.hljs-built_in,
+.hljs-deletion {
   color: #dc322f;
 }
 
-pre .tex .formula,
-pre .code {
+.hljs-formula {
   background: #073642;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
 }
