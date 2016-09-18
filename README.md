@@ -101,7 +101,8 @@ Where `path` represents where you want the files stored
 
 ### Redis
 
-To use redis storage you must install the `redis` package in npm
+To use redis storage you must install the `redis` package in npm, and have
+`redis-server` running on the machine.
 
 `npm install redis`
 

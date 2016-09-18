@@ -166,9 +166,10 @@ haste.extensionMap = {
   rb: 'ruby', py: 'python', pl: 'perl', php: 'php', scala: 'scala', go: 'go',
   xml: 'xml', html: 'xml', htm: 'xml', css: 'css', js: 'javascript', vbs: 'vbscript',
   lua: 'lua', pas: 'delphi', java: 'java', cpp: 'cpp', cc: 'cpp', m: 'objectivec',
-  vala: 'vala', cs: 'cs', sql: 'sql', sm: 'smalltalk', lisp: 'lisp', ini: 'ini',
+  vala: 'vala', sql: 'sql', sm: 'smalltalk', lisp: 'lisp', ini: 'ini',
   diff: 'diff', bash: 'bash', sh: 'bash', tex: 'tex', erl: 'erlang', hs: 'haskell',
-  md: 'markdown', txt: '', coffee: 'coffee', json: 'javascript'
+  md: 'markdown', txt: '', coffee: 'coffee', json: 'javascript',
+  swift: 'swift'
 };
 
 // Look up the extension preferred for a type
