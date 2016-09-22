@@ -258,13 +258,31 @@ haste.prototype.lockDocument = function() {
 
 haste.prototype.configureButtons = function() {
   var _this = this;
+  var save_desc = "control + alt + s";
+  var save_shortcut = function(evt) {return evt.ctrlKey && evt.altKey &&(evt.keyCode === 83)};
+  var new_desc = "control + alt + n";
+  var new_shortcut = function(evt) {return evt.ctrlKey && evt.altKey && evt.keyCode === 78};
+  var duplicate_desc = "control + alt + d";
+  var duplicate_shortcut = function(evt) {return _this.doc.locked && evt.ctrlKey && evt.altKey && evt.keyCode === 68};
+
+
+/* navigator.appVersion.indexOf("Mac")!=-1; */
+  if (navigator.appVersion.indexOf("Mac")!=-1) {
+  save_desc = "control + s";
+  save_shortcut = function(evt) {return evt.ctrlKey && (evt.keyCode === 83)};
+  new_desc = "control + n";
+  new_shortcut = function(evt) {return evt.ctrlKey && evt.keyCode === 78};
+  duplicate_desc = "control + d";
+  duplicate_shortcut = function(evt) {return _this.doc.locked && evt.ctrlKey && evt.keyCode === 68;} 
+  }
+
   this.buttons = [
     {
       $where: $('#box2 .save'),
       label: 'Save',
-      shortcutDescription: 'control + alt + s',
+      shortcutDescription: save_desc,
       shortcut: function(evt) {
-        return evt.ctrlKey && evt.altKey && (evt.keyCode === 83);
+        return save_shortcut(evt);
       },
       action: function() {
         if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
@@ -276,9 +294,9 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .new'),
       label: 'New',
       shortcut: function(evt) {
-	return evt.ctrlKey && evt.altKey && evt.keyCode === 78  
+	     return new_shortcut(evt);
       },
-      shortcutDescription: 'control + atl + n',
+      shortcutDescription: new_desc,
       action: function() {
         _this.newDocument(!_this.doc.key);
       }
@@ -287,9 +305,9 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .duplicate'),
       label: 'Duplicate & Edit',
       shortcut: function(evt) {
-        return _this.doc.locked && evt.ctrlKey && evt.altKey && evt.keyCode === 68;
+       return duplicate_shortcut(evt);
       },
-      shortcutDescription: 'control + alt + d',
+      shortcutDescription: duplicate_desc,
       action: function() {
         _this.duplicateDocument();
       }
