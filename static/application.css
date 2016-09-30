@@ -43,6 +43,7 @@ textarea {
 	outline: none;
 	font-size: 13px;
 	padding-right: 360px;
+  overflow: inherit;
 }
 
 #box code {
