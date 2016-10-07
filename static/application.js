@@ -256,20 +256,16 @@ haste.prototype.lockDocument = function() {
   });
 };
 
-
-
 haste.prototype.configureButtons = function() {
   var _this = this;
-
-  var includeAlt = navigator.appVersion.indexOf("Mac")!=-1;
+  var includeAlt = navigator.appVersion.indexOf("Mac")!== -1;
 
   function isShortcutFor(evt, keycode) {
-    return includeAlt ? evt.ctrlKey && evt.keyCode === keycode : evt.ctrlKey && evt.altKey && evt.keyCode === keycode
-    
-  }
+    return evt.ctrlKey && evt.keyCode === keycode && (!includeAlt || evt.altKey);
+  };
   function shortcutDescFor(letter) {
-    return includeAlt ? 'control + ' + letter : 'control + alt + ' + letter
-  }
+    return includeAlt ? 'control + ' + letter : 'control + alt + ' + letter;
+  };
 
   this.buttons = [
     {
@@ -277,7 +273,7 @@ haste.prototype.configureButtons = function() {
       label: 'Save',
       shortcutDescription: shortcutDescFor('s'),
       shortcut: function(evt) {
-      return isShortcutFor(evt, 83);
+        return isShortcutFor(evt, 83);
       },
       action: function() {
         if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
@@ -289,7 +285,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .new'),
       label: 'New',
       shortcut: function(evt) {
-      return isShortcutFor(evt, 78);
+        return isShortcutFor(evt, 78);
       },
       shortcutDescription: shortcutDescFor('n'),
       action: function() {
@@ -300,7 +296,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .duplicate'),
       label: 'Duplicate & Edit',
       shortcut: function(evt) {
-      return isShortcutFor(evt, 68);
+        return isShortcutFor(evt, 68);
       },
       shortcutDescription: shortcutDescFor('d'),
       action: function() {
@@ -311,7 +307,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .raw'),
       label: 'Just Text',
       shortcut: function(evt) {
-      return evt.ctrlKey && evt.shiftKey && evt.keyCode === 82;
+        return evt.ctrlKey && evt.shiftKey && evt.keyCode === 82;
       },
       shortcutDescription: 'control + shift + r',
       action: function() {
@@ -322,7 +318,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .twitter'),
       label: 'Twitter',
       shortcut: function(evt) {
-      return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
+        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
       },
       shortcutDescription: 'control + shift + t',
       action: function() {
@@ -406,5 +402,4 @@ $(function() {
       }
     }
   });
-
 });
