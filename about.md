@@ -27,6 +27,9 @@ URL with:
 * osx: `cat something | haste | pbcopy`
 * linux: `cat something | haste | xsel`
 * windows: check out [WinHaste](https://github.com/ajryan/WinHaste)
+  * or in PowerShell
+  ``` function haste { param($serviceurl = "http://hastebin.com",$paste); if(!$paste){$paste=@($input)}; $r=Invoke-RestMethod -Method Post -UseBasicParsing -Uri "$serviceurl/documents" -Body ($paste -join "`n");"$($serviceurl)/$($r.key)"}```
+    followed by `cat something | haste | clip`
 
 After running that, the STDOUT output of `cat something` will show up at a URL
 which has been conveniently copied to your clipboard.
