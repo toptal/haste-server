@@ -27,6 +27,8 @@
   },
   "devDependencies": {
     "mocha": "*",
+    "passport": "^0.3.2",
+    "passport-google-oauth20": "^1.0.0",
     "should": "*"
   },
   "bundledDependencies": [],
