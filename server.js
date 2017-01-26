@@ -7,15 +7,21 @@ var connect = require('connect');
 var route = require('connect-route');
 var connect_st = require('st');
 var connect_rate_limit = require('connect-ratelimit');
+var passport = require('passport');
+var redirect = require('connect-redirection');
+var query = require('connect-query');
 
+
+require('dotenv').config();
 var DocumentHandler = require('./lib/document_handler');
 
 // Load the configuration and set some defaults
 var config = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
 config.port = process.env.PORT || config.port || 7777;
 config.host = process.env.HOST || config.host || 'localhost';
+config.origin = 'http://' + config.host + ":" +  config.port + "/";
 
-// Set up the logger
+// Set up the loggergg
 if (config.logging) {
   try {
     winston.remove(winston.transports.Console);
@@ -103,16 +109,50 @@ var documentHandler = new DocumentHandler({
 });
 
 var app = connect();
-
+app.use(redirect());
+app.use(query());
 // Rate limit all requests
 if (config.rateLimits) {
   config.rateLimits.end = true;
   app.use(connect_rate_limit(config.rateLimits));
 }
 
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+// and deserialized.
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL:  config.origin  + 'auth/google/callback'
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    winston.info('hi logged in')
+    winston.info(profile);
+    return cb(null, profile);
+  }
+));
+
 // first look at API calls
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(route(function(router) {
   // get raw documents - support getting with extension
+  router.get('/', require('connect-ensure-login').ensureLoggedIn());
+  router.get('/login', passport.authenticate('google', { scope: ['profile'] }));
+
+  router.get( '/auth/google/callback',
+      passport.authenticate( 'google', { scope: ['profile'],
+          successRedirect: '/loggedin',
+          failureRedirect: '/auth/failure'
+  }));
   router.get('/raw/:id', function(request, response, next) {
     var skipExpire = !!config.documents[request.params.id];
     var key = request.params.id.split('.')[0];

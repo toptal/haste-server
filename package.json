@@ -14,16 +14,21 @@
   },
   "main": "haste",
   "dependencies": {
-    "connect-ratelimit": "0.0.7",
-    "connect-route": "0.1.5",
-    "connect": "3.4.1",
-    "st": "1.1.0",
-    "winston": "0.6.2",
-    "redis-url": "0.1.0",
-    "redis": "0.8.1",
-    "uglify-js": "1.3.3",
     "busboy": "0.2.4",
-    "pg": "4.1.1"
+    "connect": "3.4.1",
+    "connect-ensure-login": "^0.1.1",
+    "connect-query": "^0.2.0",
+    "connect-ratelimit": "0.0.7",
+    "connect-redirection": "0.0.1",
+    "connect-route": "0.1.5",
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.11.0",
+    "pg": "4.1.1",
+    "redis": "0.8.1",
+    "redis-url": "0.1.0",
+    "st": "1.1.0",
+    "uglify-js": "1.3.3",
+    "winston": "0.6.2"
   },
   "devDependencies": {
     "mocha": "*",
@@ -49,6 +54,7 @@
   },
   "scripts": {
     "start": "node server.js",
+    "start:dev": "nodemon -V --ignore 'data/*' --ignore 'Profile' --ignore 'static/application.min.js'  server.js ",
     "test": "mocha -r should spec/*"
   }
 }
