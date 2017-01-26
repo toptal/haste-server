@@ -173,6 +173,7 @@ app.use(route(function(router) {
   });
 }));
 
+//app.use(require('connect-ensure-login').ensureLoggedIn());
 // Otherwise, try to match static files
 app.use(connect_st({
   path: __dirname + '/static',

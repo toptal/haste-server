@@ -54,7 +54,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "start:dev": "nodemon -V --ignore 'data/*' --ignore 'Profile' --ignore 'static/application.min.js'  server.js ",
+    "start:dev": "nodemon -V --ignore 'data/*' --ignore 'Profile' --ignore 'static/application.min.js'  server.js < /dev/null",
     "test": "mocha -r should spec/*"
   }
 }
