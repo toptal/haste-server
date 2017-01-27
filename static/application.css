@@ -120,6 +120,10 @@ textarea {
 	padding: 10px 15px;
 }
 
+#box4{
+	text-align: center;
+}
+
 #box3 .label, #messages li {
 	color: #fff;
 	font-weight: bold;

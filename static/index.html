@@ -34,6 +34,9 @@
 				app = new haste('hastebin', { twitter: true });
 				handlePop({ target: window });
 			});
+			$(document).ready(function(){
+				app.init();
+			});
 		</script>
 
 	</head>
@@ -57,6 +60,7 @@
 				<div class="label"></div>
 				<div class="shortcut"></div>
 			</div>
+			<div id="box4"></div>
 		</div>
 
 		<div id="linenos"></div>

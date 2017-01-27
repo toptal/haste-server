@@ -108,6 +108,10 @@ haste.prototype.setTitle = function(ext) {
   document.title = title;
 };
 
+haste.prototype.init = function(){
+  document.body.addEventListener('document.user-loaded', this.userLoaded.bind(this))
+  this.user.get(null)
+}
 // Show a message box
 haste.prototype.showMessage = function(msg, cls) {
   var msgBox = $('<li class="'+(cls || 'info')+'">'+msg+'</li>');
@@ -343,6 +347,29 @@ haste.prototype.configureButton = function(options) {
     $('#pointer').hide();
   });
 };
+haste.prototype.user = {
+  get: function(id){
+    if(!id){
+      id = 'me'
+    }
+    $.ajax('/users/' + id , {
+      success:
+        function(res){
+          document.body.dispatchEvent(new CustomEvent('document.user-loaded', {'detail': {user: res}}))
+        }
+      })
+  }
+}
+
+haste.prototype.userLoaded = function(e){
+  console.log(e.detail.user);
+  if(! (e.detail.user && e.detail.user.photos.length > 0)){
+    throw "error reading user photo"
+  }
+  var user = e.detail.user;
+  var image = user.photos[0].value;
+  $('#box4').append('<p><img src="' + image + '" width="50"></p>')
+}
 
 // Configure keyboard shortcuts for the textarea
 haste.prototype.configureShortcuts = function() {

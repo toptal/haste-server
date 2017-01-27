@@ -168,7 +168,7 @@ router.get('/raw/:id', ensureAuthenticatedWeb, function(request, response, next)
 router.post('/documents', ensureAuthenticatedAPI, function(request, response, next) {
   return documentHandler.handlePost(request, response);
 });
-// get documents
+
 router.get('/documents/:id', ensureAuthenticatedAPI, function(request, response, next) {
   if(!request.isAuthenticated()){
     response.sendStatus(401);
@@ -180,6 +180,9 @@ router.get('/documents/:id', ensureAuthenticatedAPI, function(request, response,
     response,
     skipExpire
   );
+});
+router.get('/users/me', ensureAuthenticatedAPI, function(req, res, next) {
+  return res.json(req.user);
 });
 
 function ensureAuthenticatedWeb(req, res, next) {
