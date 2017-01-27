@@ -21,7 +21,8 @@ var config = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
 config.port = process.env.PORT || config.port || 7777;
 config.host = process.env.HOST || config.host || 'localhost';
 config.secret = process.env.SECRET || '43rndsafdsakf;djsafkdsarf';
-config.origin = 'http://' + config.host + ":" +  config.port + "/";
+config.scheme = process.env.SCHEME || config.scheme || 'https'
+config.origin = config.scheme + '://' + config.host + ":" +  config.port + "/";
 
 // Set up the loggergg
 if (config.logging) {

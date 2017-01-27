@@ -1,5 +1,5 @@
 {
-
+  "scheme" : "https",
   "port": 7777,
 
   "keyLength": 10,
