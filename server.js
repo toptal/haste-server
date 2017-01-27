@@ -198,6 +198,6 @@ app.use(connect_st({
   index: 'index.html'
 }));
 
-http.createServer(app).listen(config.port, config.host);
+http.createServer(app).listen(config.port, '0.0.0.0');
 
 winston.info('listening on ' + config.host + ':' + config.port);
