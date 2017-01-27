@@ -111,8 +111,6 @@ var documentHandler = new DocumentHandler({
 });
 
 var app = express();
-//app.use(redirect());
-//app.use(query());
 // Rate limit all requests
 /*
 if (config.rateLimits) {
@@ -125,10 +123,12 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // and deserialized.
 passport.serializeUser(function(user, cb) {
+  winston.info('serialize', user)
   cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
+  winston.info('deserialize', obj)
   cb(null, obj);
 });
 passport.use(new GoogleStrategy({
@@ -143,7 +143,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-app.use(session({ secret: config.secret, name: 'tt' }));
+app.use(session({ secret: config.secret, name: 'tt' , resave:true, saveUnitialized: true}));
 // first look at API calls
 app.use(passport.initialize());
 app.use(passport.session());
@@ -151,7 +151,7 @@ app.use(passport.session());
 var router = app;
 
 // get raw documents - support getting with extension
-//router.get('/', require('connect-ensure-login').ensureLoggedIn());
+router.get('/', ensureAuthenticatedWeb);
 router.get('/login', passport.authenticate('google', { scope: ['profile'] }));
 
 router.get( '/auth/google/callback',
@@ -159,17 +159,21 @@ router.get( '/auth/google/callback',
         successRedirect: '/',
         failureRedirect: '/auth/failure'
 }));
-router.get('/raw/:id', function(request, response, next) {
+router.get('/raw/:id', ensureAuthenticatedWeb, function(request, response, next) {
   var skipExpire = !!config.documents[request.params.id];
   var key = request.params.id.split('.')[0];
   return documentHandler.handleRawGet(key, response, skipExpire);
 });
 // add documents
-router.post('/documents', function(request, response, next) {
+router.post('/documents', ensureAuthenticatedAPI, function(request, response, next) {
   return documentHandler.handlePost(request, response);
 });
 // get documents
-router.get('/documents/:id', function(request, response, next) {
+router.get('/documents/:id', ensureAuthenticatedAPI, function(request, response, next) {
+  if(!request.isAuthenticated()){
+    response.sendStatus(401);
+    return response.end();
+  }
   var skipExpire = !!config.documents[request.params.id];
   return documentHandler.handleGet(
     request.params.id,
@@ -178,6 +182,14 @@ router.get('/documents/:id', function(request, response, next) {
   );
 });
 
+function ensureAuthenticatedWeb(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
+function ensureAuthenticatedAPI(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.sendStatus(401);
+}
 //app.use(require('connect-ensure-login').ensureLoggedIn());
 // Otherwise, try to match static files
 app.use(connect_st({
@@ -189,12 +201,10 @@ app.use(connect_st({
 
 // Then we can loop back - and everything else should be a token,
 // so route it back to /
-app.use(route(function(router) {
-  router.get('/:id', function(request, response, next) {
-    request.sturl = '/';
-    next();
-  });
-}));
+app.get('/:id', ensureAuthenticatedWeb, function(request, response, next) {
+  request.sturl = '/';
+  next();
+});
 
 // And match index
 app.use(connect_st({
@@ -204,5 +214,4 @@ app.use(connect_st({
 }));
 
 http.createServer(app).listen(config.port, '0.0.0.0');
-
 winston.info('listening on ' + config.host + ':' + config.port);

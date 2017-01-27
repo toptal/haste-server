@@ -21,6 +21,7 @@
     "connect-ratelimit": "0.0.7",
     "connect-redirection": "0.0.1",
     "connect-route": "0.1.5",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "nodemon": "^1.11.0",
