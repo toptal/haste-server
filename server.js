@@ -1,6 +1,8 @@
+var express = require('express');
+var https = require('https');
 var http = require('http');
-var url = require('url');
 var fs = require('fs');
+var url = require('url');
 
 var winston = require('winston');
 var connect = require('connect');
@@ -10,10 +12,40 @@ var connect_rate_limit = require('connect-ratelimit');
 
 var DocumentHandler = require('./lib/document_handler');
 
-// Load the configuration and set some defaults
+// Load the HTTP configuration and set some defaults
 var config = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
-config.port = process.env.PORT || config.port || 7777;
-config.host = process.env.HOST || config.host || 'localhost';
+config.http = process.env.HTTP || config.http || false;
+config.http_port = process.env.HTTPS_PORT || config.http_port || 80;
+config.http_host = process.env.HTTPS_HOST || config.http_host || 'localhost';
+
+// Load the HTTPS configuration and set some defaults
+config.https = process.env.HTTPS || config.https || false;
+config.https_port = process.env.HTTPS_PORT || config.https_port || 443;
+config.https_host = process.env.HTTPS_HOST || config.https_host || 'localhost';
+config.https_key = process.env.HTTPS_KEY || config.https_key || '';
+config.https_cert = process.env.HTTPS_CERT || config.https_cert || '';
+
+var https_options = {};
+if (config.https) {
+  https_options = {
+    key: fs.readFileSync(config.https_key),
+    cert: fs.readFileSync(config.https_cert)
+  };
+}
+
+// Verify a service was enabled
+if (!config.http && !config.https){
+  winston.error('Neither HTTP nor HTTPS enabled. Quitting.');
+  process.exit(1)
+}
+
+// If both HTTP and HTTPS are enabled, verify different ports were used
+if (config.http && config.https){
+  if (config.http_port === config.https_port){
+    winston.error('HTTP port must not be the same as HTTPS port. Quitting.');
+    process.exit(1)
+  }
+}
 
 // Set up the logger
 if (config.logging) {
@@ -102,7 +134,7 @@ var documentHandler = new DocumentHandler({
   keyGenerator: keyGenerator
 });
 
-var app = connect();
+var app = express();
 
 // Rate limit all requests
 if (config.rateLimits) {
@@ -154,6 +186,15 @@ app.use(connect_st({
   index: 'index.html'
 }));
 
-http.createServer(app).listen(config.port, config.host);
 
-winston.info('listening on ' + config.host + ':' + config.port);
+if (config.http) {
+  http.createServer(app).listen(config.http_port, config.http_host);
+  winston.info('listening on http:\/\/' + config.http_host + ':' + config.http_port);
+}
+
+if (config.https) {
+  https.createServer(https_options, app).listen(config.https_port, config.https_host);
+  winston.info('listening on https:\/\/' + config.https_host + ':' + config.https_port);
+}
+
+

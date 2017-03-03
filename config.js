@@ -1,7 +1,13 @@
 {
+  "http": true,
+  "http_host": "0.0.0.0",
+  "http_port": 7777,
 
-  "host": "0.0.0.0",
-  "port": 7777,
+  "https": false,
+  "https_host": "0.0.0.0",
+  "https_port": 7778,
+  "https_cert": "/opt/certs/fullchain.pem",
+  "https_key": "/opt/certs/privkey.pem",
 
   "keyLength": 10,
 

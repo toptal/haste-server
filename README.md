@@ -35,8 +35,14 @@ STDOUT.  Check the README there for more details and usages.
 
 ## Settings
 
-* `host` - the host the server runs on (default localhost)
-* `port` - the port the server runs on (default 7777)
+* `http` - whether or not to serve an unencrypted HTTP site (default true)
+* `http_host` - the host the HTTP server runs on (default localhost)
+* `http_port` - the port the HTTP server runs on (default 7777)
+* `https` - whether or not to serve an encrypted HTTPS site (default false)
+* `https_host` - the host the HTTPS server runs on (default localhost)
+* `https_port` - the port the HTTPS server runs on (default 7778)
+* `https_cert" - the file location of the HTTPS certificate (default /opt/certs/fullchain.pem)
+* `https_key" - the file location of the HTTPS private key (default /opt/certs/privkey.pem)
 * `keyLength` - the length of the keys to user (default 10)
 * `maxLength` - maximum length of a paste (default none)
 * `staticMaxAge` - max age for static assets (86400)
