@@ -4,3 +4,4 @@ node_modules
 *.swo
 data
 *.DS_Store
+config.js
