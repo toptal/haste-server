@@ -114,8 +114,8 @@ if (config.rateLimits) {
 app.use(route(function(router) {
   // get raw documents - support getting with extension
   router.get('/raw/:id', function(request, response, next) {
-    var skipExpire = !!config.documents[request.params.id];
     var key = request.params.id.split('.')[0];
+    var skipExpire = !!config.documents[key];
     return documentHandler.handleRawGet(key, response, skipExpire);
   });
   // add documents
@@ -124,12 +124,9 @@ app.use(route(function(router) {
   });
   // get documents
   router.get('/documents/:id', function(request, response, next) {
-    var skipExpire = !!config.documents[request.params.id];
-    return documentHandler.handleGet(
-      request.params.id,
-      response,
-      skipExpire
-    );
+    var key = request.params.id.split('.')[0];
+    var skipExpire = !!config.documents[key];
+    return documentHandler.handleGet(key, response, skipExpire);
   });
 }));
 
