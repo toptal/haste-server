@@ -186,15 +186,20 @@ app.use(connect_st({
   index: 'index.html'
 }));
 
-
 if (config.http) {
-  http.createServer(app).listen(config.http_port, config.http_host);
-  winston.info('listening on http:\/\/' + config.http_host + ':' + config.http_port);
+  if (config.http && config.https && config.http_redirect_to_https){
+    http.createServer(function(req, res) {
+      res.writeHead(301, { "Location": "https:\/\/" + req.headers['host'] + req.url });
+      res.end();
+    }).listen(config.http_port, config.http_host)
+    winston.info('redirecting http traffic to https');
+  } else {
+    http.createServer(app).listen(config.http_port, config.http_host);
+    winston.info('listening on http:\/\/' + config.http_host + ':' + config.http_port);
+  }
 }
 
 if (config.https) {
   https.createServer(https_options, app).listen(config.https_port, config.https_host);
   winston.info('listening on https:\/\/' + config.https_host + ':' + config.https_port);
 }
-
-

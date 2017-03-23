@@ -2,6 +2,7 @@
   "http": true,
   "http_host": "0.0.0.0",
   "http_port": 7777,
+  "http_redirect_to_https": false,
 
   "https": false,
   "https_host": "0.0.0.0",
