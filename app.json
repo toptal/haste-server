@@ -3,5 +3,10 @@
   "description": "open source pastebin written in node.js",
   "repository": "https://github.com/Logic-gate/haste-server",
   "logo": "https://raw.githubusercontent.com/seejohnrun/haste-server/master/static/logo.png",
-  "keywords": ["pastebin", "haste", "node"]
+  "keywords": ["pastebin", "haste", "node"],
+  "addons": 
+    "heroku-redis",
+    {
+      "plan": "hobby-dev"
+    }
 }
