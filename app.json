@@ -5,8 +5,6 @@
 	"logo": "https://raw.githubusercontent.com/seejohnrun/haste-server/master/static/logo.png",
 	"keywords": ["pastebin", "haste", "node"],
 	"addons": [
-		"heroku-redis", {
-			"plan": "hobby-dev"
-		}
+		"heroku-redis:hobby-dev"
 	]
 }
