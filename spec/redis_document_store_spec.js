@@ -1,3 +1,5 @@
+/* global it, describe, afterEach */
+
 var RedisDocumentStore = require('../lib/document_stores/redis');
 
 var winston = require('winston');
@@ -12,7 +14,7 @@ describe('redis_document_store', function() {
       RedisDocumentStore.client = false;
     }
   });
-  
+
   describe('set', function() {
 
     it('should be able to set a key and have an expiration set', function(done) {
@@ -37,7 +39,7 @@ describe('redis_document_store', function() {
 
     it('should not set an expiration when expiration is off', function(done) {
       var store = new RedisDocumentStore({ expire: false });
-      store.set('hello3', 'world', function(worked) {
+      store.set('hello3', 'world', function() {
         RedisDocumentStore.client.ttl('hello3', function(err, res) {
           res.should.equal(-1);
           done();

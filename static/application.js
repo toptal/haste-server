@@ -1,3 +1,5 @@
+/* global $, hljs, window, document */
+
 ///// represents a single document
 
 var haste_document = function() {
@@ -42,10 +44,10 @@ haste_document.prototype.load = function(key, callback, lang) {
         value: high.value,
         key: key,
         language: high.language || lang,
-        lineCount: res.data.split("\n").length
+        lineCount: res.data.split('\n').length
       });
     },
-    error: function(err) {
+    error: function() {
       callback(false);
     }
   });
@@ -71,7 +73,7 @@ haste_document.prototype.save = function(data, callback) {
         value: high.value,
         key: res.key,
         language: high.language,
-        lineCount: data.split("\n").length
+        lineCount: data.split('\n').length
       });
     },
     error: function(res) {
@@ -276,7 +278,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .new'),
       label: 'New',
       shortcut: function(evt) {
-        return evt.ctrlKey && evt.keyCode === 78  
+        return evt.ctrlKey && evt.keyCode === 78;
       },
       shortcutDescription: 'control + n',
       action: function() {
@@ -331,14 +333,14 @@ haste.prototype.configureButton = function(options) {
     }
   });
   // Show the label
-  options.$where.mouseenter(function(evt) {
+  options.$where.mouseenter(function() {
     $('#box3 .label').text(options.label);
     $('#box3 .shortcut').text(options.shortcutDescription || '');
     $('#box3').show();
     $(this).append($('#pointer').remove().show());
   });
   // Hide the label
-  options.$where.mouseleave(function(evt) {
+  options.$where.mouseleave(function() {
     $('#box3').hide();
     $('#pointer').hide();
   });
@@ -371,7 +373,7 @@ $(function() {
       // For browsers like Internet Explorer
       if (document.selection) {
         this.focus();
-        sel = document.selection.createRange();
+        var sel = document.selection.createRange();
         sel.text = myValue;
         this.focus();
       }
