@@ -1,3 +1,5 @@
+/* global describe, it */
+
 var DocumentHandler = require('../lib/document_handler');
 var Generator = require('../lib/key_generators/random');
 
