@@ -123,6 +123,8 @@ or post.
 
 All of which are optional except `type` with very logical default values.
 
+If your Redis server is configured for password authentification, use the `password` field.
+
 ### Postgres
 
 To use postgres storage you must install the `pg` package in npm
