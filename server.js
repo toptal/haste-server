@@ -58,7 +58,7 @@ if (config.recompressStaticAssets) {
   var pro = require('uglify-js').uglify;
   var list = fs.readdirSync('./static');
   for (var j = 0; j < list.length; j++) {
-    var item = list[i];
+    var item = list[j];
     var orig_code, ast;
     if ((item.indexOf('.js') === item.length - 3) && (item.indexOf('.min.js') === -1)) {
       var dest = item.substring(0, item.length - 3) + '.min' + item.substring(item.length - 3);
