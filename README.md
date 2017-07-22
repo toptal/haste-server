@@ -26,6 +26,20 @@ STDOUT.  Check the README there for more details and usages.
 * Chrome 17
 * Safari 5.3
 
+
+## Fast run in Docker
+
+To test or run current build of hastebin you can use Docker, simply do.
+
+```
+docker pull connectical/haste
+docker run -d --name haste -v /srv/haste/data:/srv/haste/data \
+ -p 127.0.0.1:7777:7777 connectical/haste
+```
+
+This starts node server in http://localhost:7777 and stores data in
+`/srv/haste/data` volume.
+
 ## Installation
 
 1.  Download the package, and expand it
