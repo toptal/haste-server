@@ -6,6 +6,7 @@ var connect = require('connect');
 var route = require('connect-route');
 var connect_st = require('st');
 var connect_rate_limit = require('connect-ratelimit');
+var uglify_js = require('uglify-js');
 
 var DocumentHandler = require('./lib/document_handler');
 
@@ -54,19 +55,15 @@ else {
 
 // Compress the static javascript assets
 if (config.recompressStaticAssets) {
-  var jsp = require('uglify-js').parser;
-  var pro = require('uglify-js').uglify;
+
   var list = fs.readdirSync('./static');
   for (var j = 0; j < list.length; j++) {
     var item = list[j];
-    var orig_code, ast;
+
     if ((item.indexOf('.js') === item.length - 3) && (item.indexOf('.min.js') === -1)) {
       var dest = item.substring(0, item.length - 3) + '.min' + item.substring(item.length - 3);
-      orig_code = fs.readFileSync('./static/' + item, 'utf8');
-      ast = jsp.parse(orig_code);
-      ast = pro.ast_mangle(ast);
-      ast = pro.ast_squeeze(ast);
-      fs.writeFileSync('./static/' + dest, pro.gen_code(ast), 'utf8');
+      var optimized_code = uglify_js.minify('./static/' + item).code;
+      fs.writeFileSync('./static/' + dest, optimized_code, 'utf8');
       winston.info('compressed ' + item + ' into ' + dest);
     }
   }
