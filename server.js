@@ -171,10 +171,6 @@ router.post('/documents', ensureAuthenticatedAPI, function(request, response, ne
 });
 
 router.get('/documents/:id', ensureAuthenticatedAPI, function(request, response, next) {
-  if(!request.isAuthenticated()){
-    response.sendStatus(401);
-    return response.end();
-  }
   var skipExpire = !!config.documents[request.params.id];
   return documentHandler.handleGet(
     request.params.id,
@@ -188,7 +184,9 @@ router.get('/users/me', ensureAuthenticatedAPI, function(req, res, next) {
 
 function ensureAuthenticatedWeb(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
+  // res.redirect('/login' + '?next=' + encodeURIComponent(req.path));
+  // if not authenticated, authenticate with google
+  passport.authenticate('google', { scope: ['profile'] })(req,res,next)
 }
 function ensureAuthenticatedAPI(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
