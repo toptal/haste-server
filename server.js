@@ -122,7 +122,8 @@ if (config.rateLimits) {
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-// and deserialized.
+var OAUTH_SCOPE = ['profile']
+
 passport.serializeUser(function(user, cb) {
   winston.info('serialize', user)
   cb(null, user);
@@ -132,13 +133,13 @@ passport.deserializeUser(function(obj, cb) {
   winston.info('deserialize', obj)
   cb(null, obj);
 });
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL:  config.origin  + 'auth/google/callback'
   },
   function(accessToken, refreshToken, profile, cb) {
-    winston.info('hi logged in')
     winston.info(profile);
     return cb(null, profile);
   }
@@ -148,18 +149,22 @@ app.use(session({ secret: config.secret, name: 'tt' , resave:true, saveUnitializ
 // first look at API calls
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(connectEnsureLogin.ensureLoggedIn());
 var router = app;
 
 // get raw documents - support getting with extension
 router.get('/', ensureAuthenticatedWeb);
-router.get('/login', passport.authenticate('google', { scope: ['profile'] }));
+router.get('/login', passport.authenticate('google', { scope: OAUTH_SCOPE }));
 
-router.get( '/auth/google/callback',
-    passport.authenticate( 'google', { scope: ['profile'],
-        successRedirect: '/',
-        failureRedirect: '/auth/failure'
-}));
+router.get( '/auth/google/callback', function(req,res,next){
+    var successRedirectURL = '/'
+    if(req.query.state){
+      successRedirectURL = req.query.state
+    }
+    passport.authenticate( 'google', { scope: OAUTH_SCOPE,
+        successRedirect: successRedirectURL,
+        failureRedirect: '/auth/failure' } )(req,res,next);
+})
+
 router.get('/raw/:id', ensureAuthenticatedWeb, function(request, response, next) {
   var skipExpire = !!config.documents[request.params.id];
   var key = request.params.id.split('.')[0];
@@ -183,16 +188,22 @@ router.get('/users/me', ensureAuthenticatedAPI, function(req, res, next) {
 });
 
 function ensureAuthenticatedWeb(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  // res.redirect('/login' + '?next=' + encodeURIComponent(req.path));
-  // if not authenticated, authenticate with google
-  passport.authenticate('google', { scope: ['profile'] })(req,res,next)
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  // set state = req.path to support redirect after login
+  passport.authenticate(
+    'google', { scope: OAUTH_SCOPE, state : req.path }
+  )(req,res,next)
 }
+
 function ensureAuthenticatedAPI(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
+  if (req.isAuthenticated()) {
+    return next();
+  }
   res.sendStatus(401);
 }
-//app.use(require('connect-ensure-login').ensureLoggedIn());
+
 // Otherwise, try to match static files
 app.use(connect_st({
   path: __dirname + '/static',
