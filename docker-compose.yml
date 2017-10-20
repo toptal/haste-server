@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    build: .
+    env_file: .env
+    ports:
+     - "7777:7777"
+    volumes:
+      - ".:/usr/src/app"
+    command: "yarn run start:dev"
