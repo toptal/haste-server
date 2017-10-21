@@ -24,6 +24,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.1.0",
     "nodemon": "^1.11.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
@@ -50,7 +51,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "start:dev": "nodemon -V --ignore 'data/*' --ignore 'Profile' --ignore 'static/application.min.js'  server.js < /dev/null",
+    "start:dev": "nodemon -V --ignore 'data/*' --ignore 'Profile' --ignore 'static/application.min.js' --inspect=0.0.0.0:9229 server.js < /dev/null",
     "test": "mocha -r should spec/*"
   }
 }

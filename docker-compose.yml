@@ -5,6 +5,7 @@ services:
     env_file: .env
     ports:
      - "7777:7777"
+     - "9229:9229"
     volumes:
       - ".:/usr/src/app"
     command: "yarn run start:dev"

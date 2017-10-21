@@ -12,6 +12,7 @@ var query = require('connect-query');
 var express = require('express')
 var connectEnsureLogin = require('connect-ensure-login');
 var session = require('express-session')
+var jwt = require('jsonwebtoken')
 
 require('dotenv').config();
 var DocumentHandler = require('./lib/document_handler');
@@ -23,6 +24,7 @@ config.host = process.env.HOST || config.host || 'localhost';
 config.secret = process.env.SECRET || '43rndsafdsakf;djsafkdsarf';
 config.scheme = process.env.SCHEME || config.scheme || 'https'
 config.origin = config.scheme + '://' + config.host + ":" +  config.port + "/";
+config.restrict_domain = process.env.RESTRICT_DOMAIN
 
 // Set up the loggergg
 if (config.logging) {
@@ -122,25 +124,33 @@ if (config.rateLimits) {
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-var OAUTH_SCOPE = ['profile']
+var OAUTH_SCOPE = ['profile', 'email', 'openid']
 
 passport.serializeUser(function(user, cb) {
-  winston.info('serialize', user)
   cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
-  winston.info('deserialize', obj)
   cb(null, obj);
 });
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL:  config.origin  + 'auth/google/callback'
+    callbackURL:  config.origin  + 'auth/google/callback',
   },
-  function(accessToken, refreshToken, profile, cb) {
-    winston.info(profile);
+  //function(accessToken, refreshToken, profile, cb) {
+  function( accessToken, refreshToken, params, profile, cb){
+    if (! params.id_token ){
+      winston.error("no id_token in response")
+      return
+    }
+    var jwtObject = jwt.decode(params.id_token)
+    if(! (jwtObject && jwtObject.hd && matchDomain(jwtObject.hd)) ){
+      // domain doesn't validate
+      winston.info("domain does not validate")
+      return cb('Your domain is not permitted')
+    }
     return cb(null, profile);
   }
 ));
@@ -187,6 +197,10 @@ router.get('/users/me', ensureAuthenticatedAPI, function(req, res, next) {
   return res.json(req.user);
 });
 
+function matchDomain(domain){
+  var pattern = new RegExp(config.restrict_domain)
+  return pattern.test(domain)
+}
 function ensureAuthenticatedWeb(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

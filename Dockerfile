@@ -12,3 +12,4 @@ COPY . /usr/src/app
 
 CMD [ "yarn", "start" ]
 EXPOSE 7777
+EXPOSE 9229
