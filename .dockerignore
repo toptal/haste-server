@@ -1,3 +1,6 @@
+.git
+Dockerfile
+docker-compose.yml
 npm-debug.log
 node_modules
 *.swp
@@ -5,4 +8,7 @@ node_modules
 data
 *.DS_Store
 .env
+.gitignore
+.dockerignore
+.travis.yml
 yarn-error.log
