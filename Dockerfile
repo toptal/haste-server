@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 COPY package.json yarn.lock /usr/src/app/
-RUN yarn install && yarn cache clean --force
+RUN yarn install --production && yarn cache clean --force
 COPY . /usr/src/app
 
 CMD [ "yarn", "start" ]

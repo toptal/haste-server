@@ -1,9 +1,7 @@
 var http = require('http');
-var url = require('url');
 var fs = require('fs');
 
 var winston = require('winston');
-var connect_st = require('st');
 var passport = require('passport');
 var express = require('express')
 var session = require('express-session')
@@ -25,7 +23,9 @@ config.restrict_domain = process.env.RESTRICT_DOMAIN
 if (config.logging) {
   try {
     winston.remove(winston.transports.Console);
-  } catch(er) { }
+  } catch(err) {
+    console.log(err)
+  }
   var detail, type;
   for (var i = 0; i < config.logging.length; i++) {
     detail = config.logging[i];
@@ -208,27 +208,11 @@ function ensureAuthenticatedAPI(req, res, next) {
   res.sendStatus(401);
 }
 
-// Otherwise, try to match static files
-app.use(connect_st({
-  path: __dirname + '/static',
-  content: { maxAge: config.staticMaxAge },
-  passthrough: true,
-  index: false
-}));
-
-// Then we can loop back - and everything else should be a token,
-// so route it back to /
-app.get('/:id', ensureAuthenticatedWeb, function(request, response, next) {
-  request.sturl = '/';
-  next();
+app.use(  express.static(__dirname + '/static' ) )
+// a request for a record returns the index
+app.get('/:id', ensureAuthenticatedWeb, function(request, response) {
+  response.sendFile(__dirname + '/static/index.html')
 });
-
-// And match index
-app.use(connect_st({
-  path: __dirname + '/static',
-  content: { maxAge: config.staticMaxAge },
-  index: 'index.html'
-}));
 
 http.createServer(app).listen(config.port, '0.0.0.0');
 winston.info('listening on ' + config.host + ':' + config.port);
