@@ -15,11 +15,6 @@
   "main": "haste",
   "dependencies": {
     "connect": "3.6.5",
-    "connect-ensure-login": "^0.1.1",
-    "connect-query": "^1.0.0",
-    "connect-ratelimit": "0.0.7",
-    "connect-redirection": "0.0.1",
-    "connect-route": "0.1.5",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
@@ -34,6 +29,7 @@
   },
   "devDependencies": {
     "busboy": "0.2.14",
+    "eslint": "^4.9.0",
     "mocha": "*",
     "should": "*"
   },

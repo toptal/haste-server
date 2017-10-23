@@ -3,14 +3,9 @@ var url = require('url');
 var fs = require('fs');
 
 var winston = require('winston');
-var route = require('connect-route');
 var connect_st = require('st');
-var connect_rate_limit = require('connect-ratelimit');
 var passport = require('passport');
-var redirect = require('connect-redirection');
-var query = require('connect-query');
 var express = require('express')
-var connectEnsureLogin = require('connect-ensure-login');
 var session = require('express-session')
 var jwt = require('jsonwebtoken')
 
@@ -66,6 +61,7 @@ if (config.recompressStaticAssets) {
   var jsp = require("uglify-js").parser;
   var pro = require("uglify-js").uglify;
   var list = fs.readdirSync('./static');
+  var dest;
   for (var i = 0; i < list.length; i++) {
     var item = list[i];
     var orig_code, ast;
@@ -115,12 +111,6 @@ var documentHandler = new DocumentHandler({
 
 var app = express();
 // Rate limit all requests
-/*
-if (config.rateLimits) {
-  config.rateLimits.end = true;
-  app.use(connect_rate_limit(config.rateLimits));
-}
-*/
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
