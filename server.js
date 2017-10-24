@@ -14,12 +14,12 @@ var DocumentHandler = require('./lib/document_handler');
 var config = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
 config.port = process.env.PORT || config.port || 7777;
 config.host = process.env.HOST || config.host || 'localhost';
-config.secret = process.env.SECRET || '43rndsafdsakf;djsafkdsarf';
+config.session_secret = process.env.SESSION_SECRET || '43rndsafdsakf;djsafkdsarf';
 config.scheme = process.env.SCHEME || config.scheme || 'https'
 config.origin = config.scheme + '://' + config.host + ":" +  config.port + "/";
 config.restrict_domain = process.env.RESTRICT_DOMAIN
 
-// Set up the loggergg
+// Set up the logger
 if (config.logging) {
   try {
     winston.remove(winston.transports.Console);
@@ -145,7 +145,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-app.use(session({ secret: config.secret, name: 'tt' , resave:true, saveUnitialized: true}));
+app.use(session({ secret: config.session_secret, name: 'tt' , resave:true, saveUnitialized: true}));
 // first look at API calls
 app.use(passport.initialize());
 app.use(passport.session());
