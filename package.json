@@ -26,8 +26,7 @@
     "pg": "4.1.1"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*"
+    "mocha": "^4.0.1"
   },
   "bundledDependencies": [],
   "engines": {
@@ -47,6 +46,6 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "mocha -r should spec/*"
+    "test": "mocha"
   }
 }
