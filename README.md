@@ -174,6 +174,28 @@ forward on GETs.
 
 All of which are optional except `type` with very logical default values.
 
+### RethinkDB
+
+To use the RethinkDB storage system, you must install the `rethinkdbdash` package via npm
+
+`npm install rethinkdbdash`
+
+Once you've done that, your config section should look like this:
+
+``` json
+{
+  "type": "rethinkdb",
+  "host": "127.0.0.1",
+  "port": 28015,
+  "db": "haste"
+}
+```
+
+In order for this to work, the database must be pre-created before the script is ran.
+Also, you must create an `uploads` table, which will store all the data for uploads.
+
+You can optionally add the `user` and `password` properties to use a user system.
+
 ## Author
 
 John Crepezzi <john.crepezzi@gmail.com>
