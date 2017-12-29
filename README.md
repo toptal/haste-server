@@ -97,7 +97,9 @@ something like:
 }
 ```
 
-Where `path` represents where you want the files stored
+where `path` represents where you want the files stored.
+
+File storage currently does not support paste expiration, you can follow [#191](/../../issues/191) for status updates.
 
 ### Redis
 
