@@ -99,7 +99,7 @@ something like:
 
 where `path` represents where you want the files stored.
 
-File storage currently does not support paste expiration, you can follow [#191](/../../issues/191) for status updates.
+File storage currently does not support paste expiration, you can follow [#191](https://github.com/seejohnrun/haste-server/issues/191) for status updates.
 
 ### Redis
 
