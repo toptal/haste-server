@@ -156,9 +156,9 @@ All of which are optional except `type` with very logical default values.
 
 ### Memcached
 
-To use memcached storage you must install the `memcache` package via npm
+To use memcache storage you must install the `memcached` package via npm
 
-`npm install memcache`
+`npm install memcached`
 
 Once you've done that, your config section should look like:
 
