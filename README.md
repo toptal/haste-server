@@ -97,7 +97,9 @@ something like:
 }
 ```
 
-Where `path` represents where you want the files stored
+where `path` represents where you want the files stored.
+
+File storage currently does not support paste expiration, you can follow [#191](https://github.com/seejohnrun/haste-server/issues/191) for status updates.
 
 ### Redis
 
@@ -173,6 +175,28 @@ This behaves just like the redis expirations, but does not push expirations
 forward on GETs.
 
 All of which are optional except `type` with very logical default values.
+
+### RethinkDB
+
+To use the RethinkDB storage system, you must install the `rethinkdbdash` package via npm
+
+`npm install rethinkdbdash`
+
+Once you've done that, your config section should look like this:
+
+``` json
+{
+  "type": "rethinkdb",
+  "host": "127.0.0.1",
+  "port": 28015,
+  "db": "haste"
+}
+```
+
+In order for this to work, the database must be pre-created before the script is ran.
+Also, you must create an `uploads` table, which will store all the data for uploads.
+
+You can optionally add the `user` and `password` properties to use a user system.
 
 ## Author
 
