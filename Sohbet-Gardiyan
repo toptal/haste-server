@@ -1,0 +1,83 @@
+options:
+   prefix: &8&l[&c&lSohbet Gardiyanı&8&l]
+   p: &8&l[&c&lSohbet Gardiyanı&8&l]
+   a: &8&l[&c&lSohbet Gardiyanı&8&l]
+   noperm: &4&lYou Dont Have The Permission!
+   
+command /sohbetgardiyanı [<text>]:
+   trigger:
+     if arg 1 is set:
+       if arg 1 is "help":
+         send "{@a} &cSohbet Gardiyanına Hosgeldin! Chattin Guvende!"
+         send "&c/sohbetisil yada /ss Sohbeti Temizler."
+         send "&c/sohbetisustur on/off yada /globalmute on/off Sohbeti Susturup Sohbeti Acar."
+         send "&c/sohbetimisil Sadece Oyuncunun Sohbetini Temizler!"
+         send "&c/mask Pluginin Ekledigi Yetki Saklama Sistemini Acar!"
+         send "{@p} &cPlugin Chatten Kotu Kelime Yazımını Korur Ve Yazdırmaz Anında Mute Atar!"
+   
+command /sohbetisil:
+   permission: sohbet.admin
+   permission message: {@noperm}
+   aliases: /ss
+   trigger:
+     loop 250 times:
+       broadcast ""
+     broadcast "{@p} &cSohbet %player% Tarafından Temizlendi!"
+     
+     
+command /sohbetimisil:
+   trigger:
+     loop 250 times:
+       send ""
+     send "{@p} &cKendi Sohbetin Temizlendi!"
+     
+command /sohbetisustur [<text>]:
+   permission: sohbet.admin
+   permission message: {@noperm}
+   aliases: /globalmute
+   trigger:
+     if arg 1 is not set:
+       send "{@p} &6/globalmute &eand &6/sohbetisustur &e&l(on/off)"
+     if arg 1 is set:
+       if arg 1 is "on":
+         set {globalmute} to true
+         broadcast "{@p} &cGlobal Mute is On!"
+     if arg 1 is set:
+       if arg 1 is "off":
+         set {globalmute} to false
+         broadcast "{@p} &cGlobal Mute is Off!"
+         
+on chat:
+   if player don't have the permission "sohbet.admin":
+     message contains "*" or "amına koyam" or "amına" or "*" or "gerizekalı" or "mal" or "salak" or "sikiyim" or "ananın amı" or "ananın" or "amı" or "am" or "göt" or "got" or "*" or "* ye" or "yarramı ye":
+       execute player command "/mute %player% 5 day &a&lKUFUR"
+       send "{@p} &cSohbette Kufur Etmek Yasak Bu Yuzden 5 Gun Mute Yedin!"
+       
+       
+command /mask [<text>]:
+   permission: donor.mask
+   permission message: {@noperm}
+   trigger:
+     if arg 1 is not set:
+       open chest with 1 rows named "&4&lMASK" to player
+       format slot 0 of player with green wool named "&aMask Oyuncu" with lore "&a&lOyuncu Maskı!" to close then run [make player execute command "mask oyuncu"]
+       format slot 2 of player with block of gold named "&6Mask Gold" with lore "&6&lGold Maskı!" to close then run [make player execute command "mask gold"]
+       format slot 4 of player with block of diamond named "&bMask Diamond" with lore "&b&lDiamond Maskı!" to close then run [make player execute command "mask diamond"]
+       format slot 6 of player with block of iron named "&7Mask Platinum" with lore "&7&lPlatinum Maskı!" to close then run [make player execute command "mask platinum"]
+       format slot 8 of player with wool named "&4&lUNMASK" to close then run [make player execute command "unmask"]
+     if arg 1 is set:   
+       if arg 1 is "oyuncu":
+         set player's prefix to "&2"
+         send "{@p} &2Oyuncu &cMaskı Basarılı!"
+     if arg 1 is set:
+       if arg 1 is "gold":
+         set player's prefix to "&6"
+         send "{@p} &6Gold &cMaskı Basarılı!"
+     if arg 1 is set:
+       if arg 1 is "diamond":
+         set player's prefix to "&b"
+         send "{@p} &bDiamond &cMaskı Basarılı!
+     if arg 1 is set:
+       if arg 1 is "platinum":
+         set player's prefix to "&7"
+         send "{@p} &7Platinum &cMaskı Basarılı!"
