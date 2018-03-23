@@ -1,7 +1,7 @@
 {
 
   "host": "0.0.0.0",
-  "port": 7777,
+  "port": 80,
 
   "keyLength": 10,
 
@@ -33,11 +33,8 @@
   },
 
   "storage": {
-    "type": "redis",
-    "host": "0.0.0.0",
-    "port": 6379,
-    "db": 2,
-    "expire": 2592000
+      "type": "file",
+      "path": "/data"
   },
 
   "documents": {
