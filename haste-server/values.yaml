@@ -8,7 +8,7 @@ backend:
   type: file
 
 image:
-  repository: cmattoon/haste-server
+  repository: seejohnrun/haste-server
   tag: stable
   pullPolicy: IfNotPresent
 
