@@ -1,0 +1,34 @@
+{{- if eq .Values.backend.type "file" }}
+# Skipping File PVC for now
+{{- else if eq .Values.backend.type "redis" }}
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "haste-server.fullname" . }}
+  labels:
+    app: {{ template "haste-server.name" . }}
+    chart: {{ template "haste-server.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "haste-server.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "haste-server.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-redis
+          image: redis
+          imagePullPolicy: Always
+          ports:
+            - name: redis-server
+              protocol: TCP
+              containerPort: 6379
+{{- end }}
