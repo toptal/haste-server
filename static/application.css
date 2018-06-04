@@ -33,6 +33,7 @@ textarea {
 	font-size: 13px;
 	font-family: monospace;
 	text-align: right;
+	user-select: none;
 }
 
 /* code box when locked */
@@ -48,6 +49,7 @@ textarea {
 	overflow-x: scroll;
 	overflow-y: hidden;
 	box-sizing: border-box;
+	user-select: text;
 }
 
 #box code {
