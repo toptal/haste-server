@@ -34,37 +34,22 @@
 			$(function() {
 				app = new haste('hastebin', { twitter: true });
 				handlePop({ target: window });
-				responsive();
+				removeBanner();
 			});
 
-			function responsive() {
-				// apply touch device specific style
-				if ("ontouchstart" in document.documentElement) {
-					var mTextAreaStyle = document.createElement('style');
-					mTextAreaStyle.setAttribute('rel', 'stylesheet')
-					mTextAreaStyle.setAttribute('type', 'text/css');
-					document.head.appendChild(mTextAreaStyle);
-					mTextAreaStyle.sheet.insertRule('textarea{ padding-bottom: 95px; }', 0);
+			function removeBanner() {
+				var box1 = document.getElementById('box1');
+				box1.style.transition = 'opacity 1s';
 
-					var key = document.getElementById('key');
-					key.style.top = 'auto';
-					key.style.bottom = '0px';
-
-					var box1 = document.getElementById('box1');
-					box1.style.transition = 'opacity 1s';
-					setTimeout(() => {
-						box1.style.opacity = 0;
-						box1.addEventListener('transitionend', function(event) {
-							box1.parentElement.removeChild(box1)
-						}, {
-							capture: false,
-							once: true
-						});
-
-						var tArea = document.querySelector('textarea');
-						tArea.style.paddingBottom = '95px';
-					}, 1000);
-				}
+				setTimeout(() => {
+					box1.style.opacity = 0;
+					box1.addEventListener('transitionend', function(event) {
+						box1.parentElement.removeChild(box1);
+					}, {
+						capture: false,
+						once: true
+					});
+				}, 1000);
 			}
 		</script>
 
@@ -74,7 +59,11 @@
 		<ul id="messages"></ul>
 
 		<div id="key">
-		  <div id="pointer" style="display:none;"></div>
+			<div id="pointer" style="display:none;"></div>
+			<div id="box3" style="display:none;">
+				<div class="label"></div>
+				<div class="shortcut"></div>
+			</div>
 			<div id="box1">
 				<a href="/about.md" class="logo"></a>
 			</div>
@@ -84,10 +73,6 @@
 				<button class="duplicate function button-picture">Duplicate & Edit</button>
 				<button class="raw function button-picture">Just Text</button>
 				<button class="twitter function button-picture">Twitter</button>
-			</div>
-			<div id="box3" style="display:none;">
-				<div class="label"></div>
-				<div class="shortcut"></div>
 			</div>
 		</div>
 
