@@ -46,7 +46,7 @@ textarea {
 	outline: none;
 	font-size: 13px;
 	padding-bottom: 95px;
-	overflow-x: scroll;
+	overflow-x: auto;
 	overflow-y: hidden;
 	box-sizing: border-box;
 	user-select: text;
