@@ -4,6 +4,7 @@
 
 		<title>hastebin</title>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="solarized_dark.css"/>
 		<link rel="stylesheet" type="text/css" href="application.css"/>
 
@@ -33,7 +34,23 @@
 			$(function() {
 				app = new haste('hastebin', { twitter: true });
 				handlePop({ target: window });
+				removeBanner();
 			});
+
+			function removeBanner() {
+				var box1 = document.getElementById('box1');
+				box1.style.transition = 'opacity 1s';
+
+				setTimeout(() => {
+					box1.style.opacity = 0;
+					box1.addEventListener('transitionend', function(event) {
+						box1.parentElement.removeChild(box1);
+					}, {
+						capture: false,
+						once: true
+					});
+				}, 1000);
+			}
 		</script>
 
 	</head>
@@ -42,7 +59,11 @@
 		<ul id="messages"></ul>
 
 		<div id="key">
-		  <div id="pointer" style="display:none;"></div>
+			<div id="pointer" style="display:none;"></div>
+			<div id="box3" style="display:none;">
+				<div class="label"></div>
+				<div class="shortcut"></div>
+			</div>
 			<div id="box1">
 				<a href="/about.md" class="logo"></a>
 			</div>
@@ -52,10 +73,6 @@
 				<button class="duplicate function button-picture">Duplicate & Edit</button>
 				<button class="raw function button-picture">Just Text</button>
 				<button class="twitter function button-picture">Twitter</button>
-			</div>
-			<div id="box3" style="display:none;">
-				<div class="label"></div>
-				<div class="shortcut"></div>
 			</div>
 		</div>
 

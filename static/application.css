@@ -1,6 +1,6 @@
 body {
 	background: #002B36;
-	padding: 20px 50px;
+	padding: 20px 20px 20px 50px;
 	margin: 0px;
 }
 
@@ -17,13 +17,15 @@ textarea {
 	outline: none;
 	resize: none;
 	font-size: 13px;
+	padding-bottom: 95px;
+	overflow-x: hidden;
 }
 
 /* the line numbers */
 
 #linenos {
   color: #7d7d7d;
-	z-index: -1000;
+	/* z-index: -1000; */
 	position: absolute;
 	top: 20px;
 	left: 0px;
@@ -31,6 +33,7 @@ textarea {
 	font-size: 13px;
 	font-family: monospace;
 	text-align: right;
+	user-select: none;
 }
 
 /* code box when locked */
@@ -42,8 +45,11 @@ textarea {
 	border: 0px;
 	outline: none;
 	font-size: 13px;
-	padding-right: 360px;
-  overflow: inherit;
+	padding-bottom: 95px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	box-sizing: border-box;
+	user-select: text;
 }
 
 #box code {
@@ -55,7 +61,7 @@ textarea {
 
 #key {
 	position: fixed;
-	top: 0px;
+	bottom: 0px;
 	right: 0px;
 	z-index: +1000; /* watch out */
 }
