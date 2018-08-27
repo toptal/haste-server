@@ -198,6 +198,20 @@ Also, you must create an `uploads` table, which will store all the data for uplo
 
 You can optionally add the `user` and `password` properties to use a user system.
 
+### Google Datastore
+
+To use the Google Datastore storage system, you must install the `@google-cloud/datastore` package via npm
+
+`npm install @google-cloud/datastore`
+
+Once you've done that, your config section should look like this:
+
+```{
+  "type": "googledatastore"
+}```
+
+Authentication can be handled automatically by [Google Cloud service account credentials](https://cloud.google.com/docs/authentication/getting-started)
+
 ## Author
 
 John Crepezzi <john.crepezzi@gmail.com>
