@@ -206,9 +206,11 @@ To use the Google Datastore storage system, you must install the `@google-cloud/
 
 Once you've done that, your config section should look like this:
 
-```{
+``` json
+{
   "type": "googledatastore"
-}```
+}
+```
 
 Authentication can be handled automatically by [Google Cloud service account credentials](https://cloud.google.com/docs/authentication/getting-started)
 
