@@ -212,7 +212,7 @@ Once you've done that, your config section should look like this:
 }
 ```
 
-Authentication can be handled automatically by [Google Cloud service account credentials](https://cloud.google.com/docs/authentication/getting-started)
+Authentication is handled automatically by [Google Cloud service account credentials](https://cloud.google.com/docs/authentication/getting-started), by providing authentication details to the GOOGLE_APPLICATION_CREDENTIALS environmental variable.
 
 ## Author
 
