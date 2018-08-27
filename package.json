@@ -14,6 +14,7 @@
   },
   "main": "haste",
   "dependencies": {
+    "@google-cloud/datastore": "^1.4.2",
     "connect-ratelimit": "0.0.7",
     "connect-route": "0.1.5",
     "connect": "3.4.1",
