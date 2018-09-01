@@ -208,7 +208,7 @@ Once you've done that, your config section should look like this:
 
 ``` json
 {
-  "type": "googledatastore"
+  "type": "google-datastore"
 }
 ```
 
