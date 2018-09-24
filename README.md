@@ -38,7 +38,7 @@ STDOUT.  Check the README there for more details and usages.
 * `host` - the host the server runs on (default localhost)
 * `port` - the port the server runs on (default 7777)
 * `keyLength` - the length of the keys to user (default 10)
-* `maxLength` - maximum length of a paste (default none)
+* `maxLength` - maximum length of a paste (default 400000)
 * `staticMaxAge` - max age for static assets (86400)
 * `recompressStaticAssets` - whether or not to compile static js assets (true)
 * `documents` - static documents to serve (ex: http://hastebin.com/about.com)
@@ -156,9 +156,9 @@ All of which are optional except `type` with very logical default values.
 
 ### Memcached
 
-To use memcached storage you must install the `memcache` package via npm
+To use memcache storage you must install the `memcached` package via npm
 
-`npm install memcache`
+`npm install memcached`
 
 Once you've done that, your config section should look like:
 
