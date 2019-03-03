@@ -1,0 +1,15 @@
+# cf push -f manifest-dev.yml
+
+---
+applications:
+- name: hastebin
+  buildpacks:
+  - https://github.com/cloudfoundry/nodejs-buildpack.git#v1.6.3
+  disk_quota: 128M
+  env:
+    OPTIMIZE_MEMORY: "true"
+  instances: 1
+  memory: 128M
+  services:
+  - hastebin-redis
+  stack: cflinuxfs2
