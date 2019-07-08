@@ -217,7 +217,24 @@ Once you've done that, your config section should look like this:
 
 Authentication is handled automatically by the client. Check
 [Amazon's documentation](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html)
-for more information.
+for more information. You will need to grant your role these permissions to
+your bucket:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::your-bucket-name-goes-here/*"
+        }
+    ]
+}
+```
 
 ## Author
 
