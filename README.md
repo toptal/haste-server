@@ -22,11 +22,20 @@ STDOUT.  Check the README there for more details and usages.
 
 ## Tested Browsers
 
-* Firefox 8
+* Firefox 74
 * Chrome 17
 * Safari 5.3
 
-## Installation
+## Docker installation
+
+`docker build -t haste .`
+
+`docker run -ti -p 7777:7777 haste`
+
+open your browser to localhost:7777
+
+
+## Manual Installation
 
 1.  Download the package, and expand it
 2.  Explore the settings inside of config.js, but the defaults should be good
