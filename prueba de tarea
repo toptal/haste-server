@@ -1,0 +1,47 @@
+#EXTM3U
+
+
+#EXTINF: -1 HBO
+https://www.latino-web-tv.com/clive/c3eds/HBOHD/verimatrix_rotating/index.m3u8
+
+#EXTINF: -1, HBO 2
+https://live.televisiongratishd.com/televisiongratishd/28_.m3u8?md5=6H5C2pKHQBFt25tgcj9NTw&expires=1587583854
+
+#EXTINF: -1, HBO PLUS
+https://www.latino-web-tv.com/clive/c2live/HBO_Plus/verimatrix_rotating/index.m3u8
+
+#EXTINF: -1, HBO EXTREME
+https://live.televisiongratishd.com/televisiongratishd/61_.m3u8?md5=bWCxtHCZbfyUkzoF03FRzA&expires=1587536151
+
+#EXTINF: -1, HBO POP
+https://live.televisiongratishd.com/televisiongratishd/466_.m3u8?md5=duwL2oDhKJMIeS4DLNfNtw&expires=1587536358
+
+#EXTINF: -1, CINEMAX
+https://www.latino-web-tv.com/clive/c2live/Cinemax/verimatrix_rotating/index.m3u8
+
+#EXTINF: -1, CINECANAL
+https://live.televisiongratishd.com/televisiongratishd/42_.m3u8?md5=HtXU57c0Hxi9pOHNfBjzHQ&expires=1587536775
+
+#EXTINF: -1, TNT
+https://live.televisiongratishd.com/televisiongratishd/35_.m3u8?md5=eYwcBSBQilKM-We2mVb-Lw&expires=1587538551
+
+#EXTINF: -1, SPACE
+https://edge-live11-hr.cvattv.com.ar/live/c3eds/Space/SA_MOBILE_FTA/index.m3u8
+
+#EXTINF: -1, FOX
+https://live.televisiongratishd.com/televisiongratishd/40_.m3u8?md5=YEmirj7Or1sdWATo9XY41g&expires=1587537337
+
+#EXTINF: -1, STUDIO UNIVERSAL
+https://live.televisiongratishd.com/televisiongratishd/63_.m3u8?md5=Kq7DWpNAQw2Y0b6bGs7kww&expires=1587537474
+
+#EXTINF: -1, WARNER BROS
+https://live.televisiongratishd.com/televisiongratishd/34_.m3u8?md5=G96E0nk75QZ6BeYAzD5Fkw&expires=1587542467
+
+#EXTINF: -1, FX
+https://www.latino-web-tv.com/clive/c3eds/FXHD/verimatrix_rotating/index.m3u8
+
+#EXTINF: -1, AZTECA UNO
+https://live.televisiongratishd.com/televisiongratishd/424_.m3u8?md5=lM8YyBlEJ5BTX0lTdX7aGw&expires=1587537635
+
+#EXTINF: -1,musica
+https://live.televisiongratishd.com/televisiongratishd/90_.m3u8?md5=veQrMFKQ2DkTQE3Nj8gznw&expires=1587442864
