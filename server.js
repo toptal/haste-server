@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var http = require('http');
 var fs = require('fs');
 
@@ -43,6 +45,10 @@ if (!config.storage.type) {
 }
 
 var Store, preferredStore;
+
+if (config.storage.password == '.env') {
+  config.storage.password=process.env.STORAGE_PASSWORD
+}
 
 if (process.env.REDISTOGO_URL && config.storage.type === 'redis') {
   var redisClient = require('redis-url').connect(process.env.REDISTOGO_URL);

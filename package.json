@@ -19,6 +19,7 @@
     "connect-ratelimit": "0.0.7",
     "connect-route": "0.1.5",
     "pg": "^8.0.0",
+    "dotenv": "^8.2.0",
     "redis": "0.8.1",
     "redis-url": "0.1.0",
     "st": "^2.0.0",
