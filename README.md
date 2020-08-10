@@ -215,6 +215,16 @@ Once you've done that, your config section should look like this:
 }
 ```
 
+If you want to specify some enhanced customs like the endpoint to use (may be useful if you want to use MinIO for example), you can use the `amazon-s3-custom` storage system:
+
+```json
+{
+  "type": "amazon-s3-custom",
+  "endpoint": "https://your-s3-endpoint.com",
+  "bucket": "your-bucket-name"
+}
+```
+
 Authentication is handled automatically by the client. Check
 [Amazon's documentation](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html)
 for more information. You will need to grant your role these permissions to
