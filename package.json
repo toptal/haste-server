@@ -14,25 +14,22 @@
   },
   "main": "haste",
   "dependencies": {
+    "busboy": "0.2.4",
+    "connect": "3.6.6",
     "connect-ratelimit": "0.0.7",
     "connect-route": "0.1.5",
-    "connect": "3.4.1",
-    "st": "1.1.0",
-    "winston": "0.6.2",
-    "redis-url": "0.1.0",
+    "memcached": "^2.2.2",
+    "pg": "4.5.7",
     "redis": "0.8.1",
+    "redis-url": "0.1.0",
+    "st": "2.0.0",
     "uglify-js": "3.1.6",
-    "busboy": "0.2.4",
-    "pg": "4.1.1"
+    "winston": "0.6.2"
   },
   "devDependencies": {
     "mocha": "^4.0.1"
   },
   "bundledDependencies": [],
-  "engines": {
-    "node": "8.1.4",
-    "npm": "5.2.0"
-  },
   "bin": {
     "haste-server": "./server.js"
   },
