@@ -92,10 +92,10 @@ const config = {
     expire: STORAGE_EXPIRE_SECONDS,
     bucket: STORAGE_AWS_BUCKET,
     region: STORAGE_AWS_REGION,
-    connectionUrl: `postgres://${STORAGE_PG_USERNAME}:${STORAGE_PG_PASSWORD}@${STORAGE_HOST}:${STORAGE_PORT}/${STORAGE_DB}`,
+    connectionUrl: `postgres://${STORAGE_USERNAME}:${STORAGE_PASSWORD}@${STORAGE_HOST}:${STORAGE_PORT}/${STORAGE_DB}`,
     db: STORAGE_DB,
-    user: STORAGE_RETHINK_USER,
-    password: STORAGE_RETHINK_USER,
+    user: STORAGE_USERNAME,
+    password: STORAGE_PASSWORD,
     path: STORAGE_FILEPATH,
   },
 
