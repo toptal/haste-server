@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:14.8.0-stretch
 
 RUN mkdir -p /usr/src/app && \
     chown node:node /usr/src/app
@@ -10,9 +10,9 @@ WORKDIR /usr/src/app
 COPY --chown=node:node . . 
 
 RUN npm install && \
-    npm install redis && \
-    npm install pg && \
-    npm install memcached
+    npm install redis@0.8.1 && \
+    npm install pg@4.1.1 && \
+    npm install memcached@2.2.2
 
 ENV STORAGE_TYPE=memcached \
     STORAGE_HOST=127.0.0.1 \
