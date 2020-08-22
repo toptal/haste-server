@@ -1,4 +1,3 @@
-const { promisify } = require("util");
 const {
   HOST,
   PORT,
