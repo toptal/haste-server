@@ -8,16 +8,18 @@ body {
 /* textarea */
 
 textarea {
-  background: transparent;
-  border: 0px;
-  color: #fff;
-  padding: 0px;
-  width: 100%;
-  height: 100%;
-  font-family: monospace;
-  outline: none;
-  resize: none;
-  font-size: 13px;
+	background: transparent;
+	border: 0px;
+	color: #fff;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+	font-family: monospace;
+	outline: none;
+	resize: none;
+	font-size: 13px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 /* the line numbers */
