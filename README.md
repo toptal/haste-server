@@ -198,6 +198,22 @@ Also, you must create an `uploads` table, which will store all the data for uplo
 
 You can optionally add the `user` and `password` properties to use a user system.
 
+### Google Datastore
+
+To use the Google Datastore storage system, you must install the `@google-cloud/datastore` package via npm
+
+`npm install @google-cloud/datastore`
+
+Once you've done that, your config section should look like this:
+
+``` json
+{
+  "type": "google-datastore"
+}
+```
+
+Authentication is handled automatically by [Google Cloud service account credentials](https://cloud.google.com/docs/authentication/getting-started), by providing authentication details to the GOOGLE_APPLICATION_CREDENTIALS environmental variable.
+
 ### Amazon S3
 
 To use [Amazon S3](https://aws.amazon.com/s3/) as a storage system, you must
@@ -315,8 +331,6 @@ Here is a list of all the environment variables
 | RATELIMITS_BLACKLIST_TOTAL_REQUESTS  |                                       |    By default client names in the blacklist will be subject to 0 requests per hours.     |
 |  RATELIMITS_BLACKLIST_EVERY_SECONDS  |                                       |     By default client names in the blacklist will be subject to 0 requests per hours     |
 |         RATELIMITS_BLACKLIST         | example1.blacklist,example2.blacklist |           Comma separated list of the clients which are in the blacklistpool.            |
-
-
 
 ## Author
 
