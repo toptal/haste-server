@@ -17,6 +17,8 @@ textarea {
 	outline: none;
 	resize: none;
 	font-size: 13px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 /* the line numbers */
