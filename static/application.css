@@ -33,6 +33,7 @@ textarea {
 	font-size: 13px;
 	font-family: monospace;
 	text-align: right;
+	user-select: none;
 }
 
 /* code box when locked */
@@ -119,6 +120,7 @@ textarea {
 	font-size: 12px;
 	line-height: 14px;
 	padding: 10px 15px;
+	user-select: none;
 }
 
 #box3 .label, #messages li {
