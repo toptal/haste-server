@@ -154,6 +154,28 @@ or post.
 
 All of which are optional except `type` with very logical default values.
 
+### MongoDB
+
+To use mongodb storage you must install the 'mongodb' pachage in npm
+
+`npm install mongodb`
+
+Once you've done that, your config section should look like:
+
+``` json
+{
+  "type": "mongodb",
+  "connectionUrl": "mongodb://localhost:27017/database"
+}
+```
+
+You can also just set the environment variable for `DATABASE_URL` to your database connection url.
+
+Unlike with postgres you do NOT have to create the table in your mongo database prior to running.
+
+You can also set an `expire` option to the number of seconds to expire keys in.
+This is off by default, but will constantly kick back expirations on each view or post.
+
 ### Memcached
 
 To use memcache storage you must install the `memcached` package via npm
