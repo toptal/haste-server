@@ -21,7 +21,9 @@
     "pg": "^6.0.0",
     "st": "^2.0.0",
     "winston": "^2.0.0",
-    "uglify-js": "3.1.6"
+    "uglify-js": "3.1.6",
+    "@sentry/node": "*",
+    "@sentry/tracing": "*"
   },
   "devDependencies": {
     "mocha": "^8.1.3"

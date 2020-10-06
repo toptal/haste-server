@@ -10,6 +10,13 @@ var connect_rate_limit = require('connect-ratelimit');
 
 var DocumentHandler = require('./lib/document_handler');
 
+const Sentry = require('@sentry/node');
+
+const sentryEnabled = process.env.SENTRY_DSN;
+if (sentryEnabled) {
+  Sentry.init({dsn: process.env.SENTRY_DSN});
+}
+
 // Load the configuration and set some defaults
 var config = JSON.parse(fs.readFileSync('./config.js', 'utf8'));
 config.port = process.env.PORT || config.port || 7777;
@@ -100,6 +107,9 @@ var documentHandler = new DocumentHandler({
 
 var app = connect();
 
+// Include sentry request handler if enabled
+if (sentryEnabled) app.use(Sentry.Handlers.requestHandler());
+
 // Rate limit all requests
 if (config.rateLimits) {
   config.rateLimits.end = true;
@@ -149,6 +159,9 @@ app.use(connect_st({
   content: { maxAge: config.staticMaxAge },
   index: 'index.html'
 }));
+
+// Include sentry error handler if enabled
+if (sentryEnabled) { app.use(Sentry.Handlers.errorHandler()); }
 
 http.createServer(app).listen(config.port, config.host);
 
