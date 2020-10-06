@@ -1,7 +1,7 @@
 var http = require('http');
-var url = require('url');
 var fs = require('fs');
 
+var uglify = require('uglify-js');
 var winston = require('winston');
 var connect = require('connect');
 var route = require('connect-route');
@@ -19,7 +19,10 @@ config.host = process.env.HOST || config.host || 'localhost';
 if (config.logging) {
   try {
     winston.remove(winston.transports.Console);
-  } catch(er) { }
+  } catch(e) {
+    /* was not present */
+  }
+
   var detail, type;
   for (var i = 0; i < config.logging.length; i++) {
     detail = config.logging[i];
@@ -52,21 +55,14 @@ else {
 
 // Compress the static javascript assets
 if (config.recompressStaticAssets) {
-  var jsp = require("uglify-js").parser;
-  var pro = require("uglify-js").uglify;
   var list = fs.readdirSync('./static');
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i];
-    var orig_code, ast;
-    if ((item.indexOf('.js') === item.length - 3) &&
-        (item.indexOf('.min.js') === -1)) {
-      dest = item.substring(0, item.length - 3) + '.min' +
-        item.substring(item.length - 3);
-      orig_code = fs.readFileSync('./static/' + item, 'utf8');
-      ast = jsp.parse(orig_code);
-      ast = pro.ast_mangle(ast);
-      ast = pro.ast_squeeze(ast);
-      fs.writeFileSync('./static/' + dest, pro.gen_code(ast), 'utf8');
+  for (var j = 0; j < list.length; j++) {
+    var item = list[j];
+    if ((item.indexOf('.js') === item.length - 3) && (item.indexOf('.min.js') === -1)) {
+      var dest = item.substring(0, item.length - 3) + '.min' + item.substring(item.length - 3);
+      var orig_code = fs.readFileSync('./static/' + item, 'utf8');
+
+      fs.writeFileSync('./static/' + dest, uglify.minify(orig_code).code, 'utf8');
       winston.info('compressed ' + item + ' into ' + dest);
     }
   }
@@ -113,17 +109,17 @@ if (config.rateLimits) {
 // first look at API calls
 app.use(route(function(router) {
   // get raw documents - support getting with extension
-  router.get('/raw/:id', function(request, response, next) {
+  router.get('/raw/:id', function(request, response) {
     var key = request.params.id.split('.')[0];
     var skipExpire = !!config.documents[key];
     return documentHandler.handleRawGet(key, response, skipExpire);
   });
   // add documents
-  router.post('/documents', function(request, response, next) {
+  router.post('/documents', function(request, response) {
     return documentHandler.handlePost(request, response);
   });
   // get documents
-  router.get('/documents/:id', function(request, response, next) {
+  router.get('/documents/:id', function(request, response) {
     var key = request.params.id.split('.')[0];
     var skipExpire = !!config.documents[key];
     return documentHandler.handleGet(key, response, skipExpire);

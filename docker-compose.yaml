@@ -1,0 +1,19 @@
+version: '3.0'
+services:
+  haste-server:
+    build: .
+    networks:
+      - db-network
+    environment:
+      - STORAGE_TYPE=memcached
+      - STORAGE_HOST=memcached
+      - STORAGE_PORT=11211
+    ports:
+      - 7777:7777
+  memcached:
+    image: memcached:latest
+    networks:
+      - db-network
+
+networks:
+  db-network:
