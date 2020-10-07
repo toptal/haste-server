@@ -109,20 +109,28 @@ if (config.rateLimits) {
 // first look at API calls
 app.use(route(function(router) {
   // get raw documents - support getting with extension
+
   router.get('/raw/:id', function(request, response) {
-    var key = request.params.id.split('.')[0];
-    var skipExpire = !!config.documents[key];
-    return documentHandler.handleRawGet(key, response, skipExpire);
+    return documentHandler.handleRawGet(request, response, config);
   });
+
+  router.head('/raw/:id', function(request, response) {
+    return documentHandler.handleRawGet(request, response, config);
+  });
+
   // add documents
+
   router.post('/documents', function(request, response) {
     return documentHandler.handlePost(request, response);
   });
+
   // get documents
   router.get('/documents/:id', function(request, response) {
-    var key = request.params.id.split('.')[0];
-    var skipExpire = !!config.documents[key];
-    return documentHandler.handleGet(key, response, skipExpire);
+    return documentHandler.handleGet(request, response, config);
+  });
+
+  router.head('/documents/:id', function(request, response) {
+    return documentHandler.handleGet(request, response, config);
   });
 }));
 
