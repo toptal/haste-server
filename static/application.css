@@ -1,17 +1,22 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 body {
-	background: #263238;
-	padding: 0 0 80px;
+	background: #002B36;
 	margin: 0;
 	font-family: sans-serif;
+	overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* textarea */
 
 textarea {
-	background: transparent;
+	background: #002B36;
 	border: 0px;
 	color: #fff;
-	padding: 0px;
 	width: 100%;
 	height: 100%;
 	font-family: monospace;
@@ -20,6 +25,7 @@ textarea {
 	font-size: 13px;
 	margin-top: 0;
 	margin-bottom: 0;
+	padding: 20px 20px 80px 0;
 }
 
 .logo a:hover svg path {
@@ -31,30 +37,24 @@ textarea {
 #linenos {
 	color: #7d7d7d;
 	z-index: -1000;
-	position: absolute;
-	top: 20px;
-	left: 0px;
-	width: 30px; /* 30 to get 20 away from box */
 	font-size: 13px;
 	font-family: monospace;
 	text-align: right;
 	user-select: none;
+	padding: 20px 20px 80px 20px;
+	flex-shrink: 0;
 }
 
 /* code box when locked */
 
 #box {
-	padding: 0px;
+	padding: 20px 20px 20px 0;
 	margin: 0px;
 	width: 100%;
 	border: 0px;
 	outline: none;
 	font-size: 13px;
-	overflow: inherit;
-}
-
-#box.hljs {
-	background: transparent;
+	overflow: auto;
 }
 
 #box code {
@@ -65,10 +65,6 @@ textarea {
 /* key */
 
 #key {
-	position: fixed;
-	bottom: 0px;
-	left: 0;
-	right: 0px;
 	z-index: +1000; /* watch out */
 }
 
@@ -116,7 +112,7 @@ button.enabled {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: #263238;
+	background: #002B36;
 }
 
 .menu-actions {
