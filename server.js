@@ -5,6 +5,7 @@ var uglify = require('uglify-js');
 var winston = require('winston');
 var connect = require('connect');
 var route = require('connect-route');
+var cors = require('connect-cors');
 var connect_st = require('st');
 var connect_rate_limit = require('connect-ratelimit');
 
@@ -106,6 +107,12 @@ if (config.rateLimits) {
   config.rateLimits.end = true;
   app.use(connect_rate_limit(config.rateLimits));
 }
+
+// Allow CORS from everywhere
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 // first look at API calls
 app.use(route(function(router) {
