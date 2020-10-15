@@ -5,7 +5,6 @@ var uglify = require('uglify-js');
 var winston = require('winston');
 var connect = require('connect');
 var route = require('connect-route');
-var cors = require('connect-cors');
 var connect_st = require('st');
 var connect_rate_limit = require('connect-ratelimit');
 
