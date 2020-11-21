@@ -33,11 +33,13 @@
   },
 
   "storage": {
-    "type": "file"
+    "type": "file",
+    "allowList": true,
+    "allowDelete": true
   },
 
   "documents": {
-    "about": "./about.md"
+    "about.md": "./about.md"
   }
 
 }

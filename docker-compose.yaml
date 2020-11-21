@@ -1,19 +1,20 @@
-version: '3.0'
+version: '3.6'
 services:
   haste-server:
     build: .
-    networks:
-      - db-network
-    environment:
-      - STORAGE_TYPE=memcached
-      - STORAGE_HOST=memcached
-      - STORAGE_PORT=11211
+    image: hastepad:0.5
     ports:
       - 7777:7777
-  memcached:
-    image: memcached:latest
-    networks:
-      - db-network
+    volumes:
+      - type: tmpfs
+        target: /usr/src/app/data
+        tmpfs:
+          size: 128M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "10"
 
 networks:
   db-network:

@@ -1,18 +1,17 @@
 {
-  "name": "haste",
-  "version": "0.1.0",
+  "name": "hastepad",
+  "version": "0.1.1",
   "private": true,
-  "description": "Private Pastebin Server",
+  "description": "Private OnlineNotepad Server",
   "keywords": [
-    "paste",
-    "pastebin"
+    "Notepad"
   ],
   "author": {
     "name": "John Crepezzi",
     "email": "john.crepezzi@gmail.com",
     "url": "http://seejohncode.com/"
   },
-  "main": "haste",
+  "main": "hastepad",
   "dependencies": {
     "busboy": "0.2.4",
     "connect": "^3.7.0",

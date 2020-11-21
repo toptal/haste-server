@@ -1,3 +1,13 @@
+# TestNow
+
+Test it in seconds : 
+
+```bash
+docker run --rm -d -p 7777:7777 hastepad:0.5
+```
+Open your browser and type url : http://127.0.0.1:7777/
+
+
 # Haste
 
 Haste is an open-source pastebin software written in node.js, which is easily
@@ -19,6 +29,26 @@ to do things like:
 
 which will output a URL to share containing the contents of `cat something`'s
 STDOUT.  Check the README there for more details and usages.
+
+# Customized version (HastePad)
+
+This is not the original version, you'll find the original version at : https://github.com/seejohnrun/haste-server
+
+This version is from here : https://github.com/mtudury/haste-server
+
+This version is customized in order to add/change some features :
+
+- Live saving : Do not loose your work when closing your browser
+- List documents
+- Delete document
+
+It currently only works with storage type : file.
+
+It main usage would be like a notepad online (mono user)
+
+It does not have exactly the same purpose of original haste (no edit/no delete needed nor wanted in original version) so choose accordingly to your needs
+
+If you need security, i would recommend : add a reverse-proxy in front (Caddy/Nginx), HTTPS and authentication using reverse proxy features, only expose the reverse proxy.
 
 ## Tested Browsers
 

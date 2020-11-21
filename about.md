@@ -6,6 +6,20 @@ use pastebins.
 
 Haste is the prettiest, easiest to use pastebin ever made.
 
+## Customized version (HastePad)
+
+This is not the original version, you'll find the original version at : https://github.com/seejohnrun/haste-server
+
+This version is from here : https://github.com/mtudury/haste-server
+
+This version is customized in order to add/change some features :
+
+- Live saving : Do not loose your work when closing your browser
+- List document
+- Delete document
+
+It main usage would be like a notepad online (mono user)
+
 ## Basic Usage
 
 Type what you want me to see, click "Save", and then copy the URL.  Send that

@@ -32,6 +32,7 @@
 			// Construct app and load initial path
 			$(function() {
 				app = new haste('hastebin', { twitter: true });
+				app.autosave();
 				handlePop({ target: window });
 			});
 		</script>
@@ -51,11 +52,14 @@
 				<button class="new function button-picture">New</button>
 				<button class="duplicate function button-picture">Duplicate & Edit</button>
 				<button class="raw function button-picture">Just Text</button>
-				<button class="twitter function button-picture">Twitter</button>
+				<button class="twitter function button-picture">Edit</button>
 			</div>
 			<div id="box3" style="display:none;">
 				<div class="label"></div>
 				<div class="shortcut"></div>
+			</div>
+			<div id="box4">
+				<ul id="list"></ul>
 			</div>
 		</div>
 

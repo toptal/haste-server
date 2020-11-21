@@ -11,7 +11,7 @@ var connect_rate_limit = require('connect-ratelimit');
 var DocumentHandler = require('./lib/document_handler');
 
 // Load the configuration and set some defaults
-const configPath = process.argv.length <= 2 ? 'config.js' : process.argv[2];
+const configPath = process.argv.length <= 2 ? 'config.json' : process.argv[2];
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 config.port = process.env.PORT || config.port || 7777;
 config.host = process.env.HOST || config.host || 'localhost';
@@ -125,13 +125,34 @@ app.use(route(function(router) {
     return documentHandler.handlePost(request, response);
   });
 
+  // update documents
+
+  router.post('/documents/:id', function(request, response) {
+    return documentHandler.handlePost(request, response);
+  });
+
   // get documents
   router.get('/documents/:id', function(request, response) {
     return documentHandler.handleGet(request, response, config);
   });
 
+  // get documents
+  router.delete('/documents/:id', function(request, response) {
+    return documentHandler.handleDelete(request, response, config);
+  });
+
   router.head('/documents/:id', function(request, response) {
     return documentHandler.handleGet(request, response, config);
+  });
+
+  // list documents
+  router.get('/documents', function(request, response) {
+    return documentHandler.handleList(request, response, config);
+  });
+
+  // get key
+  router.get('/key', function(request, response) {
+    return documentHandler.handleGetKey(request, response, config);
   });
 }));
 
