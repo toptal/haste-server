@@ -86,6 +86,28 @@ haste_document.prototype.save = function(key, data, callback) {
   });
 };
 
+// Save this document to the server and lock it here
+haste_document.prototype.deleteDocument = function(key, callback) {
+  if (!this.locked) {
+    return false;
+  }
+  var _this = this;
+  $.ajax('/documents/' + key, {
+    type: 'delete',
+    success: function(res) {
+      callback(null, res);
+    },
+    error: function(res) {
+      try {
+        callback($.parseJSON(res.responseText));
+      }
+      catch (e) {
+        callback({message: 'Something went wrong!'});
+      }
+    }
+  });
+};
+
 // get a valid key from server
 haste_document.prototype.getkey = function(callback) {
   $.ajax('/key/', {
@@ -143,12 +165,12 @@ haste.prototype.lightKey = function() {
 
 // Show the full key
 haste.prototype.fullKey = function() {
-  this.configureKey(['new', 'duplicate', 'twitter', 'raw']);
+  this.configureKey(['new', 'duplicate', 'edit', 'raw', 'delete']);
 };
 
 // Show all the keys
 haste.prototype.allKey = function() {
-  this.configureKey(['new', 'save', 'duplicate', 'twitter', 'raw']);
+  this.configureKey(['new', 'save', 'duplicate', 'edit', 'raw', 'delete']);
 };
 
 // Set the key up for certain things to be enabled
@@ -323,7 +345,7 @@ haste.prototype.unlockDocument = function() {
   var _this = this;
   _this.$textarea.val(_this.$code.text()).show().focus();
   _this.$box.hide();
-  _this.allKey();
+  _this.lightKey();
   _this.removeLineNumbers();
   _this.doc.locked = false;
 };
@@ -378,15 +400,30 @@ haste.prototype.configureButtons = function() {
       }
     },
     {
-      $where: $('#box2 .twitter'),
+      $where: $('#box2 .edit'),
       label: 'Edit',
       shortcut: function(evt) {
-        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
+        return _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
       },
       shortcutDescription: 'control + shift + t',
       action: function() {
-        //window.open('https://twitter.com/share?url=' + encodeURI(window.location.href));
         _this.unlockDocument();
+      }
+    },
+    {
+      $where: $('#box2 .delete'),
+      label: 'Delete',
+      shortcut: function(evt) {
+        return false;
+      },
+      shortcutDescription: 'none',
+      action: function() {
+        _this.doc.deleteDocument(_this.getCurrentKey(), function () { 
+          _this.$box.html('');
+          _this.removeLineNumbers();
+          _this.showMessage("Deleted");
+          _this.updateList();
+        });
       }
     }
   ];
@@ -422,8 +459,11 @@ haste.prototype.updateList = function () {
   _this.getList(function (lst) {
     if (lst) {
       var lis = "";
+      var cnt = 0;
       lst.forEach(function (file) {
-        lis+= '<li><a href="'+file+'">'+file+'</a></li>';
+        if (cnt < 150)
+          lis+= '<li><a href="'+file+'">'+file+'</a></li>';
+        cnt++;
       });
       $('#list').html(lis);
     }
@@ -461,7 +501,7 @@ haste.prototype.autosave = function() {
       });
       _this.doc.changed = false;
     }
-    window.setTimeout(cycle, 15000);  
+    window.setTimeout(cycle, 5000);  
   };
 
   window.setTimeout(cycle, 5000);

@@ -2,7 +2,7 @@ version: '3.6'
 services:
   haste-server:
     build: .
-    image: hastepad:0.5
+    image: hastepad:0.6
     ports:
       - 7777:7777
     volumes:

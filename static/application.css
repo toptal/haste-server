@@ -133,6 +133,30 @@ textarea {
 	font-weight: normal;
 }
 
+#box4 ul {
+	margin-block-start: 3px;
+	margin-block-end: 3px;
+	padding-inline-start: 0;
+	background: #00222b;
+}
+
+#box4 li {
+	display: block;
+	font-family: monospace;
+}
+
+#box4 a {
+	display:block;
+	padding-left: 10px;
+	text-decoration: none;
+	color: #fff;
+}
+
+#box4 a:hover {
+	background: #173e48;
+	font-weight: bold;
+}
+
 #box2 .function.save { background-position: -5px top; }
 #box2 .function.enabled.save { background-position: -5px center; }
 #box2 .function.enabled.save:hover { background-position: -5px bottom; }
@@ -141,17 +165,21 @@ textarea {
 #box2 .function.enabled.new { background-position: -42px center; }
 #box2 .function.enabled.new:hover { background-position: -42px bottom; }
 
-#box2 .function.duplicate { background-position: -79px top; }
-#box2 .function.enabled.duplicate { background-position: -79px center; }
-#box2 .function.enabled.duplicate:hover { background-position: -79px bottom; }
+#box2 .function.edit { background-position: -79px top; }
+#box2 .function.enabled.edit { background-position: -79px center; }
+#box2 .function.enabled.edit:hover { background-position: -79px bottom; }
 
 #box2 .function.raw { background-position: -116px top; }
 #box2 .function.enabled.raw { background-position: -116px center; }
 #box2 .function.enabled.raw:hover { background-position: -116px bottom; }
 
-#box2 .function.twitter { background-position: -153px top; }
-#box2 .function.enabled.twitter { background-position: -153px center; }
-#box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
+#box2 .function.duplicate { background-position: -153px top; }
+#box2 .function.enabled.duplicate { background-position: -153px center; }
+#box2 .function.enabled.duplicate:hover { background-position: -153px bottom; }
+
+#box2 .function.delete { background-position: -190px top; }
+#box2 .function.enabled.delete { background-position: -190px center; }
+#box2 .function.enabled.delete:hover { background-position: -190px bottom; }
 #box2 .button-picture{ border-width: 0; font-size: inherit; }
 
 #messages {

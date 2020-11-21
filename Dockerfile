@@ -22,6 +22,8 @@ ENV HOST=0.0.0.0\
 
 USER node:node
 
+VOLUME /usr/src/app/data
+
 EXPOSE ${PORT}
 STOPSIGNAL SIGINT
 ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
