@@ -32,6 +32,8 @@
     }
   },
 
+  "dotenv": true,
+
   "storage": {
     "type": "file"
   },
