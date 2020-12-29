@@ -32,7 +32,7 @@
     }
   },
 
-  "dotenv": true,
+  "useDotenv": true,
 
   "storage": {
     "type": "file"

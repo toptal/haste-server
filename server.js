@@ -16,7 +16,7 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 config.port = process.env.PORT || config.port || 7777;
 config.host = process.env.HOST || config.host || 'localhost';
 
-if (config.dotEnv) {
+if (config.useDotenv) {
     require('dotenv').config();
 }
 
@@ -48,7 +48,7 @@ if (!config.storage.type) {
 
 var Store, preferredStore;
 
-if (config.dotEnv) {
+if (config.useDotenv) {
   config.storage.password = process.env.STORAGE_PASSWORD;
 }
 
