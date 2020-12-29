@@ -47,7 +47,7 @@ if (!config.storage.type) {
 var Store, preferredStore;
 
 if (config.storage.password == '.env') {
-  config.storage.password=process.env.STORAGE_PASSWORD
+  config.storage.password = process.env.STORAGE_PASSWORD
 }
 
 if (process.env.REDISTOGO_URL && config.storage.type === 'redis') {
