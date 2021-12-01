@@ -253,10 +253,10 @@ Once you've done that, your config section should look like this:
 }
 ```
 
-Authentication is handled automatically by the client. Check
-[Amazon's documentation](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html)
-for more information. You will need to grant your role these permissions to
-your bucket:
+Authentication can be handled in the config (by adding `keyId` and `keySecret` properties to the above example), or separately by the client SDK. 
+See [Amazon's documentation](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html) for more information.
+
+You will need to create an IAM user and retrieve an access key. The IAM user should have the the following permissions:
 
 ```json
 {
@@ -271,6 +271,18 @@ your bucket:
             "Resource": "arn:aws:s3:::your-bucket-name-goes-here/*"
         }
     ]
+}
+```
+
+**Alternative S3 API Providers:** A number of other storage providers support the S3 API (such as Linode, BackBlaze B2, etc). To use one of those providers, you will need to specify an endpoint in your config instead of a region:
+
+```json
+{
+  "type": "amazon-s3",
+  "bucket": "your-bucket-name",
+  "endpoint": "s3.example.backblazeb2.com",
+  "keyId": "9387200",
+  "keySecret": "H93lmz_93hla9jhdl/Example"
 }
 ```
 
