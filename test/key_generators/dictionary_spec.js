@@ -20,14 +20,17 @@ describe('RandomKeyGenerator', function() {
       }, Error);
     });
 
-    it('should return a key of the proper number of words from the given dictionary', () => {
-      const path = '/tmp/haste-server-test-dictionary';
-      const words = ['cat'];
-      fs.writeFileSync(path, words.join('\n'));
-
-      const gen = new Generator({path}, () => {
-        assert.equal('catcatcat', gen.createKey(3));
+    it('should return a key of the proper number of words from the given dictionary', (done) => {
+      const path = 'data/haste-server-test-dictionary';
+      const charList = 'cat';
+      fs.writeFile(path, charList, function (err) {
+        if (err) throw err;
       });
+      done();
+      const gen = new Generator({path});
+      const key = gen.createKey(3);
+      assert.equal(6, key.length);
+      fs.unlinkSync(path);
     });
   });
 });
