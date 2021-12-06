@@ -33,7 +33,7 @@
   },
 
   "storage": {
-    "type": "file",
+    "type": "file"
   },
 
   "documents": {
