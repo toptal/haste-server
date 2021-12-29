@@ -1,4 +1,22 @@
-FROM node:14.8.0-stretch
+FROM node:17-alpine
+
+RUN mkdir -p /usr/src/app && \
+    chown node:node /usr/src/app && \
+    apk add bash
+
+USER node:node
+
+WORKDIR /usr/src/app
+
+COPY --chown=node:node . .
+
+RUN npm install && \
+    npm install redis@0.8.1 && \
+    npm install pg@4.1.1 && \
+    npm install memcached@2.2.2 && \
+    npm install aws-sdk@2.738.0 && \
+    npm install rethinkdbdash@2.3.31
+
 
 ENV STORAGE_TYPE=memcached \
     STORAGE_HOST=127.0.0.1 \
@@ -22,22 +40,6 @@ ENV STORAGE_TYPE=memcached \
     # comma separated list for the blacklisted \
     RATELIMITS_BLACKLIST=example1.blacklist,example2.blacklist \
     DOCUMENTS=about=./about.md
-
-RUN mkdir -p /usr/src/app && \
-    chown node:node /usr/src/app
-
-USER node:node
-
-WORKDIR /usr/src/app
-
-COPY --chown=node:node . .
-
-RUN npm install && \
-    npm install redis@0.8.1 && \
-    npm install pg@4.1.1 && \
-    npm install memcached@2.2.2 && \
-    npm install aws-sdk@2.738.0 && \
-    npm install rethinkdbdash@2.3.31
 
 EXPOSE ${PORT}
 STOPSIGNAL SIGINT
