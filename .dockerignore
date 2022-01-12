@@ -1,3 +1,5 @@
+Dockerfile
+.git
 npm-debug.log
 node_modules
 *.swp
