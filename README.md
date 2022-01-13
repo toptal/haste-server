@@ -156,7 +156,7 @@ All of which are optional except `type` with very logical default values.
 
 ### MongoDB
 
-To use mongodb storage you must install the 'mongodb' pachage in npm
+To use mongodb storage you must install the 'mongodb' package in npm
 
 `npm install mongodb`
 
