@@ -33,13 +33,13 @@ const {
 
 const config = {
   host: HOST,
-  port: PORT,
+  port: Number(PORT),
 
-  keyLength: KEY_LENGTH,
+  keyLength: Number(KEY_LENGTH),
 
-  maxLength: MAX_LENGTH,
+  maxLength: Number(MAX_LENGTH),
 
-  staticMaxAge: STATIC_MAX_AGE,
+  staticMaxAge: Number(STATIC_MAX_AGE),
 
   recompressStaticAssets: RECOMPRESS_STATIC_ASSETS,
 
@@ -86,8 +86,8 @@ const config = {
   storage: {
     type: STORAGE_TYPE,
     host: STORAGE_HOST,
-    port: STORAGE_PORT,
-    expire: STORAGE_EXPIRE_SECONDS,
+    port: Number(STORAGE_PORT),
+    expire: Number(STORAGE_EXPIRE_SECONDS),
     bucket: STORAGE_AWS_BUCKET,
     region: STORAGE_AWS_REGION,
     connectionUrl: `postgres://${STORAGE_USERNAME}:${STORAGE_PASSWORD}@${STORAGE_HOST}:${STORAGE_PORT}/${STORAGE_DB}`,
