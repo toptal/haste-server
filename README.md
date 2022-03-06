@@ -354,6 +354,37 @@ Here is a list of all the environment variables
 |  RATELIMITS_BLACKLIST_EVERY_SECONDS  |                                       |     By default client names in the blacklist will be subject to 0 requests per hours     |
 |         RATELIMITS_BLACKLIST         | example1.blacklist,example2.blacklist |           Comma separated list of the clients which are in the blacklistpool.            |
 
+## Nginx
+
+### Configuration File
+
+```com
+server { 
+	listen 80; 
+	server_name DOMAIN; # Change DOMAIN for your domain
+	location / { 
+	proxy_pass http://localhost:7777/; # 7777 Is the default port. Change if using another port.
+	proxy_set_header Host $host; 
+	proxy_set_header X-Real-IP $remote_addr; 
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+	proxy_set_header X-Forwarded-Proto $scheme; 
+	proxy_set_header X-Forwarded-Protocol $scheme; 
+	proxy_set_header X-Forwarded-Host $http_host; 
+	proxy_buffering off; 
+	} 
+}
+```
+
+Save this configuration on `/etc/nginx/sites-available` as `haste`. 
+Then, create a symlink on the sites-enabled folder `ln -s /etc/nginx/sites-available/haste /etc/nginx/sites-enabled` and reload Nginx `systemctl restart nginx`.
+
+### Adding HTTPS/SSL (certbot)
+Before this you should point your DOMAIN to the Haste Server host.
+1.  [Install Certbot on your server](https://certbot.eff.org/instructions)
+2.  Run `certbot --nginx`
+3. Follow certbot instructions
+
+
 ## Author
 
 John Crepezzi <john.crepezzi@gmail.com>
