@@ -109,6 +109,11 @@ if (config.rateLimits) {
 
 // first look at API calls
 app.use(route(function(router) {
+  // get healthz
+  router.get("/healthz", function (request, response) {
+    response.writeHead(204);
+    response.end();
+  });
   // get raw documents - support getting with extension
 
   router.get('/raw/:id', function(request, response) {
