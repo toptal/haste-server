@@ -25,7 +25,7 @@ You can even take this a step further, and cut out the last step of copying the
 URL with:
 
 * osx: `cat something | haste | pbcopy`
-* linux: `cat something | haste | xsel`
+* linux: `cat something | haste | xsel -b`
 * windows: check out [WinHaste](https://github.com/ajryan/WinHaste)
 
 After running that, the STDOUT output of `cat something` will show up at a URL
