@@ -1,0 +1,39 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "files": ["src/global.d.ts"],
+  "compilerOptions": {
+    "allowJs": true,
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "typeRoots": ["node_modules/@types", "src/global.d.ts"],
+    "target": "es6",
+    "noEmit": false,
+    "module": "commonjs",
+    "sourceMap": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    // "baseUrl": "./src",
+    "paths": {
+      // "~/*": ["/src/*"],
+      // "~/lib/*": ["./src/lib/*"]
+    }
+  },
+  "include": ["src", "global.d.ts", "**/*.ts"],
+  "exclude": ["node_modules"]
+}
