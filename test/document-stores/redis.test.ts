@@ -14,7 +14,6 @@ describe('Redis document store', () => {
       store = new RedisDocumentStore({
         expire: 10,
         type: 'redis',
-        url: 'http://localhost:6666',
       })
       return store.set('hello1', 'world', async () => {
         const res = await store.client?.ttl('hello1')
@@ -26,7 +25,6 @@ describe('Redis document store', () => {
       store = new RedisDocumentStore({
         expire: 10,
         type: 'redis',
-        url: 'http://localhost:6666',
       })
 
       store.set(
@@ -43,7 +41,6 @@ describe('Redis document store', () => {
     it('should not set an expiration when expiration is off', async () => {
       store = new RedisDocumentStore({
         type: 'redis',
-        url: 'http://localhost:6666',
       })
 
       store.set('hello3', 'world', async () => {

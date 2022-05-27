@@ -30,22 +30,17 @@ class RedisDocumentStore implements Store {
   connect = (options: RedisStoreConfig) => {
     winston.info('configuring redis')
 
-    const url = process.env.REDISTOGO_URL || options.url
-    const host = options.host || '127.0.0.1'
-    const port = options.port || 6379
+    const url = process.env.REDISTOGO_URL || options.url || 'redis://redis:6379'
     const index = options.db || 0
-
-    if (url) {
-      this.client = createClient({ url })
-      this.client.connect()
-    } else {
-      this.client = createClient({
-        url: `http://${host}:${port}`,
-        database: index as number,
-        username: options.username,
-        password: options.password,
-      })
+    const config = {
+      url,
+      database: index as number,
+      ...(options.username ? { username: options.username } : {}),
+      ...(options.password ? { username: options.username } : {}),
     }
+
+    this.client = createClient(config)
+    this.client.connect()
 
     this.client.on('error', err => {
       winston.error('redis disconnected', err)
@@ -54,9 +49,7 @@ class RedisDocumentStore implements Store {
     this.client
       .select(index as number)
       .then(() => {
-        winston.info(
-          `connected to redis on ${url || `${host}:${port}`}/${index}`,
-        )
+        winston.info(`connected to redis on ${url}/${index}`)
       })
       .catch(err => {
         winston.error(`error connecting to redis index ${index}`, {
@@ -85,7 +78,8 @@ class RedisDocumentStore implements Store {
     callback: Callback,
     skipExpire?: boolean | undefined,
   ): void => {
-    this.client?.set(key, data, this.getExpire(skipExpire))
+    this.client
+      ?.set(key, data, this.getExpire(skipExpire))
       .then(() => {
         callback(true)
       })

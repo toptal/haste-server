@@ -52,8 +52,6 @@ export interface RethinkDbStoreConfig extends BaseStoreConfig {
 
 export interface RedisStoreConfig extends BaseStoreConfig {
   url?: string
-  host?: string
-  port?: string
   db?: string
   user?: string
   username?: string | undefined
