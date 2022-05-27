@@ -1,4 +1,4 @@
-import winston = require('winston')
+import * as winston from 'winston'
 import App from './app'
 
 const { server, config } = new App()
