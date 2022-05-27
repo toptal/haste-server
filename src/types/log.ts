@@ -8,5 +8,4 @@ export interface Logging {
       | 'Http'
       | 'Memory'
       | 'Webhook'
-  }
-  
+}
