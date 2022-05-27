@@ -125,7 +125,7 @@ class App {
       winston.info('loading static document', { name, path: documentPath })
 
       if (data) {
-        this.documentHandler?.store.set(
+        this.documentHandler?.store?.set(
           name,
           data,
           cb => {

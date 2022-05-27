@@ -3,10 +3,10 @@ import type { KeyGenerator } from './key-generator'
 import type { Store } from './store'
 
 export type Document = {
-  store: Store
-  config: Config
-  maxLength: number
-  keyLength: number
+  store?: Store
+  config?: Config
+  maxLength?: number
+  keyLength?: number
   keyGenerator: KeyGenerator
 }
 

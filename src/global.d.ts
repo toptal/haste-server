@@ -23,23 +23,10 @@ declare module 'rethinkdbdash' {
     table(s: string): RethinkFunctions
   }
 
-  // function rethink<T>(obj: T[]): RethinkArray<T>
   function rethink<T>(obj: T): RethinkClient<T>
 
   export = rethink
 }
-
-// export {}
-
-// declare module 'connect-ratelimit' {
-//   export = connectRateLimit
-// }
-
-// declare namespace Express {
-//   export interface Request {
-//     sturl?: string
-//   }
-// }
 
 declare module 'connect-ratelimit' {
   function connectRateLimit(

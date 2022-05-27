@@ -5,22 +5,21 @@ import type { Config } from '../../types/config'
 import type { Store } from '../../types/store'
 import type { KeyGenerator } from '../../types/key-generator'
 import type { Document } from '../../types/document'
-
-const defaultKeyLength = 10
+import constants from '../../constants'
 
 class DocumentHandler {
   keyLength: number
 
-  maxLength: number
+  maxLength?: number
 
-  public store: Store
+  public store?: Store
 
   keyGenerator: KeyGenerator
 
-  config: Config
+  config?: Config
 
   constructor(options: Document) {
-    this.keyLength = options.keyLength || defaultKeyLength
+    this.keyLength = options.keyLength || constants.DEFAULT_KEY_LENGTH
     this.maxLength = options.maxLength // none by default
     this.store = options.store
     this.config = options.config
@@ -29,9 +28,9 @@ class DocumentHandler {
 
   public handleGet(request: Request, response: Response) {
     const key = request.params.id.split('.')[0]
-    const skipExpire = !!this.config.documents[key]
+    const skipExpire = !!this.config?.documents[key]
 
-    this.store.get(
+    this.store?.get(
       key,
       ret => {
         if (ret) {
@@ -75,7 +74,7 @@ class DocumentHandler {
       }
       // And then save if we should
       this.chooseKey(key => {
-        this.store.set(key, buffer, res => {
+        this.store?.set(key, buffer, res => {
           if (res) {
             winston.verbose('added document', { key })
             response.writeHead(200, { 'content-type': 'application/json' })
@@ -124,9 +123,9 @@ class DocumentHandler {
 
   public handleRawGet(request: Request, response: Response) {
     const key = request.params.id.split('.')[0]
-    const skipExpire = !!this.config.documents[key]
+    const skipExpire = !!this.config?.documents[key]
 
-    this.store.get(
+    this.store?.get(
       key,
       ret => {
         if (ret) {
@@ -158,7 +157,7 @@ class DocumentHandler {
 
     if (!key) return
 
-    this.store.get(
+    this.store?.get(
       key,
       (ret: string | boolean) => {
         if (ret) {

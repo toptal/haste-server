@@ -4,6 +4,6 @@
 
 set -e
 
-node ./docker-entrypoint.js > ./config.js
+node ./docker-entrypoint.js > ./config/project-config.js
 
 exec "$@"

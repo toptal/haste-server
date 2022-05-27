@@ -7,7 +7,7 @@ class DictionaryGenerator implements KeyGenerator {
 
   dictionary: string[]
 
-  constructor(options: KeyGeneratorConfig, readyCallback: () => void) {
+  constructor(options: KeyGeneratorConfig, readyCallback?: () => void) {
     // Check options format
     if (!options) throw Error('No options passed to generator')
     if (!options.path) throw Error('No dictionary path specified in options')
@@ -21,7 +21,7 @@ class DictionaryGenerator implements KeyGenerator {
 
       this.dictionary = data.split(/[\n\r]+/)
 
-      if (readyCallback) readyCallback()
+      readyCallback?.()
     })
   }
 

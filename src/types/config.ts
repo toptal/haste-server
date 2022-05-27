@@ -50,6 +50,16 @@ export interface RethinkDbStoreConfig extends BaseStoreConfig {
   password: string
 }
 
+export interface RedisStoreConfig extends BaseStoreConfig {
+  url?: string
+  host?: string
+  port?: string
+  db?: string
+  user?: string
+  username?: string | undefined
+  password?: string
+}
+
 export type GoogleStoreConfig = BaseStoreConfig
 
 export type StoreConfig =
@@ -59,6 +69,9 @@ export type StoreConfig =
   | AmazonStoreConfig
   | FileStoreConfig
   | MongoStoreConfig
+  | RedisStoreConfig
+  | RethinkDbStoreConfig
+  | PostgresStoreConfig
 
 export interface KeyGeneratorConfig {
   type: string

@@ -28,10 +28,8 @@
     "sourceMap": true,
     "rootDir": ".",
     "outDir": "dist",
-    // "baseUrl": "./src",
     "paths": {
-      // "~/*": ["/src/*"],
-      // "~/lib/*": ["./src/lib/*"]
+      "~/*": ["/src/*"]
     }
   },
   "include": ["src", "global.d.ts", "**/*.ts"],
