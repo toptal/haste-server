@@ -32,6 +32,6 @@
       "~/*": ["/src/*"]
     }
   },
-  "include": ["src", "global.d.ts", "**/*.ts"],
+  "include": ["src", "**/*.ts"],
   "exclude": ["node_modules"]
 }
