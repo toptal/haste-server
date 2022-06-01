@@ -30,10 +30,20 @@ class RedisDocumentStore implements Store {
   connect = (options: RedisStoreConfig) => {
     winston.info('configuring redis')
 
-    const url = process.env.REDISTOGO_URL || options.url || 'redis://redis:6379'
+    const url = process.env.REDISTOGO_URL || options.url
+    const host = options.host || '127.0.0.1'
+    const port = options.port || 6379
     const index = options.db || 0
+
+    const connectionParameters = url ? {
+      url
+    }: {
+      host,
+      port
+    }
+
     const config = {
-      url,
+      ...connectionParameters,
       database: index as number,
       ...(options.username ? { username: options.username } : {}),
       ...(options.password ? { username: options.username } : {}),

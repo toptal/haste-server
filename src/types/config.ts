@@ -56,6 +56,8 @@ export interface RedisStoreConfig extends BaseStoreConfig {
   user?: string
   username?: string | undefined
   password?: string
+  host?: string
+  port?: string
 }
 
 export type GoogleStoreConfig = BaseStoreConfig
