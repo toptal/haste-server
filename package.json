@@ -75,7 +75,7 @@
     "clean:files": "rimraf dist",
     "test": "jest --config config/jest.config.js",
     "build": "yarn clean:files && tsc --project ./",
-    "start:dev": "nodemon src/server.ts",
+    "dev": "nodemon src/server.ts",
     "start": "node dist/src/server.js",
     "lint": "eslint src --fix",
     "types:check": "tsc --noEmit --pretty"
