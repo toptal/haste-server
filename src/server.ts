@@ -20,123 +20,118 @@ if (config.logging) {
   addLogging(config)
 }
 
-let documentHandler: DocumentHandler
+buildDocumenthandler(config).then((documentHandler: DocumentHandler) => {
+  // Compress the static javascript assets
+  if (config.recompressStaticAssets) {
+    const list = fs.readdirSync(getStaticDirectory(__dirname))
+    for (let j = 0; j < list.length; j += 1) {
+      const item = list[j]
+      if (
+        item.indexOf('.js') === item.length - 3 &&
+        item.indexOf('.min.js') === -1
+      ) {
+        const dest = `${item.substring(0, item.length - 3)}.min${item.substring(
+          item.length - 3,
+        )}`
+        const origCode = fs.readFileSync(
+          getStaticItemDirectory(__dirname, item),
+          'utf8',
+        )
 
-buildDocumenthandler(config).then((handler) => {
-  documentHandler = handler
-})
-
-// Compress the static javascript assets
-if (config.recompressStaticAssets) {
-
-  const list = fs.readdirSync(getStaticDirectory(__dirname))
-  for (let j = 0; j < list.length; j += 1) {
-    const item = list[j]
-    if (
-      item.indexOf('.js') === item.length - 3 &&
-      item.indexOf('.min.js') === -1
-    ) {
-      const dest = `${item.substring(0, item.length - 3)}.min${item.substring(
-        item.length - 3,
-      )}`
-      const origCode = fs.readFileSync(
-        getStaticItemDirectory(__dirname, item),
-        'utf8',
-      )
-
-      fs.writeFileSync(
-        getStaticItemDirectory(__dirname, dest),
-        uglify.minify(origCode).code,
-        'utf8',
-      )
-      winston.info(`compressed ${item} into ${dest}`)
+        fs.writeFileSync(
+          getStaticItemDirectory(__dirname, dest),
+          uglify.minify(origCode).code,
+          'utf8',
+        )
+        winston.info(`compressed ${item} into ${dest}`)
+      }
     }
   }
-}
 
-// Send the static documents into the preferred store, skipping expirations
-let documentPath
-let data
+  // Send the static documents into the preferred store, skipping expirations
+  let documentPath
+  let data
 
-Object.keys(config.documents).forEach(name => {
-  documentPath = config.documents[name]
-  data = fs.readFileSync(documentPath, 'utf8')
-  winston.info('loading static document', { name, path: documentPath })
+  Object.keys(config.documents).forEach(name => {
+    documentPath = config.documents[name]
+    data = fs.readFileSync(documentPath, 'utf8')
+    winston.info('loading static document', { name, path: documentPath })
 
-  if (data) {
-    documentHandler.store?.set(
-      name,
-      data,
-      cb => {
-        winston.debug('loaded static document', { success: cb })
-      },
-      true,
-    )
-  } else {
-    winston.warn('failed to load static document', {
-      name,
-      path: documentPath,
-    })
+    if (data) {
+      documentHandler.store?.set(
+        name,
+        data,
+        cb => {
+          winston.debug('loaded static document', { success: cb })
+        },
+        true,
+      )
+    } else {
+      winston.warn('failed to load static document', {
+        name,
+        path: documentPath,
+      })
+    }
+  })
+
+  const app: Express = express()
+
+  // Rate limit all requests
+  if (config.rateLimits) {
+    config.rateLimits.end = true
+    app.use(connectRateLimit(config.rateLimits))
   }
-})
 
-const app: Express = express()
+  // get raw documents - support getting with extension
+  app.get('/raw/:id', async (request, response) =>
+    documentHandler.handleRawGet(request, response),
+  )
 
-// Rate limit all requests
-if (config.rateLimits) {
-  config.rateLimits.end = true
-  app.use(connectRateLimit(config.rateLimits))
-}
+  app.head('/raw/:id', (request, response) =>
+    documentHandler.handleRawGet(request, response),
+  )
 
-// get raw documents - support getting with extension
-app.get('/raw/:id', async (request, response) =>
-  documentHandler.handleRawGet(request, response),
-)
+  // // add documents
+  app.post('/documents', (request, response) =>
+    documentHandler.handlePost(request, response),
+  )
 
-app.head('/raw/:id', (request, response) =>
-  documentHandler.handleRawGet(request, response),
-)
+  // get documents
+  app.get('/documents/:id', (request, response) =>
+    documentHandler.handleGet(request, response),
+  )
 
-// // add documents
-app.post('/documents', (request, response) =>
-  documentHandler.handlePost(request, response),
-)
+  app.head('/documents/:id', (request, response) =>
+    documentHandler.handleGet(request, response),
+  )
 
-// get documents
-app.get('/documents/:id', (request, response) =>
-  documentHandler.handleGet(request, response),
-)
+  // Otherwise, try to match static files
+  app.use(
+    connectSt({
+      path: getStaticDirectory(__dirname),
+      content: { maxAge: config.staticMaxAge },
+      passthrough: true,
+      index: false,
+    }),
+  )
 
-app.head('/documents/:id', (request, response) =>
-  documentHandler.handleGet(request, response),
-)
+  // Then we can loop back - and everything else should be a token,
+  // so route it back to /
+  app.get('/:id', (request: Request, response, next) => {
+    request.sturl = '/'
+    next()
+  })
 
-// Otherwise, try to match static files
-app.use(
-  connectSt({
-    path: getStaticDirectory(__dirname),
-    content: { maxAge: config.staticMaxAge },
-    passthrough: true,
-    index: false,
-  }),
-)
+  // And match index
+  app.use(
+    connectSt({
+      path: getStaticDirectory(__dirname),
+      content: { maxAge: config.staticMaxAge },
+      index: 'index.html',
+    }),
+  )
 
-// Then we can loop back - and everything else should be a token,
-// so route it back to /
-app.get('/:id', (request: Request, response, next) => {
-  request.sturl = '/'
-  next()
-})
-
-// And match index
-app.use(
-  connectSt({
-    path: getStaticDirectory(__dirname),
-    content: { maxAge: config.staticMaxAge },
-    index: 'index.html',
-  }),
-)
-
-app.listen(config.port, config.host, () => {
-  winston.info(`listening on ${config.host}:${config.port}`)
+  app.listen(config.port, config.host, () => {
+    winston.info(`listening on ${config.host}:${config.port}`)
+  })
 })
