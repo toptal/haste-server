@@ -29,9 +29,25 @@ STDOUT.  Check the README there for more details and usages.
 ## Installation
 
 1.  Download the package, and expand it
-2.  Explore the settings inside of config.js, but the defaults should be good
-3.  `npm install`
-4.  `npm start` (you may specify an optional `<config-path>` as well)
+3.  `yarn install`
+
+## Development
+
+1.  Explore the settings inside of config.js, but the defaults should be good
+2.  `yarn install`
+3.  `yarn dev` (you may specify an optional `<config-path>` as well)
+
+## Production
+
+1.  Explore the settings inside of config.js, but the defaults should be good
+2.  `yarn install`
+3.  `yarn build` to build the package
+4.  `yarn start` to start the server
+
+## Production with Docker
+
+1.  Explore the settings inside of config.js, but the defaults should be good
+2.  `docker compose up`
 
 ## Settings
 
