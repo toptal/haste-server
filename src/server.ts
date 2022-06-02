@@ -64,7 +64,7 @@ Object.keys(config.documents).forEach(name => {
   winston.info('loading static document', { name, path: documentPath })
 
   if (data) {
-    documentHandler?.store?.set(
+    documentHandler.store?.set(
       name,
       data,
       cb => {
@@ -90,25 +90,25 @@ if (config.rateLimits) {
 
 // get raw documents - support getting with extension
 app.get('/raw/:id', async (request, response) =>
-  documentHandler?.handleRawGet(request, response),
+  documentHandler.handleRawGet(request, response),
 )
 
 app.head('/raw/:id', (request, response) =>
-  documentHandler?.handleRawGet(request, response),
+  documentHandler.handleRawGet(request, response),
 )
 
 // // add documents
 app.post('/documents', (request, response) =>
-  documentHandler?.handlePost(request, response),
+  documentHandler.handlePost(request, response),
 )
 
 // get documents
 app.get('/documents/:id', (request, response) =>
-  documentHandler?.handleGet(request, response),
+  documentHandler.handleGet(request, response),
 )
 
 app.head('/documents/:id', (request, response) =>
-  documentHandler?.handleGet(request, response),
+  documentHandler.handleGet(request, response),
 )
 
 // Otherwise, try to match static files
