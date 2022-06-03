@@ -1,6 +1,6 @@
 FROM node:16-slim as base
 
-ARG user
+ARG user node
 RUN mkdir /app && chown -R $user:$user /app
 USER $user
 WORKDIR /app

@@ -31,23 +31,24 @@ STDOUT.  Check the README there for more details and usages.
 1.  Download the package, and expand it
 3.  `yarn install`
 
-## Development
+## Running the project
 
-1.  Explore the settings inside of config.js, but the defaults should be good
-2.  `yarn install`
-3.  `yarn dev` (you may specify an optional `<config-path>` as well)
+> Explore the settings inside of config.js, but the defaults should be good
 
-## Production
+### Development
 
-1.  Explore the settings inside of config.js, but the defaults should be good
-2.  `yarn install`
-3.  `yarn build` to build the package
-4.  `yarn start` to start the server
+1.  `yarn install`
+2.  `yarn dev` (you may specify an optional `<config-path>` as well)
 
-## Production with Docker
+### Production
 
-1.  Explore the settings inside of config.js, but the defaults should be good
-2.  `docker compose up`
+1.  `yarn install`
+2.  `yarn build` to build the package
+3.  `yarn start` to start the server
+
+### Production with Docker
+
+1.  `docker compose up`
 
 ## Settings
 
