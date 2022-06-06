@@ -26,7 +26,7 @@ class GoogleDatastoreDocumentStore implements Store {
     key: PathType,
     data: string,
     callback: Callback,
-    skipExpire?: boolean,
+    skipExpire?: boolean
   ) => {
     const expireTime =
       skipExpire || this.expire === undefined
@@ -40,13 +40,13 @@ class GoogleDatastoreDocumentStore implements Store {
         {
           name: 'value',
           value: data,
-          excludeFromIndexes: true,
+          excludeFromIndexes: true
         },
         {
           name: 'expiration',
-          value: expireTime,
-        },
-      ],
+          value: expireTime
+        }
+      ]
     }
 
     this.datastore
@@ -72,7 +72,7 @@ class GoogleDatastoreDocumentStore implements Store {
           winston.info('document expired', {
             key,
             expiration: entity[0].expiration,
-            check: new Date(),
+            check: new Date()
           })
           callback(false)
         } else {
@@ -83,15 +83,15 @@ class GoogleDatastoreDocumentStore implements Store {
               {
                 name: 'value',
                 value: entity[0].value,
-                excludeFromIndexes: true,
+                excludeFromIndexes: true
               },
               {
                 name: 'expiration',
                 value: new Date(
-                  Date.now() + (this.expire ? this.expire * 1000 : 0),
-                ),
-              },
-            ],
+                  Date.now() + (this.expire ? this.expire * 1000 : 0)
+                )
+              }
+            ]
           }
           this.datastore
             .update(task)
@@ -104,7 +104,7 @@ class GoogleDatastoreDocumentStore implements Store {
       })
       .catch(err => {
         winston.error('Error retrieving value from Google Datastore', {
-          error: err,
+          error: err
         })
         callback(false)
       })

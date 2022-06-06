@@ -33,7 +33,7 @@ class FileDocumentStore implements Store {
   get = (
     key: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     const fn = `${this.basePath}/${md5(key)}`
     fs.readFile(fn, 'utf8', (err, data) => {
@@ -54,7 +54,7 @@ class FileDocumentStore implements Store {
     key: string,
     data: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     try {
       fs.mkdir(this.basePath, '700', () => {

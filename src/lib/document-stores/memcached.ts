@@ -36,7 +36,7 @@ class MemcachedDocumentStore implements Store {
   get = (
     key: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     this.client?.get(key, (error, data: string) => {
       const value = error ? false : data
@@ -53,7 +53,7 @@ class MemcachedDocumentStore implements Store {
               winston.error('failed to update expiration on GET', { key })
             }
           },
-          skipExpire,
+          skipExpire
         )
       }
     })
@@ -64,7 +64,7 @@ class MemcachedDocumentStore implements Store {
     key: string,
     data: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     this.client?.set(key, data, skipExpire ? 0 : this.expire || 0, error => {
       callback(!error)

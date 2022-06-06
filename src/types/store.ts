@@ -8,6 +8,6 @@ export interface Store {
     key: string,
     data: string,
     callback: Callback,
-    skipExpire?: boolean,
+    skipExpire?: boolean
   ) => void
 }

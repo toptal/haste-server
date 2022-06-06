@@ -30,11 +30,11 @@ declare module 'rethinkdbdash' {
 
 declare module 'connect-ratelimit' {
   function connectRateLimit(
-    as: RateLimits,
+    as: RateLimits
   ): (
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction,
+    next: express.NextFunction
   ) => void
 
   export = connectRateLimit
@@ -47,11 +47,10 @@ declare namespace Express {
 }
 
 declare module 'st' {
-
   type ConnectSt = {
     path: string
-    content: { maxAge : number }
-    passthrough? : boolean
+    content: { maxAge: number }
+    passthrough?: boolean
     index: boolean | string
   }
 

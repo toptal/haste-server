@@ -22,7 +22,7 @@ class RethinkDBStore {
       port: options.port || 28015,
       db: options.db || 'haste',
       user: options.user || 'admin',
-      password: options.password || '',
+      password: options.password || ''
     })
   }
 

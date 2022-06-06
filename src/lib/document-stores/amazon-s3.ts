@@ -22,7 +22,7 @@ class AmazonS3DocumentStore implements Store {
   get = (
     key: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     if (!this.bucket) {
       callback(false)
@@ -31,7 +31,7 @@ class AmazonS3DocumentStore implements Store {
 
     const req = {
       Bucket: this.bucket,
-      Key: key,
+      Key: key
     }
 
     this.client.getObject(req, (err, data) => {
@@ -50,7 +50,7 @@ class AmazonS3DocumentStore implements Store {
     key: string,
     data: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     if (!this.bucket) {
       callback(false)
@@ -61,7 +61,7 @@ class AmazonS3DocumentStore implements Store {
       Bucket: this.bucket,
       Key: key,
       Body: data as AWS.S3.PutObjectOutput,
-      ContentType: 'text/plain',
+      ContentType: 'text/plain'
     }
 
     this.client.putObject(req, err => {

@@ -33,7 +33,7 @@ class MongoDocumentStore implements Store {
   get = (
     key: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     const now = Math.floor(new Date().getTime() / 1000)
 
@@ -46,7 +46,7 @@ class MongoDocumentStore implements Store {
         .findOne(
           {
             entry_id: key,
-            $or: [{ expiration: -1 }, { expiration: { $gt: now } }],
+            $or: [{ expiration: -1 }, { expiration: { $gt: now } }]
           },
           (error?: Error, entry?) => {
             if (error) {
@@ -67,20 +67,20 @@ class MongoDocumentStore implements Store {
                 .collection('entries')
                 .update(
                   {
-                    entry_id: key,
+                    entry_id: key
                   },
                   {
                     $set: {
-                      expiration: this.expire + now,
-                    },
+                      expiration: this.expire + now
+                    }
                   },
                   {},
-                  () => {},
+                  () => {}
                 )
             }
 
             return true
-          },
+          }
         )
     })
   }
@@ -89,7 +89,7 @@ class MongoDocumentStore implements Store {
     key: string,
     data: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     const now = Math.floor(new Date().getTime() / 1000)
 
@@ -102,15 +102,15 @@ class MongoDocumentStore implements Store {
         .update(
           {
             entry_id: key,
-            $or: [{ expiration: -1 }, { expiration: { $gt: now } }],
+            $or: [{ expiration: -1 }, { expiration: { $gt: now } }]
           },
           {
             entry_id: key,
             value: data,
-            expiration: this.expire && !skipExpire ? this.expire + now : -1,
+            expiration: this.expire && !skipExpire ? this.expire + now : -1
           },
           {
-            upsert: true,
+            upsert: true
           },
           (error?: Error) => {
             if (error) {
@@ -119,7 +119,7 @@ class MongoDocumentStore implements Store {
             }
 
             return callback(true)
-          },
+          }
         )
     })
   }

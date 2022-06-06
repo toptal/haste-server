@@ -78,4 +78,3 @@ export interface KeyGeneratorConfig {
   keyspace?: string
   path?: string
 }
-

@@ -7,7 +7,7 @@ const getConfig = (): Config => {
   const configPath =
     process.argv.length <= 2 ? 'project-config.js' : process.argv[2]
   const config = JSON.parse(
-    fs.readFileSync(path.join('config', configPath), 'utf8'),
+    fs.readFileSync(path.join('config', configPath), 'utf8')
   )
 
   config.port = (process.env.PORT || config.port || 7777) as number

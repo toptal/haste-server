@@ -11,7 +11,7 @@ import DocumentHandler from 'src/lib/document-handler'
 import buildDocumenthandler from 'src/lib/document-handler/builder'
 import {
   getStaticDirectory,
-  getStaticItemDirectory,
+  getStaticItemDirectory
 } from 'src/lib/helpers/directory'
 
 const config: Config = getConfig()
@@ -33,17 +33,17 @@ buildDocumenthandler(config)
         ) {
           const dest = `${item.substring(
             0,
-            item.length - 3,
+            item.length - 3
           )}.min${item.substring(item.length - 3)}`
           const origCode = fs.readFileSync(
             getStaticItemDirectory(__dirname, item),
-            'utf8',
+            'utf8'
           )
 
           fs.writeFileSync(
             getStaticItemDirectory(__dirname, dest),
             uglify.minify(origCode).code,
-            'utf8',
+            'utf8'
           )
           winston.info(`compressed ${item} into ${dest}`)
         }
@@ -66,12 +66,12 @@ buildDocumenthandler(config)
           cb => {
             winston.debug('loaded static document', { success: cb })
           },
-          true,
+          true
         )
       } else {
         winston.warn('failed to load static document', {
           name,
-          path: documentPath,
+          path: documentPath
         })
       }
     })
@@ -86,25 +86,25 @@ buildDocumenthandler(config)
 
     // get raw documents - support getting with extension
     app.get('/raw/:id', async (request, response) =>
-      documentHandler.handleRawGet(request, response),
+      documentHandler.handleRawGet(request, response)
     )
 
     app.head('/raw/:id', (request, response) =>
-      documentHandler.handleRawGet(request, response),
+      documentHandler.handleRawGet(request, response)
     )
 
     // // add documents
     app.post('/documents', (request, response) =>
-      documentHandler.handlePost(request, response),
+      documentHandler.handlePost(request, response)
     )
 
     // get documents
     app.get('/documents/:id', (request, response) =>
-      documentHandler.handleGet(request, response),
+      documentHandler.handleGet(request, response)
     )
 
     app.head('/documents/:id', (request, response) =>
-      documentHandler.handleGet(request, response),
+      documentHandler.handleGet(request, response)
     )
 
     // Otherwise, try to match static files
@@ -113,8 +113,8 @@ buildDocumenthandler(config)
         path: getStaticDirectory(__dirname),
         content: { maxAge: config.staticMaxAge },
         passthrough: true,
-        index: false,
-      }),
+        index: false
+      })
     )
 
     // Then we can loop back - and everything else should be a token,
@@ -129,8 +129,8 @@ buildDocumenthandler(config)
       connectSt({
         path: getStaticDirectory(__dirname),
         content: { maxAge: config.staticMaxAge },
-        index: 'index.html',
-      }),
+        index: 'index.html'
+      })
     )
 
     app.listen(config.port, config.host, () => {

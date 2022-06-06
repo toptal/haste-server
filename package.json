@@ -80,6 +80,7 @@
     "dev": "nodemon src/server.ts",
     "start": "node dist/src/server.js",
     "lint": "eslint src --fix",
-    "types:check": "tsc --noEmit --pretty"
+    "types:check": "tsc --noEmit --pretty",
+    "pretty": "prettier --write src"
   }
 }

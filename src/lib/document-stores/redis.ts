@@ -35,18 +35,20 @@ class RedisDocumentStore implements Store {
     const port = options.port || 6379
     const index = options.db || 0
 
-    const connectionParameters = url ? {
-      url
-    }: {
-      host,
-      port
-    }
+    const connectionParameters = url
+      ? {
+          url
+        }
+      : {
+          host,
+          port
+        }
 
     const config = {
       ...connectionParameters,
       database: index as number,
       ...(options.username ? { username: options.username } : {}),
-      ...(options.password ? { username: options.username } : {}),
+      ...(options.password ? { username: options.username } : {})
     }
 
     this.client = createClient(config)
@@ -63,7 +65,7 @@ class RedisDocumentStore implements Store {
       })
       .catch(err => {
         winston.error(`error connecting to redis index ${index}`, {
-          error: err,
+          error: err
         })
         process.exit(1)
       })
@@ -86,7 +88,7 @@ class RedisDocumentStore implements Store {
     key: string,
     data: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     this.client
       ?.set(key, data, this.getExpire(skipExpire))

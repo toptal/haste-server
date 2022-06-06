@@ -7,7 +7,7 @@ import type { PostgresStoreConfig } from 'src/types/config'
 type ConnectCallback = (
   error?: Error,
   client?: PoolClient,
-  done?: () => void,
+  done?: () => void
 ) => void
 
 // A postgres document store
@@ -42,7 +42,7 @@ class PostgresDocumentStore implements Store {
   get = (
     key: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     const now = Math.floor(new Date().getTime() / 1000)
     this.safeConnect((err, client, done): void => {
@@ -56,7 +56,7 @@ class PostgresDocumentStore implements Store {
         (error: Error, result) => {
           if (error) {
             winston.error('error retrieving value from postgres', {
-              error,
+              error
             })
             return callback(false)
           }
@@ -71,12 +71,12 @@ class PostgresDocumentStore implements Store {
                 }
 
                 return callback(false)
-              },
+              }
             )
           }
 
           return done?.()
-        },
+        }
       )
     })
   }
@@ -86,7 +86,7 @@ class PostgresDocumentStore implements Store {
     key: string,
     data: string,
     callback: Callback,
-    skipExpire?: boolean | undefined,
+    skipExpire?: boolean | undefined
   ): void => {
     const now = Math.floor(new Date().getTime() / 1000)
     this.safeConnect((err, client, done) => {
@@ -103,7 +103,7 @@ class PostgresDocumentStore implements Store {
           }
           callback(true)
           return done?.()
-        },
+        }
       )
     })
   }

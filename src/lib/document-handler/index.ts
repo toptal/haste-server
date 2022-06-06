@@ -51,7 +51,7 @@ class DocumentHandler {
           }
         }
       },
-      skipExpire,
+      skipExpire
     )
   }
 
@@ -68,7 +68,7 @@ class DocumentHandler {
         winston.warn('document >maxLength', { maxLength: this.maxLength })
         response.writeHead(400, { 'content-type': 'application/json' })
         response.end(
-          JSON.stringify({ message: 'Document exceeds maximum length.' }),
+          JSON.stringify({ message: 'Document exceeds maximum length.' })
         )
         return
       }
@@ -131,7 +131,7 @@ class DocumentHandler {
         if (ret) {
           winston.verbose('retrieved raw document', { key })
           response.writeHead(200, {
-            'content-type': 'text/plain; charset=UTF-8',
+            'content-type': 'text/plain; charset=UTF-8'
           })
           if (request.method === 'HEAD') {
             response.end()
@@ -148,7 +148,7 @@ class DocumentHandler {
           }
         }
       },
-      skipExpire,
+      skipExpire
     )
   }
 
@@ -166,7 +166,7 @@ class DocumentHandler {
           callback(key)
         }
       },
-      true,
+      true
     ) // Don't bump expirations when key searching
   }
 
