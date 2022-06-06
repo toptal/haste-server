@@ -123,7 +123,7 @@ File storage currently does not support paste expiration, you can follow [#191](
 To use redis storage you must install the `redis` package in npm, and have
 `redis-server` running on the machine.
 
-`npm install redis`
+`yarn install redis`
 
 Once you've done that, your config section should look like:
 
@@ -148,7 +148,7 @@ If your Redis server is configured for password authentification, use the `passw
 
 To use postgres storage you must install the `pg` package in npm
 
-`npm install pg`
+`yarn install pg`
 
 Once you've done that, your config section should look like:
 
@@ -175,7 +175,7 @@ All of which are optional except `type` with very logical default values.
 
 To use mongodb storage you must install the 'mongodb' package in npm
 
-`npm install mongodb`
+`yarn install mongodb`
 
 Once you've done that, your config section should look like:
 
@@ -197,7 +197,7 @@ This is off by default, but will constantly kick back expirations on each view o
 
 To use memcache storage you must install the `memcached` package via npm
 
-`npm install memcached`
+`yarn install memcached`
 
 Once you've done that, your config section should look like:
 
@@ -219,7 +219,7 @@ All of which are optional except `type` with very logical default values.
 
 To use the RethinkDB storage system, you must install the `rethinkdbdash` package via npm
 
-`npm install rethinkdbdash`
+`yarn install rethinkdbdash`
 
 Once you've done that, your config section should look like this:
 
@@ -241,7 +241,7 @@ You can optionally add the `user` and `password` properties to use a user system
 
 To use the Google Datastore storage system, you must install the `@google-cloud/datastore` package via npm
 
-`npm install @google-cloud/datastore`
+`yarn install @google-cloud/datastore`
 
 Once you've done that, your config section should look like this:
 
@@ -258,7 +258,7 @@ Authentication is handled automatically by [Google Cloud service account credent
 To use [Amazon S3](https://aws.amazon.com/s3/) as a storage system, you must
 install the `aws-sdk` package via npm:
 
-`npm install aws-sdk`
+`yarn install aws-sdk`
 
 Once you've done that, your config section should look like this:
 

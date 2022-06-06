@@ -3,8 +3,8 @@ import * as crypto from 'crypto'
 
 import rethink, { RethinkClient } from 'rethinkdbdash'
 
-import type { RethinkDbStoreConfig } from '../../types/config'
-import type { Callback } from '../../types/store'
+import type { RethinkDbStoreConfig } from 'src/types/config'
+import type { Callback } from 'src/types/store'
 
 const md5 = (str: string) => {
   const md5sum = crypto.createHash('md5')

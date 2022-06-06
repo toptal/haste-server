@@ -1,4 +1,4 @@
-import RedisDocumentStore from '../../src/lib/document-stores/redis'
+import RedisDocumentStore from 'src/lib/document-stores/redis'
 
 describe('Redis document store', () => {
   let store: RedisDocumentStore

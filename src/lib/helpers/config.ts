@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { Config } from '../../types/config'
+import { Config } from 'src/types/config'
 
 const getConfig = (): Config => {
   const configPath =

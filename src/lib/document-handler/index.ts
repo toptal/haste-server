@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import * as winston from 'winston'
 import Busboy from 'busboy'
-import type { Config } from '../../types/config'
-import type { Store } from '../../types/store'
-import type { KeyGenerator } from '../../types/key-generator'
-import type { Document } from '../../types/document'
-import constants from '../../constants'
+import type { Config } from 'src/types/config'
+import type { Store } from 'src/types/store'
+import type { KeyGenerator } from 'src/types/key-generator'
+import type { Document } from 'src/types/document'
+import constants from 'src/constants'
 
 class DocumentHandler {
   keyLength: number

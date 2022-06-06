@@ -1,7 +1,7 @@
 // Draws inspiration from pwgen and http://tools.arantius.com/password
 
-import type { KeyGeneratorConfig } from '../../types/config'
-import type { KeyGenerator } from '../../types/key-generator'
+import type { KeyGeneratorConfig } from 'src/types/config'
+import type { KeyGenerator } from 'src/types/key-generator'
 
 const randOf = (collection: string) => () =>
   collection[Math.floor(Math.random() * collection.length)]

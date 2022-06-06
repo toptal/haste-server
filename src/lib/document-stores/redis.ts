@@ -1,8 +1,8 @@
 import * as winston from 'winston'
 import { createClient } from 'redis'
 import { bool } from 'aws-sdk/clients/redshiftdata'
-import { Callback, Store } from '../../types/store'
-import { RedisStoreConfig } from '../../types/config'
+import { Callback, Store } from 'src/types/store'
+import { RedisStoreConfig } from 'src/types/config'
 
 export type RedisClientType = ReturnType<typeof createClient>
 

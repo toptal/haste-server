@@ -1,8 +1,8 @@
 import * as winston from 'winston'
 import { Pool, PoolClient } from 'pg'
 
-import type { Callback, Store } from '../../types/store'
-import type { PostgresStoreConfig } from '../../types/config'
+import type { Callback, Store } from 'src/types/store'
+import type { PostgresStoreConfig } from 'src/types/config'
 
 type ConnectCallback = (
   error?: Error,

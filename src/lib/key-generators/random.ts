@@ -1,5 +1,5 @@
-import type { KeyGeneratorConfig } from '../../types/config'
-import type { KeyGenerator } from '../../types/key-generator'
+import type { KeyGeneratorConfig } from 'src/types/config'
+import type { KeyGenerator } from 'src/types/key-generator'
 
 class RandomKeyGenerator implements KeyGenerator {
   type: string

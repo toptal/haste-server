@@ -1,4 +1,4 @@
-import Generator from '../../src/lib/key-generators/random'
+import Generator from 'src/lib/key-generators/random'
 
 describe('RandomKeyGenerator', () => {
   describe('generation', () => {

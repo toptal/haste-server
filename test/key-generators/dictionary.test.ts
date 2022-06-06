@@ -1,11 +1,11 @@
-import Generator from '../../src/lib/key-generators/dictionary'
+import Generator from 'src/lib/key-generators/dictionary'
 
 jest.mock('fs', () => ({
-    readFile: jest.fn().mockImplementation((_, a, callback) =>
-          callback(null, 'cat'),
-        )
-  }))
-  
+  readFile: jest
+    .fn()
+    .mockImplementation((_, a, callback) => callback(null, 'cat'))
+}))
+
 describe('DictionaryGenerator', () => {
   describe('options', () => {
     it('should throw an error if given no options or path', () => {

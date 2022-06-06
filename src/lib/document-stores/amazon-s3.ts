@@ -1,7 +1,7 @@
 import * as winston from 'winston'
 import AWS from 'aws-sdk'
-import type { Callback, Store } from '../../types/store'
-import type { AmazonStoreConfig } from '../../types/config'
+import type { Callback, Store } from 'src/types/store'
+import type { AmazonStoreConfig } from 'src/types/config'
 
 class AmazonS3DocumentStore implements Store {
   bucket: string | undefined

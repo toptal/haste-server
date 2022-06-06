@@ -1,5 +1,5 @@
-import type { Config } from '../../types/config'
-import type { Store } from '../../types/store'
+import type { Config } from 'src/types/config'
+import type { Store } from 'src/types/store'
 
 const build = async (config: Config): Promise<Store> => {
   const DocumentStore = (

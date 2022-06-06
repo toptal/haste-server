@@ -1,6 +1,6 @@
 import * as fs from 'fs'
-import type { KeyGeneratorConfig } from '../../types/config'
-import type { KeyGenerator } from '../../types/key-generator'
+import type { KeyGeneratorConfig } from 'src/types/config'
+import type { KeyGenerator } from 'src/types/key-generator'
 
 class DictionaryGenerator implements KeyGenerator {
   type: string

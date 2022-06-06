@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-conditional-expect */
-import Generator from '../../src/lib/key-generators/phonetic'
+import Generator from 'src/lib/key-generators/phonetic'
 
 const vowels = 'aeiou';
 const consonants = 'bcdfghjklmnpqrstvwxyz';

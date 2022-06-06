@@ -1,8 +1,8 @@
 import * as winston from 'winston'
 import { MongoClient } from 'mongodb'
 
-import type { Callback, Store } from '../../types/store'
-import type { MongoStoreConfig } from '../../types/config'
+import type { Callback, Store } from 'src/types/store'
+import type { MongoStoreConfig } from 'src/types/config'
 
 type ConnectCallback = (error?: Error, db?: MongoClient) => void
 

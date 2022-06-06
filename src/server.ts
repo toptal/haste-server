@@ -4,15 +4,15 @@ import * as winston from 'winston'
 import uglify from 'uglify-js'
 import connectSt from 'st'
 import connectRateLimit from 'connect-ratelimit'
-import getConfig from './lib/helpers/config'
-import addLogging from './lib/helpers/log'
-import buildDocumenthandler from './lib/document-handler/builder'
-import DocumentHandler from './lib/document-handler'
-import { Config } from './types/config'
+import { Config } from 'src/types/config'
+import getConfig from 'src/lib/helpers/config'
+import addLogging from 'src/lib/helpers/log'
+import DocumentHandler from 'src/lib/document-handler'
+import buildDocumenthandler from 'src/lib/document-handler/builder'
 import {
   getStaticDirectory,
   getStaticItemDirectory,
-} from './lib/helpers/directory'
+} from 'src/lib/helpers/directory'
 
 const config: Config = getConfig()
 

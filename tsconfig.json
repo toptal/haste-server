@@ -28,9 +28,7 @@
     "sourceMap": true,
     "rootDir": ".",
     "outDir": "dist",
-    "paths": {
-      "~/*": ["/src/*"]
-    }
+    "baseUrl": ".",
   },
   "include": ["src", "**/*.ts"],
   "exclude": ["node_modules"]

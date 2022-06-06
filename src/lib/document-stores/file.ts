@@ -2,8 +2,8 @@ import * as winston from 'winston'
 import * as fs from 'fs'
 import * as crypto from 'crypto'
 
-import type { Callback, Store } from '../../types/store'
-import type { FileStoreConfig } from '../../types/config'
+import type { Callback, Store } from 'src/types/store'
+import type { FileStoreConfig } from 'src/types/config'
 
 // Generate md5 of a string
 const md5 = (str: string) => {

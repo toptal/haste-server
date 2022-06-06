@@ -4,5 +4,11 @@ module.exports = {
   testEnvironment: 'node',
   rootDir: '../',
   testRegex: '\\.test\\.ts$',
-  reporters: ['default']
+  reporters: ['default'],
+  roots: [
+    "test"
+  ],
+  moduleNameMapper: {
+    "src/(.*)": "<rootDir>/src/$1"
+  }
 }

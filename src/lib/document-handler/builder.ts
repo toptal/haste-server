@@ -1,6 +1,6 @@
-import type { Config } from '../../types/config'
-import buildGenerator from '../key-generators/builder'
-import buildStore from '../document-stores/builder'
+import buildGenerator from 'src/lib/key-generators/builder'
+import type { Config } from 'src/types/config'
+import buildStore from 'src/lib/document-stores/builder'
 import DocumentHandler from "./index"
 
 const build = async (config: Config) => {

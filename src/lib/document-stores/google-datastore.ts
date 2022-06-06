@@ -1,8 +1,8 @@
 import { Datastore, PathType } from '@google-cloud/datastore'
 import * as winston from 'winston'
 
-import type { Callback, Store } from '../../types/store'
-import type { GoogleStoreConfig } from '../../types/config'
+import type { Callback, Store } from 'src/types/store'
+import type { GoogleStoreConfig } from 'src/types/config'
 
 class GoogleDatastoreDocumentStore implements Store {
   kind: string

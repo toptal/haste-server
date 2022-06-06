@@ -1,8 +1,8 @@
 import * as winston from 'winston'
 import Memcached = require('memcached')
 
-import type { Callback, Store } from '../../types/store'
-import type { MemcachedStoreConfig } from '../../types/config'
+import type { Callback, Store } from 'src/types/store'
+import type { MemcachedStoreConfig } from 'src/types/config'
 
 class MemcachedDocumentStore implements Store {
   expire: number | undefined

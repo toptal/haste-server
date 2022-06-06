@@ -1,9 +1,9 @@
 import { createMock } from 'ts-auto-mock';
-import DocumentHandler from '../../src/lib/document-handler/index'
-import Generator from '../../src/lib/key-generators/random'
-import constants from '../../src/constants'
-import { Store } from '../../src/types/store'
-import { Config } from '../../src/types/config'
+import DocumentHandler from 'src/lib/document-handler/index'
+import Generator from 'src/lib/key-generators/random'
+import constants from 'src/constants'
+import { Store } from 'src/types/store'
+import { Config } from 'src/types/config'
 
 const store : Store = createMock<Store>();
 const config : Config = createMock<Config>();

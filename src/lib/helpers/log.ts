@@ -1,5 +1,5 @@
 import * as winston from 'winston'
-import type { Config } from '../../types/config'
+import type { Config } from 'src/types/config'
 
 const addLogging = (config: Config) => {
   try {
