@@ -1,5 +1,6 @@
 import { Logging } from './log'
 import { RateLimits } from './rate-limits'
+import { StoreNames } from './store-names'
 
 export interface Config {
   host: string
@@ -11,8 +12,9 @@ export interface Config {
   logging: Logging[]
   keyGenerator: KeyGeneratorConfig
   rateLimits: RateLimits
-  storage: StoreConfig
+  storage: unknown
   documents: Record<string, string>
+  storeName: StoreNames
 }
 
 export type BaseStoreConfig = {
@@ -52,7 +54,7 @@ export interface RethinkDbStoreConfig extends BaseStoreConfig {
 
 export interface RedisStoreConfig extends BaseStoreConfig {
   url?: string
-  db?: string
+  db?: number
   user?: string
   username?: string | undefined
   password?: string
@@ -61,17 +63,6 @@ export interface RedisStoreConfig extends BaseStoreConfig {
 }
 
 export type GoogleStoreConfig = BaseStoreConfig
-
-export type StoreConfig =
-  | MongoStoreConfig
-  | MemcachedStoreConfig
-  | GoogleStoreConfig
-  | AmazonStoreConfig
-  | FileStoreConfig
-  | MongoStoreConfig
-  | RedisStoreConfig
-  | RethinkDbStoreConfig
-  | PostgresStoreConfig
 
 export interface KeyGeneratorConfig {
   type: string

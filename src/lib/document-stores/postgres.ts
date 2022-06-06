@@ -1,8 +1,9 @@
 import * as winston from 'winston'
 import { Pool, PoolClient } from 'pg'
 
-import type { Callback, Store } from 'src/types/store'
+import type { Callback } from 'src/types/callback'
 import type { PostgresStoreConfig } from 'src/types/config'
+import { Store } from '.'
 
 type ConnectCallback = (
   error?: Error,
@@ -11,17 +12,11 @@ type ConnectCallback = (
 ) => void
 
 // A postgres document store
-class PostgresDocumentStore implements Store {
-  type: string
-
-  expireJS?: number
-
+class PostgresDocumentStore extends Store {
   pool: Pool
 
   constructor(options: PostgresStoreConfig) {
-    this.expireJS = options.expire
-    this.type = options.type
-
+    super(options)
     const connectionString = process.env.DATABASE_URL || options.connectionUrl
     this.pool = new Pool({ connectionString })
   }
@@ -61,10 +56,10 @@ class PostgresDocumentStore implements Store {
             return callback(false)
           }
           callback(result.rows.length ? result.rows[0].value : false)
-          if (result.rows.length && this.expireJS && !skipExpire) {
+          if (result.rows.length && this.expire && !skipExpire) {
             return client.query(
               'UPDATE entries SET expiration = $1 WHERE ID = $2',
-              [this.expireJS + now, result.rows[0].id],
+              [this.expire + now, result.rows[0].id],
               (currentErr: Error) => {
                 if (!currentErr) {
                   return done?.()
@@ -95,7 +90,7 @@ class PostgresDocumentStore implements Store {
       }
       return client?.query(
         'INSERT INTO entries (key, value, expiration) VALUES ($1, $2, $3)',
-        [key, data, this.expireJS && !skipExpire ? this.expireJS + now : null],
+        [key, data, this.expire && !skipExpire ? this.expire + now : null],
         (error: Error) => {
           if (error) {
             winston.error('error persisting value to postgres', { error })

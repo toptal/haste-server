@@ -2,10 +2,10 @@ import { Request, Response } from 'express'
 import * as winston from 'winston'
 import Busboy from 'busboy'
 import type { Config } from 'src/types/config'
-import type { Store } from 'src/types/store'
-import type { KeyGenerator } from 'src/types/key-generator'
+import type { Store } from 'src/types/callback'
 import type { Document } from 'src/types/document'
 import constants from 'src/constants'
+import KeyGenerator from 'src/lib/key-generators'
 
 class DocumentHandler {
   keyLength: number
@@ -26,7 +26,7 @@ class DocumentHandler {
     this.keyGenerator = options.keyGenerator
   }
 
-  public handleGet(request: Request, response: Response) {
+  handleGet(request: Request, response: Response) {
     const key = request.params.id.split('.')[0]
     const skipExpire = !!this.config.documents[key]
 

@@ -1,5 +1,6 @@
 import * as winston from 'winston'
 import type { Config } from 'src/types/config'
+import { Logging, LoggingType } from 'src/types/log'
 
 const addLogging = (config: Config) => {
   try {
@@ -8,8 +9,8 @@ const addLogging = (config: Config) => {
     /* was not present */
   }
 
-  let detail
-  let type
+  let detail: Logging
+  let type: LoggingType
 
   for (let i = 0; i < config.logging.length; i += 1) {
     detail = config.logging[i]

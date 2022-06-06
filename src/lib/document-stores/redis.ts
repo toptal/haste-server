@@ -1,8 +1,9 @@
 import * as winston from 'winston'
 import { createClient } from 'redis'
 import { bool } from 'aws-sdk/clients/redshiftdata'
-import { Callback, Store } from 'src/types/store'
+import type { Callback } from 'src/types/callback'
 import { RedisStoreConfig } from 'src/types/config'
+import { Store } from '.'
 
 export type RedisClientType = ReturnType<typeof createClient>
 
@@ -14,26 +15,18 @@ export type RedisClientType = ReturnType<typeof createClient>
 // options[db] - The db to use (default 0)
 // options[expire] - The time to live for each key set (default never)
 
-class RedisDocumentStore implements Store {
-  type: string
-
-  expire?: number | undefined
-
-  client?: RedisClientType
+class RedisDocumentStore extends Store {
+  client: RedisClientType
 
   constructor(options: RedisStoreConfig) {
-    this.expire = options.expire
-    this.type = options.type
-    this.connect(options)
-  }
-
-  connect = (options: RedisStoreConfig) => {
-    winston.info('configuring redis')
+    super(options)
 
     const url = process.env.REDISTOGO_URL || options.url
     const host = options.host || '127.0.0.1'
-    const port = options.port || 6379
+    const port = options.port || '6379'
     const index = options.db || 0
+
+    winston.info('configuring redis')
 
     const connectionParameters = url
       ? {
@@ -46,12 +39,16 @@ class RedisDocumentStore implements Store {
 
     const config = {
       ...connectionParameters,
-      database: index as number,
+      database: index,
       ...(options.username ? { username: options.username } : {}),
       ...(options.password ? { username: options.username } : {})
     }
 
     this.client = createClient(config)
+    this.connect(index)
+  }
+
+  connect = (index: number) => {
     this.client.connect()
 
     this.client.on('error', err => {
@@ -59,9 +56,9 @@ class RedisDocumentStore implements Store {
     })
 
     this.client
-      .select(index as number)
+      .select(index)
       .then(() => {
-        winston.info(`connected to redis on ${url}/${index}`)
+        winston.info(`connected to redis on ${index}`)
       })
       .catch(err => {
         winston.error(`error connecting to redis index ${index}`, {
@@ -75,7 +72,7 @@ class RedisDocumentStore implements Store {
 
   get = (key: string, callback: Callback): void => {
     this.client
-      ?.get(key)
+      .get(key)
       .then(reply => {
         callback(reply || false)
       })
@@ -91,7 +88,7 @@ class RedisDocumentStore implements Store {
     skipExpire?: boolean | undefined
   ): void => {
     this.client
-      ?.set(key, data, this.getExpire(skipExpire))
+      .set(key, data, this.getExpire(skipExpire))
       .then(() => {
         callback(true)
       })

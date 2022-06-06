@@ -4,7 +4,8 @@ import * as crypto from 'crypto'
 import rethink, { RethinkClient } from 'rethinkdbdash'
 
 import type { RethinkDbStoreConfig } from 'src/types/config'
-import type { Callback } from 'src/types/store'
+import type { Callback } from 'src/types/callback'
+import { Store } from '.'
 
 const md5 = (str: string) => {
   const md5sum = crypto.createHash('md5')
@@ -12,10 +13,11 @@ const md5 = (str: string) => {
   return md5sum.digest('hex')
 }
 
-class RethinkDBStore {
+class RethinkDBStore extends Store {
   client: RethinkClient
 
   constructor(options: RethinkDbStoreConfig) {
+    super(options)
     this.client = rethink({
       silent: true,
       host: options.host || '127.0.0.1',

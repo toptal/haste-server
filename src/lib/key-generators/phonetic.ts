@@ -1,7 +1,5 @@
 // Draws inspiration from pwgen and http://tools.arantius.com/password
-
-import type { KeyGeneratorConfig } from 'src/types/config'
-import type { KeyGenerator } from 'src/types/key-generator'
+import KeyGenerator from '.'
 
 const randOf = (collection: string) => () =>
   collection[Math.floor(Math.random() * collection.length)]
@@ -10,13 +8,7 @@ const randOf = (collection: string) => () =>
 const randVowel = randOf('aeiou')
 const randConsonant = randOf('bcdfghjklmnpqrstvwxyz')
 
-class PhoneticKeyGenerator implements KeyGenerator {
-  type: string
-
-  constructor(options: KeyGeneratorConfig) {
-    this.type = options.type
-  }
-
+class PhoneticKeyGenerator extends KeyGenerator {
   // Generate a phonetic key of alternating consonant & vowel
   // eslint-disable-next-line class-methods-use-this
   createKey(keyLength: number) {

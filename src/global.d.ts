@@ -15,12 +15,12 @@ declare module 'rethinkdbdash' {
   }
 
   interface RethinkFunctions {
-    insert(object: RethinkInsertObject): RethinkRun
-    get(x: string): RethinkRun
+    insert(data: RethinkInsertObject): RethinkRun
+    get(id: string): RethinkRun
   }
 
   export interface RethinkClient {
-    table(s: string): RethinkFunctions
+    table(tableName: string): RethinkFunctions
   }
 
   function rethink<T>(obj: T): RethinkClient<T>
@@ -54,7 +54,7 @@ declare module 'st' {
     index: boolean | string
   }
 
-  function connectSt(st: ConnectSt): Middleware
+  function connectSt(st: ConnectSt): express.NextFunction
 
   export = connectSt
 }

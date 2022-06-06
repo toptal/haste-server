@@ -1,21 +1,17 @@
 import * as winston from 'winston'
 import AWS from 'aws-sdk'
-import type { Callback, Store } from 'src/types/store'
 import type { AmazonStoreConfig } from 'src/types/config'
+import { Callback } from 'src/types/callback'
+import { Store } from '.'
 
-class AmazonS3DocumentStore implements Store {
+class AmazonS3DocumentStore extends Store {
   bucket: string | undefined
 
   client: AWS.S3
 
-  type: string
-
-  expire?: number | undefined
-
   constructor(options: AmazonStoreConfig) {
-    this.expire = options.expire
+    super(options)
     this.bucket = options.bucket
-    this.type = options.type
     this.client = new AWS.S3({ region: options.region })
   }
 

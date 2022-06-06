@@ -1,21 +1,17 @@
 import * as winston from 'winston'
 import { MongoClient } from 'mongodb'
 
-import type { Callback, Store } from 'src/types/store'
+import type { Callback } from 'src/types/callback'
 import type { MongoStoreConfig } from 'src/types/config'
+import { Store } from '.'
 
 type ConnectCallback = (error?: Error, db?: MongoClient) => void
 
-class MongoDocumentStore implements Store {
-  type: string
-
-  expire?: number | undefined
-
+class MongoDocumentStore extends Store {
   connectionUrl: string
 
   constructor(options: MongoStoreConfig) {
-    this.expire = options.expire
-    this.type = options.type
+    super(options)
     this.connectionUrl = process.env.DATABASE_URl || options.connectionUrl
   }
 

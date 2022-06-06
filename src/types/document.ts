@@ -1,6 +1,6 @@
+import KeyGenerator from 'src/lib/key-generators'
 import type { Config } from './config'
-import type { KeyGenerator } from './key-generator'
-import type { Store } from './store'
+import type { Store } from './callback'
 
 export type Document = {
   store: Store

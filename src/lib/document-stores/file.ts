@@ -2,8 +2,9 @@ import * as winston from 'winston'
 import * as fs from 'fs'
 import * as crypto from 'crypto'
 
-import type { Callback, Store } from 'src/types/store'
+import type { Callback } from 'src/types/callback'
 import type { FileStoreConfig } from 'src/types/config'
+import { Store } from '.'
 
 // Generate md5 of a string
 const md5 = (str: string) => {
@@ -16,17 +17,12 @@ const md5 = (str: string) => {
 // options[type] = file
 // options[path] - Where to store
 
-class FileDocumentStore implements Store {
-  type: string
-
-  expire?: number | undefined
-
+class FileDocumentStore extends Store {
   basePath: string
 
   constructor(options: FileStoreConfig) {
+    super(options)
     this.basePath = options.path || './data'
-    this.expire = options.expire
-    this.type = options.type
   }
 
   // Get data from a file from key

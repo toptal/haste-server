@@ -1,23 +1,19 @@
 import { Datastore, PathType } from '@google-cloud/datastore'
 import * as winston from 'winston'
 
-import type { Callback, Store } from 'src/types/store'
+import type { Callback } from 'src/types/callback'
 import type { GoogleStoreConfig } from 'src/types/config'
+import { Store } from '.'
 
-class GoogleDatastoreDocumentStore implements Store {
+class GoogleDatastoreDocumentStore extends Store {
   kind: string
-
-  expire?: number
 
   datastore: Datastore
 
-  type: string
-
   // Create a new store with options
   constructor(options: GoogleStoreConfig) {
+    super(options)
     this.kind = 'Haste'
-    this.expire = options.expire
-    this.type = options.type
     this.datastore = new Datastore()
   }
 

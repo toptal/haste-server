@@ -1,32 +1,23 @@
 import * as winston from 'winston'
 import Memcached = require('memcached')
 
-import type { Callback, Store } from 'src/types/store'
+import type { Callback } from 'src/types/callback'
 import type { MemcachedStoreConfig } from 'src/types/config'
+import { Store } from '.'
 
-class MemcachedDocumentStore implements Store {
-  expire: number | undefined
-
-  client?: Memcached
-
-  type: string
+class MemcachedDocumentStore extends Store {
+  client: Memcached
 
   // Create a new store with options
   constructor(options: MemcachedStoreConfig) {
-    this.expire = options.expire
-    this.type = options.type
+    super(options)
     const host = options.host || '127.0.0.1'
     const port = options.port || 11211
     const url = `${host}:${port}`
-    this.connect(url)
-  }
 
-  // Create a connection
-  connect = (url: string) => {
+    // Create a connection
     this.client = new Memcached(url)
-
     winston.info(`connecting to memcached on ${url}`)
-
     this.client.on('failure', (error: Memcached.IssueData) => {
       winston.info('error connecting to memcached', { error })
     })

@@ -1,5 +1,5 @@
-import type { KeyGenerator } from 'src/types/key-generator'
 import type { Config } from 'src/types/config'
+import KeyGenerator from '.'
 
 const build = async (config: Config): Promise<KeyGenerator> => {
   const pwOptions = config.keyGenerator

@@ -51,8 +51,8 @@ buildDocumenthandler(config)
     }
 
     // Send the static documents into the preferred store, skipping expirations
-    let documentPath
-    let data
+    let documentPath: string
+    let data: string
 
     Object.keys(config.documents).forEach(name => {
       documentPath = config.documents[name]

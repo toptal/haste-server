@@ -1,17 +1,15 @@
 import type { KeyGeneratorConfig } from 'src/types/config'
-import type { KeyGenerator } from 'src/types/key-generator'
+import KeyGenerator from '.'
 
-class RandomKeyGenerator implements KeyGenerator {
-  type: string
-
+class RandomKeyGenerator extends KeyGenerator {
   keyspace: string
 
   // Initialize a new generator with the given keySpace
   constructor(options: KeyGeneratorConfig) {
+    super(options)
     this.keyspace =
       options.keyspace ||
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    this.type = options.type
   }
 
   // Generate a key of the given length

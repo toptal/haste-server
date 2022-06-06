@@ -1,14 +1,14 @@
 import * as fs from 'fs'
 import type { KeyGeneratorConfig } from 'src/types/config'
-import type { KeyGenerator } from 'src/types/key-generator'
+import KeyGenerator from '.'
 
-class DictionaryGenerator implements KeyGenerator {
+class DictionaryGenerator extends KeyGenerator {
   type: string
 
   dictionary: string[]
 
   constructor(options: KeyGeneratorConfig, readyCallback?: () => void) {
-    // Check options format
+    super(options)
     if (!options) throw Error('No options passed to generator')
     if (!options.path) throw Error('No dictionary path specified in options')
 
