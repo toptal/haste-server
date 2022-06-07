@@ -2,10 +2,10 @@ import { Request, Response } from 'express'
 import * as winston from 'winston'
 import Busboy from 'busboy'
 import type { Config } from 'src/types/config'
-import type { Store } from 'src/types/callback'
 import type { Document } from 'src/types/document'
 import constants from 'src/constants'
 import KeyGenerator from 'src/lib/key-generators'
+import { Store } from '../document-stores'
 
 class DocumentHandler {
   keyLength: number

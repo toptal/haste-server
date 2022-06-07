@@ -17,8 +17,8 @@ const getConfig = (): Config => {
     config.storage = {}
   }
 
-  if (!config.storeName) {
-    config.storeName = 'file'
+  if (!config.storage.type) {
+    config.storage.type = 'file'
   }
 
   return config

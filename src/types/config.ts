@@ -12,36 +12,40 @@ export interface Config {
   logging: Logging[]
   keyGenerator: KeyGeneratorConfig
   rateLimits: RateLimits
-  storage: unknown
+  storage: StoreConfig
   documents: Record<string, string>
-  storeName: StoreNames
 }
 
 export type BaseStoreConfig = {
-  type: string
+  type: StoreNames
   expire?: number
 }
 
 export interface MongoStoreConfig extends BaseStoreConfig {
   connectionUrl: string
+  type: StoreNames.mongo
 }
 
 export interface MemcachedStoreConfig extends BaseStoreConfig {
   host: string
   port: number
+  type: StoreNames.memcached
 }
 
 export interface FileStoreConfig extends BaseStoreConfig {
   path: string
+  type: StoreNames.file
 }
 
 export interface AmazonStoreConfig extends BaseStoreConfig {
   bucket: string
   region: string
+  type: StoreNames.amazons3
 }
 
 export interface PostgresStoreConfig extends BaseStoreConfig {
   connectionUrl: string
+  type: StoreNames.postgres
 }
 
 export interface RethinkDbStoreConfig extends BaseStoreConfig {
@@ -50,6 +54,7 @@ export interface RethinkDbStoreConfig extends BaseStoreConfig {
   db: string
   user: string
   password: string
+  type: StoreNames.rethinkdb
 }
 
 export interface RedisStoreConfig extends BaseStoreConfig {
@@ -60,9 +65,22 @@ export interface RedisStoreConfig extends BaseStoreConfig {
   password?: string
   host?: string
   port?: string
+  type: StoreNames.redis
 }
 
-export type GoogleStoreConfig = BaseStoreConfig
+export interface GoogleStoreConfig extends BaseStoreConfig {
+  type: StoreNames.googledatastore
+}
+
+export type StoreConfig =
+  | MongoStoreConfig
+  | MemcachedStoreConfig
+  | FileStoreConfig
+  | AmazonStoreConfig
+  | PostgresStoreConfig
+  | RethinkDbStoreConfig
+  | RedisStoreConfig
+  | GoogleStoreConfig
 
 export interface KeyGeneratorConfig {
   type: string

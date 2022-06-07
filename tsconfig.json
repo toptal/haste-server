@@ -1,8 +1,4 @@
 {
-  "ts-node": {
-    "files": true
-  },
-  "files": ["src/global.d.ts"],
   "compilerOptions": {
     "allowJs": true,
     "composite": false,
@@ -22,14 +18,14 @@
     "skipLibCheck": true,
     "strict": true,
     "typeRoots": ["node_modules/@types", "src/global.d.ts"],
-    "target": "es6",
+    "target": "es2021",
     "noEmit": false,
     "module": "commonjs",
     "sourceMap": true,
-    "rootDir": ".",
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
+      "*": ["node_modules/*"],
       "src/*": ["./src/*"]
     }
   },

@@ -60,6 +60,8 @@
     "ts-auto-mock": "^3.6.2",
     "ts-jest": "^28.0.3",
     "ts-node": "^9.1.1",
+    "tsconfig-paths": "^4.0.0",
+    "tscpaths": "^0.0.9",
     "typescript": "^4.6.4"
   },
   "bundledDependencies": [],
@@ -72,12 +74,11 @@
     "static"
   ],
   "nodemonConfig": {
-    "ignore":
-      [
-        "test/**/*.test.ts",
-        ".git",
-        "node_modules"
-      ],
+    "ignore": [
+      "test/**/*.test.ts",
+      ".git",
+      "node_modules"
+    ],
     "watch": [
       "src"
     ],
@@ -89,9 +90,10 @@
     "remove:files": "rimraf dist",
     "test:unit": "jest --config config/jest.config.js",
     "build:nostatic": "yarn remove:files && tsc --project ./",
-    "build": "yarn remove:files && yarn copy:files && tsc --project ./",
+    "build:typescript": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "build": "yarn remove:files && yarn copy:files && yarn build:typescript",
+    "start": "node -r tsconfig-paths/register -r ts-node ./dist/src/server.js",
     "dev": "nodemon",
-    "start": "node dist/src/server.js",
     "lint": "eslint src --fix",
     "types:check": "tsc --noEmit --pretty",
     "pretty": "prettier --write src"
