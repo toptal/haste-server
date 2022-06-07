@@ -29,7 +29,7 @@ STDOUT.  Check the README there for more details and usages.
 ## Installation
 
 1.  Download the package, and expand it
-3.  `yarn install`
+3.  `yarn add`
 
 ## Running the project
 
@@ -37,12 +37,12 @@ STDOUT.  Check the README there for more details and usages.
 
 ### Development
 
-1.  `yarn install`
+1.  `yarn add`
 2.  `yarn dev` (you may specify an optional `<config-path>` as well)
 
 ### Production
 
-1.  `yarn install`
+1.  `yarn add`
 2.  `yarn build` to build the package
 3.  `yarn start` to start the server
 
@@ -123,7 +123,7 @@ File storage currently does not support paste expiration, you can follow [#191](
 To use redis storage you must install the `redis` package in npm, and have
 `redis-server` running on the machine.
 
-`yarn install redis`
+`yarn add redis`
 
 Once you've done that, your config section should look like:
 
@@ -148,7 +148,7 @@ If your Redis server is configured for password authentification, use the `passw
 
 To use postgres storage you must install the `pg` package in npm
 
-`yarn install pg`
+`yarn add pg`
 
 Once you've done that, your config section should look like:
 
@@ -175,7 +175,7 @@ All of which are optional except `type` with very logical default values.
 
 To use mongodb storage you must install the 'mongodb' package in npm
 
-`yarn install mongodb`
+`yarn add mongodb`
 
 Once you've done that, your config section should look like:
 
@@ -197,7 +197,7 @@ This is off by default, but will constantly kick back expirations on each view o
 
 To use memcache storage you must install the `memcached` package via npm
 
-`yarn install memcached`
+`yarn add memcached`
 
 Once you've done that, your config section should look like:
 
@@ -219,7 +219,7 @@ All of which are optional except `type` with very logical default values.
 
 To use the RethinkDB storage system, you must install the `rethinkdbdash` package via npm
 
-`yarn install rethinkdbdash`
+`yarn add rethinkdbdash`
 
 Once you've done that, your config section should look like this:
 
@@ -241,7 +241,7 @@ You can optionally add the `user` and `password` properties to use a user system
 
 To use the Google Datastore storage system, you must install the `@google-cloud/datastore` package via npm
 
-`yarn install @google-cloud/datastore`
+`yarn add @google-cloud/datastore`
 
 Once you've done that, your config section should look like this:
 
@@ -258,7 +258,7 @@ Authentication is handled automatically by [Google Cloud service account credent
 To use [Amazon S3](https://aws.amazon.com/s3/) as a storage system, you must
 install the `aws-sdk` package via npm:
 
-`yarn install aws-sdk`
+`yarn add aws-sdk`
 
 Once you've done that, your config section should look like this:
 
