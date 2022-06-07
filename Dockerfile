@@ -52,7 +52,8 @@ EXPOSE ${PORT}
 STOPSIGNAL SIGINT
 ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
 
-RUN yarn build:nostatic
+RUN yarn remove:files
+RUN yarn build:typescript
 COPY static /app/dist/static
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s \
