@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    "files": true
+  },
+  "files": ["src/global.d.ts"],
   "compilerOptions": {
     "allowJs": true,
     "composite": false,
