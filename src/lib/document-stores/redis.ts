@@ -1,11 +1,13 @@
 import * as winston from 'winston'
-import { createClient } from 'redis'
-import { bool } from 'aws-sdk/clients/redshiftdata'
+import redis = require('redis')
+
 import type { Callback } from 'src/types/callback'
 import { RedisStoreConfig } from 'src/types/config'
 import { Store } from '.'
 
-export type RedisClientType = ReturnType<typeof createClient>
+const { createClient } = redis
+
+export type RedisClientType = ReturnType<typeof redis.createClient>
 
 // For storing in redis
 // options[type] = redis
@@ -68,7 +70,7 @@ class RedisDocumentStore extends Store {
       })
   }
 
-  getExpire = (skipExpire?: bool) => (!skipExpire ? { EX: this.expire } : {})
+  getExpire = (skipExpire?: boolean) => (!skipExpire ? { EX: this.expire } : {})
 
   get = (key: string, callback: Callback): void => {
     this.client

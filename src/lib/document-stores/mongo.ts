@@ -1,11 +1,13 @@
 import * as winston from 'winston'
-import { MongoClient } from 'mongodb'
+import mongodb = require('mongodb')
 
 import type { Callback } from 'src/types/callback'
 import type { MongoStoreConfig } from 'src/types/config'
 import { Store } from '.'
 
-type ConnectCallback = (error?: Error, db?: MongoClient) => void
+const { MongoClient } = mongodb
+
+type ConnectCallback = (error?: Error, db?: mongodb.MongoClient) => void
 
 class MongoDocumentStore extends Store {
   connectionUrl: string

@@ -1,19 +1,21 @@
 import * as winston from 'winston'
-import { Pool, PoolClient } from 'pg'
+import Pg = require('pg')
 
 import type { Callback } from 'src/types/callback'
 import type { PostgresStoreConfig } from 'src/types/config'
 import { Store } from '.'
 
+const { Pool } = Pg
+
 type ConnectCallback = (
   error?: Error,
-  client?: PoolClient,
+  client?: Pg.PoolClient,
   done?: () => void
 ) => void
 
 // A postgres document store
 class PostgresDocumentStore extends Store {
-  pool: Pool
+  pool: Pg.Pool
 
   constructor(options: PostgresStoreConfig) {
     super(options)
@@ -23,14 +25,16 @@ class PostgresDocumentStore extends Store {
 
   // A connection wrapper
   safeConnect = (callback: ConnectCallback) => {
-    this.pool.connect((error: Error, client: PoolClient, done: () => void) => {
-      if (error) {
-        winston.error('error connecting to postgres', { error })
-        callback(error)
-      } else {
-        callback(undefined, client, done)
+    this.pool.connect(
+      (error: Error, client: Pg.PoolClient, done: () => void) => {
+        if (error) {
+          winston.error('error connecting to postgres', { error })
+          callback(error)
+        } else {
+          callback(undefined, client, done)
+        }
       }
-    })
+    )
   }
 
   // Get a given key's data

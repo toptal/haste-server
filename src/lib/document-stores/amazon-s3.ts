@@ -1,5 +1,5 @@
 import * as winston from 'winston'
-import AWS from 'aws-sdk'
+import AWS = require('aws-sdk')
 import type { AmazonStoreConfig } from 'src/types/config'
 import { Callback } from 'src/types/callback'
 import { Store } from '.'

@@ -1,7 +1,7 @@
 import * as winston from 'winston'
 import * as crypto from 'crypto'
 
-import rethink, { RethinkClient } from 'rethinkdbdash'
+import rethink = require('rethinkdbdash')
 
 import type { RethinkDbStoreConfig } from 'src/types/config'
 import type { Callback } from 'src/types/callback'
@@ -14,7 +14,7 @@ const md5 = (str: string) => {
 }
 
 class RethinkDBStore extends Store {
-  client: RethinkClient
+  client: rethink.RethinkClient
 
   constructor(options: RethinkDbStoreConfig) {
     super(options)

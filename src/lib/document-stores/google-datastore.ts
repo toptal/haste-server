@@ -1,4 +1,4 @@
-import { Datastore, PathType } from '@google-cloud/datastore'
+import Datastore = require('@google-cloud/datastore')
 import * as winston from 'winston'
 
 import type { Callback } from 'src/types/callback'
@@ -19,7 +19,7 @@ class GoogleDatastoreDocumentStore extends Store {
 
   // Save file in a key
   set = (
-    key: PathType,
+    key: string,
     data: string,
     callback: Callback,
     skipExpire?: boolean
@@ -56,13 +56,13 @@ class GoogleDatastoreDocumentStore extends Store {
   }
 
   // Get a file from a key
-  get = (key: PathType, callback: Callback, skipExpire?: boolean): void => {
+  get = (key: string, callback: Callback, skipExpire?: boolean): void => {
     const taskKey = this.datastore.key([this.kind, key])
 
     this.datastore
       .get(taskKey)
       .then(entity => {
-        if (skipExpire || entity[0].expiration == null) {
+        if (skipExpire || entity[0]?.expiration == null) {
           callback(entity[0].value)
         } else if (entity[0].expiration < new Date()) {
           winston.info('document expired', {
@@ -78,7 +78,7 @@ class GoogleDatastoreDocumentStore extends Store {
             data: [
               {
                 name: 'value',
-                value: entity[0].value,
+                value: entity[0]?.value,
                 excludeFromIndexes: true
               },
               {
@@ -95,7 +95,7 @@ class GoogleDatastoreDocumentStore extends Store {
             .catch(err => {
               winston.error('failed to update expiration', { error: err })
             })
-          callback(entity[0].value)
+          callback(entity[0]?.value)
         }
       })
       .catch(err => {
