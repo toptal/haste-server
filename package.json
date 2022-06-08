@@ -95,6 +95,6 @@
     "dev": "nodemon",
     "lint": "eslint src --fix",
     "types:check": "tsc --noEmit --pretty",
-    "pretty": "prettier --write src"
+    "pretty": "prettier --write ."
   }
 }

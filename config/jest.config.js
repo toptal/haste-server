@@ -5,10 +5,8 @@ module.exports = {
   rootDir: '../',
   testRegex: '\\.test\\.ts$',
   reporters: ['default'],
-  roots: [
-    "test"
-  ],
+  roots: ['test'],
   moduleNameMapper: {
-    "src/(.*)": "<rootDir>/src/$1"
+    'src/(.*)': '<rootDir>/src/$1'
   }
 }

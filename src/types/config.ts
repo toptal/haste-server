@@ -23,29 +23,29 @@ export type BaseStoreConfig = {
 
 export interface MongoStoreConfig extends BaseStoreConfig {
   connectionUrl: string
-  type: StoreNames.mongo
+  type: StoreNames.Mongo
 }
 
 export interface MemcachedStoreConfig extends BaseStoreConfig {
   host: string
   port: number
-  type: StoreNames.memcached
+  type: StoreNames.Memcached
 }
 
 export interface FileStoreConfig extends BaseStoreConfig {
   path: string
-  type: StoreNames.file
+  type: StoreNames.File
 }
 
 export interface AmazonStoreConfig extends BaseStoreConfig {
   bucket: string
   region: string
-  type: StoreNames.amazons3
+  type: StoreNames.AmazonS3
 }
 
 export interface PostgresStoreConfig extends BaseStoreConfig {
   connectionUrl: string
-  type: StoreNames.postgres
+  type: StoreNames.Postgres
 }
 
 export interface RethinkDbStoreConfig extends BaseStoreConfig {
@@ -54,7 +54,7 @@ export interface RethinkDbStoreConfig extends BaseStoreConfig {
   db: string
   user: string
   password: string
-  type: StoreNames.rethinkdb
+  type: StoreNames.RethinkDb
 }
 
 export interface RedisStoreConfig extends BaseStoreConfig {
@@ -65,11 +65,11 @@ export interface RedisStoreConfig extends BaseStoreConfig {
   password?: string
   host?: string
   port?: string
-  type: StoreNames.redis
+  type: StoreNames.Redis
 }
 
 export interface GoogleStoreConfig extends BaseStoreConfig {
-  type: StoreNames.googledatastore
+  type: StoreNames.GoogleDataStore
 }
 
 export type StoreConfig =

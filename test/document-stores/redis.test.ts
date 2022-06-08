@@ -14,7 +14,7 @@ describe('Redis document store', () => {
     it('should be able to set a key and have an expiration set', async () => {
       store = new RedisDocumentStore({
         expire: 10,
-        type: StoreNames.redis
+        type: StoreNames.Redis
       })
       return store.set('hello1', 'world', async () => {
         const res = await store.client?.ttl('hello1')
@@ -25,7 +25,7 @@ describe('Redis document store', () => {
     it('should not set an expiration when told not to', async () => {
       store = new RedisDocumentStore({
         expire: 10,
-        type: StoreNames.redis
+        type: StoreNames.Redis
       })
 
       store.set(
@@ -41,7 +41,7 @@ describe('Redis document store', () => {
 
     it('should not set an expiration when expiration is off', async () => {
       store = new RedisDocumentStore({
-        type: StoreNames.redis
+        type: StoreNames.Redis
       })
 
       store.set('hello3', 'world', async () => {

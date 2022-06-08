@@ -1,15 +1,15 @@
 # Haste
 
 Haste is an open-source pastebin software written in node.js, which is easily
-installable in any network.  It can be backed by either redis or filesystem,
-and has a very easy adapter interface for other stores.  A publicly available
+installable in any network. It can be backed by either redis or filesystem,
+and has a very easy adapter interface for other stores. A publicly available
 version can be found at [hastebin.com](http://hastebin.com)
 
 Major design objectives:
 
-* Be really pretty
-* Be really simple
-* Be easy to set up and use
+- Be really pretty
+- Be really simple
+- Be easy to set up and use
 
 Haste works really well with a little utility called
 [haste-client](https://github.com/seejohnrun/haste-client), allowing you
@@ -18,58 +18,58 @@ to do things like:
 `cat something | haste`
 
 which will output a URL to share containing the contents of `cat something`'s
-STDOUT.  Check the README there for more details and usages.
+STDOUT. Check the README there for more details and usages.
 
 ## Tested Browsers
 
-* Firefox 8
-* Chrome 17
-* Safari 5.3
+- Firefox 8
+- Chrome 17
+- Safari 5.3
 
 ## Installation
 
 1.  Download the package, and expand it
-3.  `yarn add`
+2.  `yarn`
 
 ## Running the project
 
-> Explore the settings inside of config.js, but the defaults should be good
+> Explore the settings inside of project-config.js, but the defaults should be good
 
 ### Development
 
-1.  `yarn add`
+1.  `yarn`
 2.  `yarn dev` (you may specify an optional `<config-path>` as well)
 
 ### Production
 
-1.  `yarn add`
+1.  `yarn`
 2.  `yarn build` to build the package
 3.  `yarn start` to start the server
 
 ### Production with Docker
 
-1.  `docker compose up`
+1.  `docker-compose up`
 
 ## Settings
 
-* `host` - the host the server runs on (default localhost)
-* `port` - the port the server runs on (default 7777)
-* `keyLength` - the length of the keys to user (default 10)
-* `maxLength` - maximum length of a paste (default 400000)
-* `staticMaxAge` - max age for static assets (86400)
-* `recompressStaticAssets` - whether or not to compile static js assets (true)
-* `documents` - static documents to serve (ex: http://hastebin.com/about.com)
-  in addition to static assets.  These will never expire.
-* `storage` - storage options (see below)
-* `logging` - logging preferences
-* `keyGenerator` - key generator options (see below)
-* `rateLimits` - settings for rate limiting (see below)
+- `host` - the host the server runs on (default localhost)
+- `port` - the port the server runs on (default 7777)
+- `keyLength` - the length of the keys to user (default 10)
+- `maxLength` - maximum length of a paste (default 400000)
+- `staticMaxAge` - max age for static assets (86400)
+- `recompressStaticAssets` - whether or not to compile static js assets (true)
+- `documents` - static documents to serve (ex: http://hastebin.com/about.com)
+  in addition to static assets. These will never expire.
+- `storage` - storage options (see below)
+- `logging` - logging preferences
+- `keyGenerator` - key generator options (see below)
+- `rateLimits` - settings for rate limiting (see below)
 
 ## Rate Limiting
 
 When present, the `rateLimits` option enables built-in rate limiting courtesy
-of `connect-ratelimit`.  Any of the options supported by that library can be
-used and set in `config.js`.
+of `connect-ratelimit`. Any of the options supported by that library can be
+used and set in `project-config.js`.
 
 See the README for [connect-ratelimit](https://github.com/dharmafly/connect-ratelimit)
 for more information!
@@ -80,7 +80,7 @@ for more information!
 
 Attempts to generate phonetic keys, similar to `pwgen`
 
-``` json
+```json
 {
   "type": "phonetic"
 }
@@ -90,7 +90,7 @@ Attempts to generate phonetic keys, similar to `pwgen`
 
 Generates a random key
 
-``` json
+```json
 {
   "type": "random",
   "keyspace": "abcdef"
@@ -104,10 +104,10 @@ for the key.
 
 ### File
 
-To use file storage (the default) change the storage section in `config.js` to
+To use file storage (the default) change the storage section in `project-config.js` to
 something like:
 
-``` json
+```json
 {
   "path": "./data",
   "type": "file"
@@ -127,7 +127,7 @@ To use redis storage you must install the `redis` package in npm, and have
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "redis",
   "host": "localhost",
@@ -152,7 +152,7 @@ To use postgres storage you must install the `pg` package in npm
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "postgres",
   "connectionUrl": "postgres://user:password@host:5432/database"
@@ -179,7 +179,7 @@ To use mongodb storage you must install the 'mongodb' package in npm
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "mongo",
   "connectionUrl": "mongodb://localhost:27017/database"
@@ -201,7 +201,7 @@ To use memcache storage you must install the `memcached` package via npm
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "memcached",
   "host": "127.0.0.1",
@@ -223,7 +223,7 @@ To use the RethinkDB storage system, you must install the `rethinkdbdash` packag
 
 Once you've done that, your config section should look like this:
 
-``` json
+```json
 {
   "type": "rethinkdb",
   "host": "127.0.0.1",
@@ -245,7 +245,7 @@ To use the Google Datastore storage system, you must install the `@google-cloud/
 
 Once you've done that, your config section should look like this:
 
-``` json
+```json
 {
   "type": "google-datastore"
 }
@@ -277,17 +277,14 @@ your bucket:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Effect": "Allow",
-            "Resource": "arn:aws:s3:::your-bucket-name-goes-here/*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::your-bucket-name-goes-here/*"
+    }
+  ]
 }
 ```
 
@@ -401,6 +398,6 @@ SOFTWARE
 
 ### Other components:
 
-* jQuery: MIT/GPL license
-* highlight.js: Copyright © 2006, Ivan Sagalaev
-* highlightjs-coffeescript: WTFPL - Copyright © 2011, Dmytrii Nagirniak
+- jQuery: MIT/GPL license
+- highlight.js: Copyright © 2006, Ivan Sagalaev
+- highlightjs-coffeescript: WTFPL - Copyright © 2011, Dmytrii Nagirniak

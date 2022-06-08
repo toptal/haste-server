@@ -12,7 +12,7 @@ class DocumentHandler {
 
   maxLength?: number
 
-  public store: Store
+  store: Store
 
   keyGenerator: KeyGenerator
 
@@ -55,7 +55,7 @@ class DocumentHandler {
     )
   }
 
-  public handlePost(request: Request, response: Response) {
+  handlePost(request: Request, response: Response) {
     // const this = this
     let buffer = ''
     let cancelled = false
@@ -121,7 +121,7 @@ class DocumentHandler {
     }
   }
 
-  public handleRawGet(request: Request, response: Response) {
+  handleRawGet(request: Request, response: Response) {
     const key = request.params.id.split('.')[0]
     const skipExpire = !!this.config.documents[key]
 
