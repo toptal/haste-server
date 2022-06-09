@@ -1,15 +1,15 @@
 # Haste
 
 Haste is an open-source pastebin software written in node.js, which is easily
-installable in any network.  It can be backed by either redis or filesystem,
-and has a very easy adapter interface for other stores.  A publicly available
+installable in any network. It can be backed by either redis or filesystem,
+and has a very easy adapter interface for other stores. A publicly available
 version can be found at [hastebin.com](http://hastebin.com)
 
 Major design objectives:
 
-* Be really pretty
-* Be really simple
-* Be easy to set up and use
+- Be really pretty
+- Be really simple
+- Be easy to set up and use
 
 Haste works really well with a little utility called
 [haste-client](https://github.com/seejohnrun/haste-client), allowing you
@@ -18,41 +18,58 @@ to do things like:
 `cat something | haste`
 
 which will output a URL to share containing the contents of `cat something`'s
-STDOUT.  Check the README there for more details and usages.
+STDOUT. Check the README there for more details and usages.
 
 ## Tested Browsers
 
-* Firefox 8
-* Chrome 17
-* Safari 5.3
+- Firefox 8
+- Chrome 17
+- Safari 5.3
 
 ## Installation
 
 1.  Download the package, and expand it
-2.  Explore the settings inside of config.js, but the defaults should be good
-3.  `npm install`
-4.  `npm start` (you may specify an optional `<config-path>` as well)
+2.  `yarn`
+
+## Running the project
+
+> Explore the settings inside of project-config.js, but the defaults should be good
+
+### Development
+
+1.  `yarn`
+2.  `yarn dev` (you may specify an optional `<config-path>` as well)
+
+### Production
+
+1.  `yarn`
+2.  `yarn build` to build the package
+3.  `yarn start` to start the server
+
+### Production with Docker
+
+1.  `docker-compose up`
 
 ## Settings
 
-* `host` - the host the server runs on (default localhost)
-* `port` - the port the server runs on (default 7777)
-* `keyLength` - the length of the keys to user (default 10)
-* `maxLength` - maximum length of a paste (default 400000)
-* `staticMaxAge` - max age for static assets (86400)
-* `recompressStaticAssets` - whether or not to compile static js assets (true)
-* `documents` - static documents to serve (ex: http://hastebin.com/about.com)
-  in addition to static assets.  These will never expire.
-* `storage` - storage options (see below)
-* `logging` - logging preferences
-* `keyGenerator` - key generator options (see below)
-* `rateLimits` - settings for rate limiting (see below)
+- `host` - the host the server runs on (default localhost)
+- `port` - the port the server runs on (default 7777)
+- `keyLength` - the length of the keys to user (default 10)
+- `maxLength` - maximum length of a paste (default 400000)
+- `staticMaxAge` - max age for static assets (86400)
+- `recompressStaticAssets` - whether or not to compile static js assets (true)
+- `documents` - static documents to serve (ex: http://hastebin.com/about.com)
+  in addition to static assets. These will never expire.
+- `storage` - storage options (see below)
+- `logging` - logging preferences
+- `keyGenerator` - key generator options (see below)
+- `rateLimits` - settings for rate limiting (see below)
 
 ## Rate Limiting
 
 When present, the `rateLimits` option enables built-in rate limiting courtesy
-of `connect-ratelimit`.  Any of the options supported by that library can be
-used and set in `config.js`.
+of `connect-ratelimit`. Any of the options supported by that library can be
+used and set in `project-config.js`.
 
 See the README for [connect-ratelimit](https://github.com/dharmafly/connect-ratelimit)
 for more information!
@@ -63,7 +80,7 @@ for more information!
 
 Attempts to generate phonetic keys, similar to `pwgen`
 
-``` json
+```json
 {
   "type": "phonetic"
 }
@@ -73,7 +90,7 @@ Attempts to generate phonetic keys, similar to `pwgen`
 
 Generates a random key
 
-``` json
+```json
 {
   "type": "random",
   "keyspace": "abcdef"
@@ -87,10 +104,10 @@ for the key.
 
 ### File
 
-To use file storage (the default) change the storage section in `config.js` to
+To use file storage (the default) change the storage section in `project-config.js` to
 something like:
 
-``` json
+```json
 {
   "path": "./data",
   "type": "file"
@@ -106,11 +123,11 @@ File storage currently does not support paste expiration, you can follow [#191](
 To use redis storage you must install the `redis` package in npm, and have
 `redis-server` running on the machine.
 
-`npm install redis`
+`yarn add redis`
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "redis",
   "host": "localhost",
@@ -131,11 +148,11 @@ If your Redis server is configured for password authentification, use the `passw
 
 To use postgres storage you must install the `pg` package in npm
 
-`npm install pg`
+`yarn add pg`
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "postgres",
   "connectionUrl": "postgres://user:password@host:5432/database"
@@ -158,11 +175,11 @@ All of which are optional except `type` with very logical default values.
 
 To use mongodb storage you must install the 'mongodb' package in npm
 
-`npm install mongodb`
+`yarn add mongodb`
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "mongo",
   "connectionUrl": "mongodb://localhost:27017/database"
@@ -180,11 +197,11 @@ This is off by default, but will constantly kick back expirations on each view o
 
 To use memcache storage you must install the `memcached` package via npm
 
-`npm install memcached`
+`yarn add memcached`
 
 Once you've done that, your config section should look like:
 
-``` json
+```json
 {
   "type": "memcached",
   "host": "127.0.0.1",
@@ -202,11 +219,11 @@ All of which are optional except `type` with very logical default values.
 
 To use the RethinkDB storage system, you must install the `rethinkdbdash` package via npm
 
-`npm install rethinkdbdash`
+`yarn add rethinkdbdash`
 
 Once you've done that, your config section should look like this:
 
-``` json
+```json
 {
   "type": "rethinkdb",
   "host": "127.0.0.1",
@@ -224,11 +241,11 @@ You can optionally add the `user` and `password` properties to use a user system
 
 To use the Google Datastore storage system, you must install the `@google-cloud/datastore` package via npm
 
-`npm install @google-cloud/datastore`
+`yarn add @google-cloud/datastore`
 
 Once you've done that, your config section should look like this:
 
-``` json
+```json
 {
   "type": "google-datastore"
 }
@@ -241,7 +258,7 @@ Authentication is handled automatically by [Google Cloud service account credent
 To use [Amazon S3](https://aws.amazon.com/s3/) as a storage system, you must
 install the `aws-sdk` package via npm:
 
-`npm install aws-sdk`
+`yarn add aws-sdk`
 
 Once you've done that, your config section should look like this:
 
@@ -260,17 +277,14 @@ your bucket:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Effect": "Allow",
-            "Resource": "arn:aws:s3:::your-bucket-name-goes-here/*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::your-bucket-name-goes-here/*"
+    }
+  ]
 }
 ```
 
@@ -384,6 +398,6 @@ SOFTWARE
 
 ### Other components:
 
-* jQuery: MIT/GPL license
-* highlight.js: Copyright © 2006, Ivan Sagalaev
-* highlightjs-coffeescript: WTFPL - Copyright © 2011, Dmytrii Nagirniak
+- jQuery: MIT/GPL license
+- highlight.js: Copyright © 2006, Ivan Sagalaev
+- highlightjs-coffeescript: WTFPL - Copyright © 2011, Dmytrii Nagirniak

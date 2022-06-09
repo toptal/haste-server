@@ -1,20 +1,14 @@
-FROM node:14.8.0-stretch
+FROM node:16-slim as base
 
-RUN mkdir -p /usr/src/app && \
-    chown node:node /usr/src/app
+ARG user node
+RUN mkdir /app && chown -R $user:$user /app
+USER $user
+WORKDIR /app
 
-USER node:node
+COPY --chown=$user:$user package.json yarn.lock /app/
+RUN yarn install
 
-WORKDIR /usr/src/app
-
-COPY --chown=node:node . .
-
-RUN npm install && \
-    npm install redis@0.8.1 && \
-    npm install pg@4.1.1 && \
-    npm install memcached@2.2.2 && \
-    npm install aws-sdk@2.738.0 && \
-    npm install rethinkdbdash@2.3.31
+COPY --chown=$user:$user . /app
 
 ENV STORAGE_TYPE=memcached \
     STORAGE_HOST=127.0.0.1 \
@@ -58,11 +52,16 @@ EXPOSE ${PORT}
 STOPSIGNAL SIGINT
 ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
 
+RUN yarn remove:files
+RUN yarn build:typescript
+COPY static /app/dist/static
+
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s \
     --retries=3 CMD [ "sh", "-c", "echo -n 'curl localhost:7777... '; \
     (\
-        curl -sf localhost:7777 > /dev/null\
+    curl -sf localhost:7777 > /dev/null\
     ) && echo OK || (\
-        echo Fail && exit 2\
+    echo Fail && exit 2\
     )"]
-CMD ["npm", "start"]
+
+CMD ["yarn", "start"]
