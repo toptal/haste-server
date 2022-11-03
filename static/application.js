@@ -8,7 +8,7 @@ var haste_document = function() {
 };
 
 // Escapes HTML tag characters
-haste_document.prototype.htmlEscape = function(s) {
+htmlEscape = function(s) {
   return s
     .replace(/&/g, '&amp;')
     .replace(/>/g, '&gt;')
@@ -28,7 +28,7 @@ haste_document.prototype.load = function(key, callback, lang) {
       _this.data = res.data;
 
       callback({
-        value: _this.htmlEscape(_this.data),
+        value: htmlEscape(_this.data),
         key: key,
         language: lang,
         lineCount: _this.data.split('\n').length
@@ -264,7 +264,7 @@ haste.prototype.lockDocument = function() {
       _this.showMessage(err.message, 'error');
     }
     else if (ret) {
-      _this.$code.html(_this.htmlEscape(ret.value));
+      _this.$code.html(htmlEscape(ret.value));
       _this.setTitle(ret.key);
       var file = '/' + ret.key;
       window.history.pushState(null, _this.appName + '-' + ret.key, file);
