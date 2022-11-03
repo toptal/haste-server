@@ -25,7 +25,7 @@ haste_document.prototype.load = function(key, callback, lang) {
     success: function(res) {
       _this.locked = true;
       _this.key = key;
-      _this.data = res.data;
+      _this.data = _this.htmlEscape(res.data);
 
       callback({
         value: _this.data,
