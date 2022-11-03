@@ -264,7 +264,7 @@ haste.prototype.lockDocument = function() {
       _this.showMessage(err.message, 'error');
     }
     else if (ret) {
-      _this.$code.html(ret.value);
+      _this.$code.html(_this.htmlEscape(ret.value));
       _this.setTitle(ret.key);
       var file = '/' + ret.key;
       window.history.pushState(null, _this.appName + '-' + ret.key, file);
