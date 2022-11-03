@@ -1,0 +1,15 @@
+{
+  "name": "knxbin",
+  "version": "0.0.0",
+  "devDependencies": {
+    "wrangler": "2.1.11"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish"
+  },
+  "dependencies": {
+    "nanoid": "^4.0.0"
+  }
+}

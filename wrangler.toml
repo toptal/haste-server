@@ -1,0 +1,12 @@
+name = "knxbin"
+main = "src/index.js"
+compatibility_date = "2022-11-01"
+
+account_id = "025f25a08c29a51063e7a310a947a927"
+
+[[r2_buckets]]
+binding = 'PASTES_BUCKET'
+bucket_name = 'pastes-bucket'
+
+routes = [	{ pattern = "api.knx.cool", custom_domain = true, zone_name = "knx.cool" }
+]
