@@ -36,6 +36,27 @@ textarea {
 	user-select: none;
 }
 
+.highlight {
+	background-color: rgba(187, 128, 9, 0.25);
+	position: absolute;
+	width: 100%;
+	height: 16px;
+}
+
+.linenumber {
+	color: #3D3F41;
+	z-index: 1000;
+	text-decoration:none;
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	width: 30px; /* 30 to get 20 away from box */
+	font-size: 13px;
+	font-family: monospace;
+	text-align: right;
+	user-select: none;
+}
+
 /* code box when locked */
 
 #box {

@@ -170,16 +170,44 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 // Add line numbers to the document
 // For the specified number of lines
 haste.prototype.addLineNumbers = function(lineCount) {
-  var h = '';
+  removeElementsByClass('linenumber');
   for (var i = 0; i < lineCount; i++) {
-    h += (i + 1).toString() + '<br/>';
+    let div = document.createElement('a');
+    div.classList.add('linenumber');
+    div.style.marginTop = i * 16 + 'px';
+    let line = i + 1;
+    div.href = '#' + line;
+    div.onclick = function() {
+        var box = document.getElementById("box");
+        // create highlight div
+        removeElementsByClass('highlight');
+        let highlight = document.createElement('div');
+        highlight.classList.add('highlight');
+        highlight.style.marginTop = ((line - 1) * 16) + 'px';
+        box.insertBefore(highlight, box.firstChild);
+    }
+    let text = document.createTextNode(line.toString());
+    div.appendChild(text);
+    document.body.appendChild(div)
   }
-  $('#linenos').html(h);
 };
+
+function removeElementsByClass(className){
+  const elements = document.getElementsByClassName(className);
+  while(elements.length > 0){
+    elements[0].parentNode.removeChild(elements[0]);
+  }
+}
 
 // Remove the line numbers
 haste.prototype.removeLineNumbers = function() {
-  $('#linenos').html('&gt;');
+  removeElementsByClass("highlight");
+  removeElementsByClass('linenumber');
+  let div = document.createElement('a');
+  div.classList.add('linenumber');
+  let text = document.createTextNode('>');
+  div.appendChild(text);
+  document.body.appendChild(div)
 };
 
 // Load a document and show it
