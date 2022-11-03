@@ -25,12 +25,10 @@
 				if(window.location.hash) {
 					const hash = window.location.hash.substring(1);
 					highlightLine(hash)
-					document.getElementsByClassName("highlight")[0].scrollIntoView({
+					document.getElementById("line" + hash)[0].scrollIntoView({
 						behavior: 'smooth',
 						block: 'center'
 					});
-
-					document.getElementById("box").scrollLeft = 0
 				}
 			};
 			// Set up the pop state to handle loads, skipping the first load

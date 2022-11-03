@@ -176,6 +176,7 @@ haste.prototype.addLineNumbers = function(lineCount) {
     div.classList.add('linenumber');
     div.style.marginTop = i * 16 + 'px';
     let line = i + 1;
+    div.id = 'line' + line;
     div.href = '#' + line;
     div.onclick = function() {
         highlightLine(line);
