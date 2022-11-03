@@ -239,7 +239,7 @@ haste.prototype.loadDocument = function(key) {
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
       _this.addLineNumbers(ret.lineCount);
-      hljs.highlightAll();
+      //hljs.highlightAll();
     }
     else {
       _this.newDocument();
@@ -272,7 +272,7 @@ haste.prototype.lockDocument = function() {
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
       _this.addLineNumbers(ret.lineCount);
-      hljs.highlightAll();
+     // hljs.highlightAll();
     }
   });
 };
