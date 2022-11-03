@@ -233,6 +233,7 @@ haste.prototype.loadDocument = function(key) {
       if(window.location.hash) {
         const hash = window.location.hash.substring(1);
         highlightLine(hash)
+        document.getElementsByClassName("highlight")[0].scrollIntoView();
       }
     }
     else {
