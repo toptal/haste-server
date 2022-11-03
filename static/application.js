@@ -235,8 +235,7 @@ haste.prototype.loadDocument = function(key) {
         highlightLine(hash)
         document.getElementsByClassName("highlight")[0].scrollIntoView({
             behavior: 'auto',
-            block: 'center',
-            inline: 'start'
+            block: 'center'
         });
       }
     }
