@@ -171,7 +171,7 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 // For the specified number of lines
 haste.prototype.addLineNumbers = function(lineCount) {
   removeElementsByClass('linenumber');
-  for (var i = 0; i < lineCount; i++) {
+  /*for (var i = 0; i < lineCount; i++) {
     let div = document.createElement('a');
     div.classList.add('linenumber');
     div.style.marginTop = i * 16 + 'px';
@@ -194,7 +194,7 @@ haste.prototype.addLineNumbers = function(lineCount) {
       behavior: 'smooth',
       block: 'center'
     });*/
-  }
+  //}
 };
 
 function highlightLine(line) {

@@ -12,22 +12,30 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
   color: #78797A;
 }*/
 
-pre.hljs {
+pre.code {
   white-space: pre-wrap;
+  margin-left: 8em;
 }
-pre.hljs::before {
+
+pre.code::before {
   counter-reset: listing;
 }
-pre.hljs code {
+
+pre.code code {
   counter-increment: listing;
+  text-align: left;
+  float: left;
+  clear: left;
 }
-pre.hljs code::before {
+
+pre.code code::before {
   content: counter(listing) ". ";
   display: inline-block;
-  width: 8em;         /* now works */
-  padding-left: auto; /* now works */
-  margin-left: auto;  /* now works */
-  text-align: right;  /* now works */
+  float: left;
+  height: 3em;
+  padding-left: auto;
+  margin-left: auto;
+  text-align: right;
 }
 
 .hljs-comment,
