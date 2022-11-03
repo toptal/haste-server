@@ -24,7 +24,7 @@ textarea {
 /* the line numbers */
 
 #linenos {
-  color: #7d7d7d;
+  color: #3D3F41;
 	z-index: -1000;
 	position: absolute;
 	top: 20px;
@@ -68,50 +68,8 @@ textarea {
 	background: #2B2D30;
 }
 
-#box2 {
-	background: #2B2D30;
-	font-size: 0px;
-	padding: 0px 5px;
-}
-
-#box1 a.logo, #box1 a.logo:visited {
-	display: inline-block;
-	background: url(logo.png);
-	width: 126px;
-	height: 42px;
-}
-
 #box1 a.logo:hover {
 	background-position: 0 bottom;
-}
-
-#box2 .function {
-	background: url(function-icons.png);
-	width: 32px;
-	height: 37px;
-	display: inline-block;
-	position: relative;
-}
-
-#box2 .link embed {
-	vertical-align: bottom; /* fix for zeroClipboard style */
-}
-
-#box2 .function.enabled:hover {
-	cursor: hand;
-	cursor: pointer;
-}
-
-#pointer {
-	display: block;
-	height: 5px;
-	width: 10px;
-	background: url(hover-dropdown-tip.png);
-	bottom: 0px;
-	position: absolute;
-	margin: auto;
-	left: 0px;
-	right: 0px;
 }
 
 #box3, #messages li {
@@ -122,37 +80,6 @@ textarea {
 	padding: 10px 15px;
 	user-select: none;
 }
-
-#box3 .label, #messages li {
-	color: #fff;
-	font-weight: bold;
-}
-
-#box3 .shortcut {
-	color: #fff;
-	font-weight: normal;
-}
-
-#box2 .function.save { background-position: -5px top; }
-#box2 .function.enabled.save { background-position: -5px center; }
-#box2 .function.enabled.save:hover { background-position: -5px bottom; }
-
-#box2 .function.new { background-position: -42px top; }
-#box2 .function.enabled.new { background-position: -42px center; }
-#box2 .function.enabled.new:hover { background-position: -42px bottom; }
-
-#box2 .function.duplicate { background-position: -79px top; }
-#box2 .function.enabled.duplicate { background-position: -79px center; }
-#box2 .function.enabled.duplicate:hover { background-position: -79px bottom; }
-
-#box2 .function.raw { background-position: -116px top; }
-#box2 .function.enabled.raw { background-position: -116px center; }
-#box2 .function.enabled.raw:hover { background-position: -116px bottom; }
-
-#box2 .function.twitter { background-position: -153px top; }
-#box2 .function.enabled.twitter { background-position: -153px center; }
-#box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
-#box2 .button-picture{ border-width: 0; font-size: inherit; }
 
 #messages {
 	position:fixed;
@@ -171,5 +98,61 @@ textarea {
 
 #messages li.error {
 	background:rgba(102,8,0,0.8);
+}
+
+.menu {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #002B36;
+}
+
+.menu-actions {
+	display: flex;
+}
+
+button {
+	font-size: 14px;
+	color: #3D3F41;
+	background: transparent;
+	outline: none;
+	border: none;
+	padding: 4px 10px;
+	cursor: not-allowed;
+}
+
+button.enabled {
+	color: #78797A;
+	cursor: pointer;
+}
+
+.button-wrap .label {
+	display: none;
+	position: absolute;
+	top: 36px;
+	left: 50%;
+	margin-left: -46px;
+	text-align: center;
+	font-family: monospace;
+	background: #3D3F41;
+	color: #fff;
+	padding: 8px;
+	border-radius: 3px;
+	font-size: 8px;
+	width: 80px;
+}
+
+.button-wrap .label.label--small {
+	margin-left: -30px;
+	width: 44px;
+}
+
+.button-wrap:hover .label {
+	display: block;
+}
+
+.logo a:hover svg path {
+	fill: #fff;
 }
 
