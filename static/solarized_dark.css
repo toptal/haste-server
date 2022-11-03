@@ -4,13 +4,13 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
 
 */
 
-.hljs {
+/*.hljs {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
   background: #1E1F22;
   color: #78797A;
-}
+}*/
 
 pre.hljs {
   white-space: pre-wrap;
