@@ -189,10 +189,11 @@ haste.prototype.addLineNumbers = function(lineCount) {
   if(window.location.hash) {
     const hash = window.location.hash.substring(1);
     highlightLine(hash)
-    document.getElementById('line' + hash).scrollIntoView({
+
+    /*document.getElementById('line' + hash).scrollIntoView({
       behavior: 'smooth',
       block: 'center'
-    });
+    });*/
   }
 };
 
