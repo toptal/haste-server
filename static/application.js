@@ -178,19 +178,23 @@ haste.prototype.addLineNumbers = function(lineCount) {
     let line = i + 1;
     div.href = '#' + line;
     div.onclick = function() {
-        var box = document.getElementById("box");
-        // create highlight div
-        removeElementsByClass('highlight');
-        let highlight = document.createElement('div');
-        highlight.classList.add('highlight');
-        highlight.style.marginTop = ((line - 1) * 16) + 'px';
-        box.insertBefore(highlight, box.firstChild);
+        highlightLine(line);
     }
     let text = document.createTextNode(line.toString());
     div.appendChild(text);
     document.body.appendChild(div)
   }
 };
+
+function highlightLine(line) {
+  var box = document.getElementById("box");
+  // create highlight div
+  removeElementsByClass('highlight');
+  let highlight = document.createElement('div');
+  highlight.classList.add('highlight');
+  highlight.style.marginTop = ((line - 1) * 16) + 'px';
+  box.insertBefore(highlight, box.firstChild);
+}
 
 function removeElementsByClass(className){
   const elements = document.getElementsByClassName(className);
@@ -225,6 +229,11 @@ haste.prototype.loadDocument = function(key) {
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
       _this.addLineNumbers(ret.lineCount);
+
+      if(window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        highlightLine(hash)
+      }
     }
     else {
       _this.newDocument();
