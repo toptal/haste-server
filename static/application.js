@@ -229,15 +229,6 @@ haste.prototype.loadDocument = function(key) {
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
       _this.addLineNumbers(ret.lineCount);
-
-      if(window.location.hash) {
-        const hash = window.location.hash.substring(1);
-        highlightLine(hash)
-        document.getElementsByClassName("highlight")[0].scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
-      }
     }
     else {
       _this.newDocument();
