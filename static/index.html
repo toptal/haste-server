@@ -31,7 +31,7 @@
 			}, 1000);
 			// Construct app and load initial path
 			$(function() {
-				app = new haste('hastebin', { twitter: true });
+				app = new haste('knxbin', { });
 				handlePop({ target: window });
 			});
 		</script>
@@ -44,14 +44,13 @@
 		<div id="key">
 		  <div id="pointer" style="display:none;"></div>
 			<div id="box1">
-				<a href="/about.md" class="logo"></a>
+				<a class="logo"></a>
 			</div>
 			<div id="box2">
 				<button class="save function button-picture">Save</button>
 				<button class="new function button-picture">New</button>
 				<button class="duplicate function button-picture">Duplicate & Edit</button>
 				<button class="raw function button-picture">Just Text</button>
-				<button class="twitter function button-picture">Twitter</button>
 			</div>
 			<div id="box3" style="display:none;">
 				<div class="label"></div>
