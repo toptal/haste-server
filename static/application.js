@@ -25,10 +25,10 @@ haste_document.prototype.load = function(key, callback, lang) {
     success: function(res) {
       _this.locked = true;
       _this.key = key;
-      _this.data = _this.htmlEscape(res.data);
+      _this.data = res.data;
 
       callback({
-        value: _this.data,
+        value: _this.htmlEscape(_this.data),
         key: key,
         language: lang,
         lineCount: _this.data.split('\n').length
