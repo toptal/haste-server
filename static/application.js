@@ -185,6 +185,16 @@ haste.prototype.addLineNumbers = function(lineCount) {
     div.appendChild(text);
     document.body.appendChild(div)
   }
+
+  if(window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    highlightLine(hash)
+    console.log("try to get to line" + hash);
+    document.getElementById("line" + hash)[0].scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  }
 };
 
 function highlightLine(line) {

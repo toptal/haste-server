@@ -21,15 +21,6 @@
 				if (path === '/') { app.newDocument(true); }
 				else { app.loadDocument(path.substring(1, path.length));
 				}
-
-				if(window.location.hash) {
-					const hash = window.location.hash.substring(1);
-					highlightLine(hash)
-					document.getElementById("line" + hash)[0].scrollIntoView({
-						behavior: 'smooth',
-						block: 'center'
-					});
-				}
 			};
 			// Set up the pop state to handle loads, skipping the first load
 			// to make chrome behave like others:
