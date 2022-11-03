@@ -234,7 +234,7 @@ haste.prototype.loadDocument = function(key) {
         const hash = window.location.hash.substring(1);
         highlightLine(hash)
         document.getElementsByClassName("highlight")[0].scrollIntoView({
-            behavior: 'auto',
+            behavior: 'smooth',
             block: 'center'
         });
       }
