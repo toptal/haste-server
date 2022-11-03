@@ -234,7 +234,11 @@ haste.prototype.loadDocument = function(key) {
   _this.doc = new haste_document();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
-      _this.$code.html(ret.value);
+      let code = document.createElement('code');
+      code.innerHTML = ret.value;
+      let pre = document.getElementById("box");
+      pre.appendChild(code);
+
       _this.setTitle(ret.key);
       _this.fullKey();
       _this.$textarea.val('').hide();
