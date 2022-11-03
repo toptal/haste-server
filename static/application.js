@@ -1,7 +1,8 @@
 /* global $, hljs, window, document */
 
-///// represents a single document
+var workersUrl = 'https://knxbin.kenox.workers.dev/';
 
+///// represents a single document
 var haste_document = function() {
   this.locked = false;
 };
@@ -18,36 +19,22 @@ haste_document.prototype.htmlEscape = function(s) {
 // Get this document from the server and lock it here
 haste_document.prototype.load = function(key, callback, lang) {
   var _this = this;
-  $.ajax('/documents/' + key, {
+  $.ajax(workersUrl + key, {
     type: 'get',
     dataType: 'json',
     success: function(res) {
       _this.locked = true;
       _this.key = key;
       _this.data = res.data;
-      try {
-        var high;
-        if (lang === 'txt') {
-          high = { value: _this.htmlEscape(res.data) };
-        }
-        else if (lang) {
-          high = hljs.highlight(lang, res.data);
-        }
-        else {
-          high = hljs.highlightAuto(res.data);
-        }
-      } catch(err) {
-        // failed highlight, fall back on auto
-        high = hljs.highlightAuto(res.data);
-      }
+
       callback({
-        value: high.value,
+        value: _this.data,
         key: key,
-        language: high.language || lang,
-        lineCount: res.data.split('\n').length
+        language: lang,
+        lineCount: _this.data.split('\n').length
       });
     },
-    error: function() {
+    error: function(xhr, status, error) {
       callback(false);
     }
   });
@@ -60,19 +47,18 @@ haste_document.prototype.save = function(data, callback) {
   }
   this.data = data;
   var _this = this;
-  $.ajax('/documents', {
-    type: 'post',
+  $.ajax(workersUrl + 'documents', {
+    type: 'put',
     data: data,
     dataType: 'json',
     contentType: 'text/plain; charset=utf-8',
     success: function(res) {
       _this.locked = true;
       _this.key = res.key;
-      var high = hljs.highlightAuto(data);
       callback(null, {
-        value: high.value,
+        value: data,
         key: res.key,
-        language: high.language,
+        language: null,
         lineCount: data.split('\n').length
       });
     },
@@ -98,10 +84,6 @@ var haste = function(appName, options) {
   this.options = options;
   this.configureShortcuts();
   this.configureButtons();
-  // If twitter is disabled, hide the button
-  if (!options.twitter) {
-    $('#box2 .twitter').hide();
-  }
 };
 
 // Set the page title - include the appName
@@ -126,7 +108,7 @@ haste.prototype.lightKey = function() {
 
 // Show the full key
 haste.prototype.fullKey = function() {
-  this.configureKey(['new', 'duplicate', 'twitter', 'raw']);
+  this.configureKey(['new', 'duplicate', 'raw']);
 };
 
 // Set the key up for certain things to be enabled
@@ -149,9 +131,6 @@ haste.prototype.configureKey = function(enable) {
 haste.prototype.newDocument = function(hideHistory) {
   this.$box.hide();
   this.doc = new haste_document();
-  if (!hideHistory) {
-    window.history.pushState(null, this.appName, '/');
-  }
   this.setTitle();
   this.lightKey();
   this.$textarea.val('').show('fast', function() {
@@ -245,9 +224,6 @@ haste.prototype.lockDocument = function() {
       _this.$code.html(ret.value);
       _this.setTitle(ret.key);
       var file = '/' + ret.key;
-      if (ret.language) {
-        file += '.' + _this.lookupExtensionByType(ret.language);
-      }
       window.history.pushState(null, _this.appName + '-' + ret.key, file);
       _this.fullKey();
       _this.$textarea.val('').hide();
@@ -303,18 +279,7 @@ haste.prototype.configureButtons = function() {
       },
       shortcutDescription: 'control + shift + r',
       action: function() {
-        window.location.href = '/raw/' + _this.doc.key;
-      }
-    },
-    {
-      $where: $('#box2 .twitter'),
-      label: 'Twitter',
-      shortcut: function(evt) {
-        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
-      },
-      shortcutDescription: 'control + shift + t',
-      action: function() {
-        window.open('https://twitter.com/share?url=' + encodeURI(window.location.href));
+        window.location.href = workersUrl + 'raw/' + _this.doc.key;
       }
     }
   ];
