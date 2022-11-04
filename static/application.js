@@ -180,10 +180,10 @@ haste.prototype.addLineNumbers = function(lineCount) {
     const hash = window.location.hash.substring(1);
     highlightNew(getLineElement(hash));
 
-    /*document.getElementById('line' + hash).scrollIntoView({
+    getLineElement(hash).scrollIntoView({
       behavior: 'smooth',
       block: 'center'
-    });*/
+    });
   }
   /*for (var i = 0; i < lineCount; i++) {
     let div = document.createElement('a');
