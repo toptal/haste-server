@@ -237,11 +237,6 @@ haste.prototype.removeLineNumbers = function() {
 
 // Load a document and show it
 haste.prototype.loadDocument = function(key) {
-  // remove all code elements from the page
-  const elements = document.getElementsByTagName('code');
-  while(elements.length > 0){
-    elements[0].parentNode.removeChild(elements[0]);
-  }
   // Split the key up
   var parts = key.split('.', 2);
   // Ask for what we want
@@ -296,8 +291,9 @@ haste.prototype.lockDocument = function() {
         pre.appendChild(code);
 
         code.onclick = function() {
-          window.location.hash = (i + 1).toString();
-         // highlightNew(code);
+          var file = '/' + ret.key + "#" + (i + 1).toString();
+          window.history.pushState(null, _this.appName + '-' + ret.key, file);
+          highlightNew(code);
         }
       }
 
