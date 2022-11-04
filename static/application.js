@@ -244,6 +244,7 @@ haste.prototype.loadDocument = function(key) {
   _this.doc = new haste_document();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
+      console.log("loading doc huh")
       var lines = ret.value.split(/\r\n|\r|\n/);
       for (var i = 0; i < lines.length; i++) {
           let code = document.createElement('code');
