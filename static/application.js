@@ -129,6 +129,10 @@ haste.prototype.configureKey = function(enable) {
 // Remove the current document (if there is one)
 // and set up for a new one
 haste.prototype.newDocument = function(hideHistory) {
+  const elements = document.getElementsByTagName('code');
+  while(elements.length > 0){
+    elements[0].parentNode.removeChild(elements[0]);
+  }
   this.$box.hide();
   this.doc = new haste_document();
   this.setTitle();
