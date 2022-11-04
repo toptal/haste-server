@@ -71,7 +71,7 @@ textarea {
 
 #box code {
 	padding: 0px;
-	background: transparent !important; /* don't hide hastebox */
+	/*background: transparent !important; /* don't hide hastebox */
 }
 
 /* key */

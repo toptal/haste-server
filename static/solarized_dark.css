@@ -18,8 +18,10 @@ pre.code {
   padding: 0.5em;
   background: #1E1F22;
   color: #78797A;
-  white-space: pre-wrap;
   margin-left: 8em;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
 }
 
 pre.code::before {
@@ -34,13 +36,13 @@ pre.code code {
 }
 
 pre.code code::before {
-  content: counter(listing) ". ";
+  content: counter(listing) " ";
   display: inline-block;
   float: left;
-  height: 3em;
-  padding-left: auto;
-  margin-left: auto;
-  text-align: right;
+  height: 16px;
+  padding-left: 0;
+  margin-left: -28px;
+  color: #3D3F41;
 }
 
 .hljs-comment,

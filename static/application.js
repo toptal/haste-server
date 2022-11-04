@@ -171,6 +171,16 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 // For the specified number of lines
 haste.prototype.addLineNumbers = function(lineCount) {
   removeElementsByClass('linenumber');
+
+  if(window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    highlightNew(getLineElement(hash));
+
+    /*document.getElementById('line' + hash).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });*/
+  }
   /*for (var i = 0; i < lineCount; i++) {
     let div = document.createElement('a');
     div.classList.add('linenumber');
@@ -272,7 +282,19 @@ haste.prototype.lockDocument = function() {
       _this.showMessage(err.message, 'error');
     }
     else if (ret) {
-      _this.$code.html(htmlEscape(ret.value));
+      //_this.$code.html(htmlEscape(ret.value));
+      var lines = ret.value.split(/\r\n|\r|\n/);
+      for (var i = 0; i < lines.length; i++) {
+        let code = document.createElement('code');
+        code.innerHTML = lines[i];
+        let pre = document.getElementById("box");
+        pre.appendChild(code);
+
+        code.onclick = function() {
+          highlightNew(code);
+        }
+      }
+
       _this.setTitle(ret.key);
       var file = '/' + ret.key;
       window.history.pushState(null, _this.appName + '-' + ret.key, file);
@@ -284,6 +306,25 @@ haste.prototype.lockDocument = function() {
     }
   });
 };
+
+function highlightNew(code) {
+  const codes = document.getElementsByTagName("code");
+  let maxWidth = 0;
+  for (let i = 0; i < codes.length; i++) {
+    if (codes[i].offsetWidth > maxWidth) {
+      maxWidth = codes[i].offsetWidth;
+    }
+    codes[i].style.removeProperty("background-color");
+  }
+  for (let i = 0; i < codes.length; i++) {
+    codes[i].style.width = maxWidth + 'px';
+  }
+  code.style.backgroundColor = "rgba(187, 128, 9, 0.25)";
+}
+
+function getLineElement(line) {
+  return document.getElementsByTagName("code")[line - 1];
+}
 
 haste.prototype.configureButtons = function() {
   var _this = this;
