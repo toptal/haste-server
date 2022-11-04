@@ -248,18 +248,18 @@ haste.prototype.loadDocument = function(key) {
   _this.doc = new haste_document();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
-      var lines = ret.value.split(/\r\n|\r|\n/);
-      for (var i = 0; i < lines.length; i++) {
-          let code = document.createElement('code');
-          code.innerHTML = lines[i];
-          let pre = document.getElementById("box");
-          pre.appendChild(code);
+      const lines = ret.value.split(/\r\n|\r|\n/);
+      for (let i = 0; i < lines.length; i++) {
+        let code = document.createElement('code');
+        code.innerHTML = lines[i];
+        let pre = document.getElementById("box");
+        pre.appendChild(code);
 
-          code.onclick = function() {
-            var file = '/' + ret.key + "#" + (i + 1).toString();
-            window.history.pushState(null, _this.appName + '-' + ret.key, file);
-            highlightNew(code);
-          }
+        code.onclick = function() {
+          var file = '/' + ret.key + "#" + (i + 1).toString();
+          window.history.pushState(null, _this.appName + '-' + ret.key, file);
+          highlightNew(code);
+        }
       }
 
       _this.setTitle(ret.key);
