@@ -237,6 +237,8 @@ haste.prototype.removeLineNumbers = function() {
 
 // Load a document and show it
 haste.prototype.loadDocument = function(key) {
+  // remove all code elements from the page
+  removeElementsByClass('code');
   // Split the key up
   var parts = key.split('.', 2);
   // Ask for what we want
@@ -244,7 +246,6 @@ haste.prototype.loadDocument = function(key) {
   _this.doc = new haste_document();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
-      console.log("loading doc huh")
       var lines = ret.value.split(/\r\n|\r|\n/);
       for (var i = 0; i < lines.length; i++) {
           let code = document.createElement('code');
