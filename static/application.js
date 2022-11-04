@@ -329,7 +329,7 @@ function highlightNew(code) {
     codes[i].style.removeProperty("background-color");
   }
 
-  const windowWidth = $(document).width();
+  const windowWidth = $(window).width();
   console.log("Window width: " + windowWidth + " - MaxWidth: " + maxWidth)
   if(windowWidth > maxWidth)
     maxWidth = windowWidth;
