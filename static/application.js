@@ -328,6 +328,10 @@ function highlightNew(code) {
     }
     codes[i].style.removeProperty("background-color");
   }
+  const windowWidth = $(window).width();
+  if(windowWidth > maxWidth)
+    maxWidth = windowWidth;
+
   for (let i = 0; i < codes.length; i++) {
     codes[i].style.width = maxWidth + 'px';
   }
