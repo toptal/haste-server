@@ -250,6 +250,12 @@ haste.prototype.loadDocument = function(key) {
           code.innerHTML = lines[i];
           let pre = document.getElementById("box");
           pre.appendChild(code);
+
+          code.onclick = function() {
+            var file = '/' + ret.key + "#" + (i + 1).toString();
+            window.history.pushState(null, _this.appName + '-' + ret.key, file);
+            highlightNew(code);
+          }
       }
 
       _this.setTitle(ret.key);
