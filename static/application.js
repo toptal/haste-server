@@ -283,15 +283,16 @@ haste.prototype.lockDocument = function() {
     }
     else if (ret) {
       //_this.$code.html(htmlEscape(ret.value));
-      var lines = ret.value.split(/\r\n|\r|\n/);
-      for (var i = 0; i < lines.length; i++) {
+      const lines = ret.value.split(/\r\n|\r|\n/);
+      for (let i = 0; i < lines.length; i++) {
         let code = document.createElement('code');
         code.innerHTML = lines[i];
         let pre = document.getElementById("box");
         pre.appendChild(code);
 
         code.onclick = function() {
-          highlightNew(code);
+          window.location.hash = (i + 1).toString();
+         // highlightNew(code);
         }
       }
 
