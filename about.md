@@ -58,4 +58,5 @@ Haste can easily be installed behind your network, and it's all open source!
 ## Author
 
 Code by John Crepezzi <john.crepezzi@gmail.com>
-Key Design by Brian Dawson <bridawson@gmail.com>
+Original Design by Brian Dawson <bridawson@gmail.com>
+Design by Colin Keany

@@ -1,16 +1,22 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 body {
 	background: #002B36;
-	padding: 20px 50px;
-	margin: 0px;
+	margin: 0;
+	font-family: sans-serif;
+	overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* textarea */
 
 textarea {
-	background: transparent;
+	background: #002B36;
 	border: 0px;
 	color: #fff;
-	padding: 0px;
 	width: 100%;
 	height: 100%;
 	font-family: monospace;
@@ -19,33 +25,36 @@ textarea {
 	font-size: 13px;
 	margin-top: 0;
 	margin-bottom: 0;
+	padding: 20px 20px 80px 0;
+}
+
+.logo a:hover svg path {
+	fill: #fff;
 }
 
 /* the line numbers */
 
 #linenos {
-  color: #7d7d7d;
+	color: #7d7d7d;
 	z-index: -1000;
-	position: absolute;
-	top: 20px;
-	left: 0px;
-	width: 30px; /* 30 to get 20 away from box */
 	font-size: 13px;
 	font-family: monospace;
 	text-align: right;
 	user-select: none;
+	padding: 20px 20px 80px 20px;
+	flex-shrink: 0;
 }
 
 /* code box when locked */
 
 #box {
-	padding: 0px;
+	padding: 20px 20px 20px 0;
 	margin: 0px;
 	width: 100%;
 	border: 0px;
 	outline: none;
 	font-size: 13px;
-  overflow: inherit;
+	overflow: auto;
 }
 
 #box code {
@@ -56,120 +65,95 @@ textarea {
 /* key */
 
 #key {
-	position: fixed;
-	top: 0px;
-	right: 0px;
 	z-index: +1000; /* watch out */
 }
 
-#box1 {
-	padding: 5px;
-	text-align: center;
-	background: #00222b;
+button {
+	font-size: 14px;
+	color: #929EA4;
+	background: transparent;
+	outline: none;
+	border: none;
+	padding: 4px 10px;
+	cursor: not-allowed;
 }
 
-#box2 {
-	background: #08323c;
-	font-size: 0px;
-	padding: 0px 5px;
-}
-
-#box1 a.logo, #box1 a.logo:visited {
-	display: inline-block;
-	background: url(logo.png);
-	width: 126px;
-	height: 42px;
-}
-
-#box1 a.logo:hover {
-	background-position: 0 bottom;
-}
-
-#box2 .function {
-	background: url(function-icons.png);
-	width: 32px;
-	height: 37px;
-	display: inline-block;
-	position: relative;
-}
-
-#box2 .link embed {
-	vertical-align: bottom; /* fix for zeroClipboard style */
-}
-
-#box2 .function.enabled:hover {
-	cursor: hand;
+button.enabled {
+	color: #FFF;
 	cursor: pointer;
 }
 
-#pointer {
+.button-wrap .label {
+    display: none;
+    position: absolute;
+    top: -36px;
+    left: 50%;
+    margin-left: -46px;
+    text-align: center;
+    background: #15191b;
+    color: #fff;
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 76px;
+}
+
+.button-wrap .label.label--small {
+	margin-left: -30px;
+	width: 44px;
+}
+
+.button-wrap:hover .label {
 	display: block;
-	height: 5px;
-	width: 10px;
-	background: url(hover-dropdown-tip.png);
-	bottom: 0px;
-	position: absolute;
-	margin: auto;
-	left: 0px;
-	right: 0px;
 }
 
-#box3, #messages li {
-	background: #173e48;
-	font-family: Helvetica, sans-serif;
-	font-size: 12px;
-	line-height: 14px;
-	padding: 10px 15px;
-	user-select: none;
+.menu {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #002B36;
 }
 
-#box3 .label, #messages li {
-	color: #fff;
-	font-weight: bold;
+.menu-actions {
+	display: flex;
 }
-
-#box3 .shortcut {
-	color: #c4dce3;
-	font-weight: normal;
-}
-
-#box2 .function.save { background-position: -5px top; }
-#box2 .function.enabled.save { background-position: -5px center; }
-#box2 .function.enabled.save:hover { background-position: -5px bottom; }
-
-#box2 .function.new { background-position: -42px top; }
-#box2 .function.enabled.new { background-position: -42px center; }
-#box2 .function.enabled.new:hover { background-position: -42px bottom; }
-
-#box2 .function.duplicate { background-position: -79px top; }
-#box2 .function.enabled.duplicate { background-position: -79px center; }
-#box2 .function.enabled.duplicate:hover { background-position: -79px bottom; }
-
-#box2 .function.raw { background-position: -116px top; }
-#box2 .function.enabled.raw { background-position: -116px center; }
-#box2 .function.enabled.raw:hover { background-position: -116px bottom; }
-
-#box2 .function.twitter { background-position: -153px top; }
-#box2 .function.enabled.twitter { background-position: -153px center; }
-#box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
-#box2 .button-picture{ border-width: 0; font-size: inherit; }
 
 #messages {
-	position:fixed;
-	top:0px;
-	right:138px;
-	margin:0;
-	padding:0;
-	width:400px;
+	position: fixed;
+	top: 0px;
+	right: 138px;
+	margin: 0;
+	padding: 0;
+	width: 400px;
 }
 
 #messages li {
-	background:rgba(23,62,72,0.8);
-	margin:0 auto;
-	list-style:none;
+	background: rgba(23,62,72,0.8);
+	margin: 0 auto;
+	list-style: none;
 }
 
 #messages li.error {
-	background:rgba(102,8,0,0.8);
+	background: rgba(102,8,0,0.8);
 }
 
+@media only screen and (max-width: 600px) {
+	.logo, .label {
+		display: none !important;
+	}
+	.menu {
+		padding: 24px 12px !important;
+	}
+	.menu-actions {
+		width: 100%;
+	}
+	.menu-actions button {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.menu-actions .button-wrap {
+		flex: auto;
+		text-align: center;
+	}
+}
