@@ -17,9 +17,9 @@
 			var app = null;
 			// Handle pops
 			var handlePop = function(evt) {
-				var path = evt.target.location.pathname;
-				if (path === '/') { app.newDocument(true); }
-				else { app.loadDocument(path.substring(1, path.length)); }
+				var path = evt.target.location.href;
+				if (path === app.baseUrl) { app.newDocument(true); }
+				else { app.loadDocument(path.split('/').slice(-1)[0]); }
 			};
 			// Set up the pop state to handle loads, skipping the first load
 			// to make chrome behave like others:
@@ -31,7 +31,9 @@
 			}, 1000);
 			// Construct app and load initial path
 			$(function() {
-				app = new haste('hastebin', { twitter: true });
+				var baseUrl = window.location.href.split('/');
+				baseUrl = baseUrl.slice(0, baseUrl.length - 1).join('/') + '/';
+				app = new haste('hastebin', { twitter: true, baseUrl: baseUrl });
 				handlePop({ target: window });
 			});
 		</script>
@@ -44,7 +46,7 @@
 		<div id="key">
 		  <div id="pointer" style="display:none;"></div>
 			<div id="box1">
-				<a href="/about.md" class="logo"></a>
+				<a href="about.md" class="logo"></a>
 			</div>
 			<div id="box2">
 				<button class="save function button-picture">Save</button>
