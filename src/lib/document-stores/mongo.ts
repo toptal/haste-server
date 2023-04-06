@@ -97,15 +97,17 @@ class MongoDocumentStore extends Store {
       return client
         ?.db()
         .collection('entries')
-        .update(
+        .updateOne(
           {
             entry_id: key,
             $or: [{ expiration: -1 }, { expiration: { $gt: now } }]
           },
           {
-            entry_id: key,
-            value: data,
-            expiration: this.expire && !skipExpire ? this.expire + now : -1
+            $set: {
+              entry_id: key,
+              value: data,
+              expiration: this.expire && !skipExpire ? this.expire + now : -1
+            }
           },
           {
             upsert: true
