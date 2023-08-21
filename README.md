@@ -1,19 +1,9 @@
-# Important announcement:
+# Hastebin
 
-## [Soon a new version of Hastebin will be launched!](https://github.com/toptal/haste-server/issues/429)
-
-[Check here what you need to know.](https://github.com/toptal/haste-server/issues/429)
-
-.    
-.    
-.    
-
-# Haste
-
-Haste is an open-source pastebin software written in node.js, which is easily
+Hastebin is an open-source pastebin software written in node.js, which is easily
 installable in any network.  It can be backed by either redis or filesystem,
 and has a very easy adapter interface for other stores.  A publicly available
-version can be found at [hastebin.com](http://hastebin.com)
+version can be found at [hastebin.dev](https://hastebin.dev)
 
 Major design objectives:
 
@@ -21,20 +11,17 @@ Major design objectives:
 * Be really simple
 * Be easy to set up and use
 
-Haste works really well with a little utility called
-[haste-client](https://github.com/seejohnrun/haste-client), allowing you
-to do things like:
+## History
 
-`cat something | haste`
-
-which will output a URL to share containing the contents of `cat something`'s
-STDOUT.  Check the README there for more details and usages.
+The original Hastebin website (.com version) was acquired by Toptal in 2021. To the frustration of many people, Toptal has created its own version of Hastebin, which violates all of the above major design objectives. 
+That is why I strive to offer the original version of hastebin to everyone. 
+You can always visit this version at the domain: [hastebin.dev](https://hastebin.dev)
 
 ## Tested Browsers
 
-* Firefox 8
-* Chrome 17
-* Safari 5.3
+* Firefox 116
+* Chrome 116
+* Safari 16.6
 
 ## Installation
 
@@ -51,7 +38,7 @@ STDOUT.  Check the README there for more details and usages.
 * `maxLength` - maximum length of a paste (default 400000)
 * `staticMaxAge` - max age for static assets (86400)
 * `recompressStaticAssets` - whether or not to compile static js assets (true)
-* `documents` - static documents to serve (ex: http://hastebin.com/about.com)
+* `documents` - static documents to serve (ex: http://hastebin.dev/about.com)
   in addition to static assets.  These will never expire.
 * `storage` - storage options (see below)
 * `logging` - logging preferences
@@ -109,7 +96,7 @@ something like:
 
 where `path` represents where you want the files stored.
 
-File storage currently does not support paste expiration, you can follow [#191](https://github.com/seejohnrun/haste-server/issues/191) for status updates.
+File storage currently does not support paste expiration.
 
 ### Redis
 
@@ -364,33 +351,29 @@ Here is a list of all the environment variables
 |  RATELIMITS_BLACKLIST_EVERY_SECONDS  |                                       |     By default client names in the blacklist will be subject to 0 requests per hours     |
 |         RATELIMITS_BLACKLIST         | example1.blacklist,example2.blacklist |           Comma separated list of the clients which are in the blacklistpool.            |
 
-## Author
-
-John Crepezzi <john.crepezzi@gmail.com>
-
 ## License
 
-(The MIT License)
+MIT License
 
-Copyright © 2011-2012 John Crepezzi
+Copyright (c) 2023 Melvin Snijders
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the ‘Software’), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE
+SOFTWARE.
 
 ### Other components:
 
