@@ -149,9 +149,9 @@ textarea {
 #box2 .function.enabled.raw { background-position: -116px center; }
 #box2 .function.enabled.raw:hover { background-position: -116px bottom; }
 
-#box2 .function.twitter { background-position: -153px top; }
-#box2 .function.enabled.twitter { background-position: -153px center; }
-#box2 .function.enabled.twitter:hover { background-position: -153px bottom; }
+#box2 .function.x { background-position: -153px top; }
+#box2 .function.enabled.x { background-position: -153px center; }
+#box2 .function.enabled.x:hover { background-position: -153px bottom; }
 #box2 .button-picture{ border-width: 0; font-size: inherit; }
 
 #messages {

@@ -99,9 +99,9 @@ var haste = function(appName, options) {
   this.options = options;
   this.configureShortcuts();
   this.configureButtons();
-  // If twitter is disabled, hide the button
-  if (!options.twitter) {
-    $('#box2 .twitter').hide();
+  // If post to X is disabled, hide the button
+  if (!options.postToX) {
+    $('#box2 .x').hide();
   };
   this.baseUrl = options.baseUrl || '/';
 };
@@ -128,7 +128,7 @@ haste.prototype.lightKey = function() {
 
 // Show the full key
 haste.prototype.fullKey = function() {
-  this.configureKey(['new', 'duplicate', 'twitter', 'raw']);
+  this.configureKey(['new', 'duplicate', 'x', 'raw']);
 };
 
 // Set the key up for certain things to be enabled
@@ -309,14 +309,14 @@ haste.prototype.configureButtons = function() {
       }
     },
     {
-      $where: $('#box2 .twitter'),
-      label: 'Twitter',
+      $where: $('#box2 .x'),
+      label: 'Post to X',
       shortcut: function(evt) {
-        return _this.options.twitter && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
+        return _this.options.postToX && _this.doc.locked && evt.shiftKey && evt.ctrlKey && evt.keyCode == 84;
       },
       shortcutDescription: 'control + shift + t',
       action: function() {
-        window.open('https://twitter.com/share?url=' + encodeURI(window.location.href));
+        window.open('https://x.com/share?url=' + encodeURI(window.location.href));
       }
     }
   ];
