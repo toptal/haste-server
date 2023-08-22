@@ -17,6 +17,9 @@ The original Hastebin website (.com version) was acquired by Toptal in 2021. To 
 That is why I strive to offer the original version of hastebin to everyone. 
 You can always visit this version at the domain: [hastebin.dev](https://hastebin.dev)
 
+## Contributing
+If you're interested in contributing to Hastebin, please read our [contributing guide](https://github.com/MelvinSnijders/haste-server/blob/master/CONTRIBUTING.md).
+
 ## Tested Browsers
 
 * Firefox 116
@@ -353,27 +356,7 @@ Here is a list of all the environment variables
 
 ## License
 
-MIT License
-
-Copyright (c) 2023 Melvin Snijders
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Licensed under the [MIT license](https://github.com/MelvinSnijders/haste-server/blob/master/LICENSE).
 
 ### Other components:
 
