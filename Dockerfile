@@ -14,7 +14,8 @@ RUN npm install && \
     npm install pg@8.0.1 && \
     npm install memcached@2.2.2 && \
     npm install aws-sdk@2.814.0 && \
-    npm install rethinkdbdash@2.3.31
+    npm install rethinkdbdash@2.3.31 && \
+    npm install mongodb@5.7.0
 
 ENV STORAGE_TYPE=memcached \
     STORAGE_HOST=127.0.0.1 \

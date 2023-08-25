@@ -18,6 +18,7 @@
     "connect": "^3.7.0",
     "connect-ratelimit": "0.0.7",
     "connect-route": "0.1.5",
+    "mongodb": "^5.8.1",
     "pg": "^8.0.1",
     "redis": "0.8.1",
     "redis-url": "0.1.0",
@@ -43,5 +44,6 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha --recursive"
-  }
+  },
+  "bundleDependencies": []
 }
