@@ -1,5 +1,5 @@
 body {
-	background: #002B36;
+	background: #0c0c0c;
 	padding: 20px 50px;
 	margin: 0px;
 }
@@ -69,7 +69,7 @@ textarea {
 }
 
 #box2 {
-	background: #08323c;
+	background: #242424;
 	font-size: 0px;
 	padding: 0px 5px;
 }
@@ -115,7 +115,7 @@ textarea {
 }
 
 #box3, #messages li {
-	background: #173e48;
+	background: #242424;
 	font-family: Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 14px;
@@ -173,3 +173,7 @@ textarea {
 	background:rgba(102,8,0,0.8);
 }
 
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#414141}
+::-webkit-scrollbar-thumb:hover{background:#969696}
+::-webkit-scrollbar-track{background:#242424}

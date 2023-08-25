@@ -33,7 +33,7 @@
 			$(function() {
 				var baseUrl = window.location.href.split('/');
 				baseUrl = baseUrl.slice(0, baseUrl.length - 1).join('/') + '/';
-				app = new haste('hastebin', { twitter: true, baseUrl: baseUrl });
+				app = new haste('hastebin', { twitter: false, baseUrl: baseUrl });
 				handlePop({ target: window });
 			});
 		</script>
@@ -45,9 +45,9 @@
 
 		<div id="key">
 		  <div id="pointer" style="display:none;"></div>
-			<div id="box1">
+			<!--<div id="box1">
 				<a href="about.md" class="logo"></a>
-			</div>
+			</div>*/-->
 			<div id="box2">
 				<button class="save function button-picture">Save</button>
 				<button class="new function button-picture">New</button>
