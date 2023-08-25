@@ -2,9 +2,8 @@
 
 ///// represents a single document
 
-var haste_document = function(app) {
+var haste_document = function() {
   this.locked = false;
-  this.app = app;
 };
 
 // Escapes HTML tag characters
@@ -19,7 +18,7 @@ haste_document.prototype.htmlEscape = function(s) {
 // Get this document from the server and lock it here
 haste_document.prototype.load = function(key, callback, lang) {
   var _this = this;
-  $.ajax(_this.app.baseUrl + 'documents/' + key, {
+  $.ajax('/documents/' + key, {
     type: 'get',
     dataType: 'json',
     success: function(res) {
@@ -61,7 +60,7 @@ haste_document.prototype.save = function(data, callback) {
   }
   this.data = data;
   var _this = this;
-  $.ajax(_this.app.baseUrl + 'documents', {
+  $.ajax('/documents', {
     type: 'post',
     data: data,
     dataType: 'json',
@@ -102,8 +101,7 @@ var haste = function(appName, options) {
   // If twitter is disabled, hide the button
   if (!options.twitter) {
     $('#box2 .twitter').hide();
-  };
-  this.baseUrl = options.baseUrl || '/';
+  }
 };
 
 // Set the page title - include the appName
@@ -150,9 +148,9 @@ haste.prototype.configureKey = function(enable) {
 // and set up for a new one
 haste.prototype.newDocument = function(hideHistory) {
   this.$box.hide();
-  this.doc = new haste_document(this);
+  this.doc = new haste_document();
   if (!hideHistory) {
-    window.history.pushState(null, this.appName, this.baseUrl);
+    window.history.pushState(null, this.appName, '/');
   }
   this.setTitle();
   this.lightKey();
@@ -211,7 +209,7 @@ haste.prototype.loadDocument = function(key) {
   var parts = key.split('.', 2);
   // Ask for what we want
   var _this = this;
-  _this.doc = new haste_document(this);
+  _this.doc = new haste_document();
   _this.doc.load(parts[0], function(ret) {
     if (ret) {
       _this.$code.html(ret.value);
@@ -246,7 +244,7 @@ haste.prototype.lockDocument = function() {
     else if (ret) {
       _this.$code.html(ret.value);
       _this.setTitle(ret.key);
-      var file = _this.baseUrl + ret.key;
+      var file = '/' + ret.key;
       if (ret.language) {
         file += '.' + _this.lookupExtensionByType(ret.language);
       }
@@ -305,7 +303,7 @@ haste.prototype.configureButtons = function() {
       },
       shortcutDescription: 'control + shift + r',
       action: function() {
-        window.location.href = _this.baseUrl + 'raw/' + _this.doc.key;
+        window.location.href = '/raw/' + _this.doc.key;
       }
     },
     {
