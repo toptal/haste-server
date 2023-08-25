@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16-stretch
 
 RUN mkdir -p /usr/src/app && \
     chown node:node /usr/src/app
@@ -57,7 +57,7 @@ ENV DOCUMENTS=about=./about.md
 
 EXPOSE ${PORT}
 STOPSIGNAL SIGINT
-ENTRYPOINT [ "/bin/sh", "docker-entrypoint.sh" ]
+ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s \
     --retries=3 CMD [ "sh", "-c", "echo -n 'curl localhost:7777... '; \
