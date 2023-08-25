@@ -90,7 +90,7 @@ button.enabled {
     left: 50%;
     margin-left: -46px;
     text-align: center;
-    background: #222222;
+    background: #414141;
     color: #fff;
     padding: 8px;
     border-radius: 3px;
@@ -161,4 +161,4 @@ button.enabled {
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:#414141}
 ::-webkit-scrollbar-thumb:hover{background:#969696}
-::-webkit-scrollbar-track{background:#242424}
+::-webkit-scrollbar-track{background:#222222}
