@@ -33,7 +33,8 @@
   },
 
   "storage": {
-    "type": "file"
+    "type": "file",
+    "path": "./data"
   },
 
   "documents": {
