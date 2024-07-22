@@ -19,6 +19,7 @@ haste_document.prototype.htmlEscape = function(s) {
 // Get this document from the server and lock it here
 haste_document.prototype.load = function(key, callback, lang) {
   var _this = this;
+  var selectedLines = this.app.selectedLines;
   $.ajax(_this.app.baseUrl + 'documents/' + key, {
     type: 'get',
     dataType: 'json',
@@ -27,20 +28,35 @@ haste_document.prototype.load = function(key, callback, lang) {
       _this.key = key;
       _this.data = res.data;
       try {
-        var high;
-        if (lang === 'txt') {
-          high = { value: _this.htmlEscape(res.data) };
+        var high = { value: "" };
+        var lines = res.data.split("\n");
+        for (var i = 0; i < lines.length; i++) {
+          if (lang === "txt") {
+            highlighted = _this.htmlEscape(res.data);
+          } else if (lang) {
+            highlighted = hljs.highlight(lang, lines[i]).value;
+          } else {
+            var highlightedData = hljs.highlightAuto(lines[i]);
+            high.language = highlightedData.language;
+            highlighted = highlightedData.value;
+          }
+      
+          var currentLine = i + 1;
+          if (
+            currentLine >= selectedLines.startLine &&
+            currentLine <= selectedLines.endLine
+          ) {
+            highlighted =
+              '<span style="background-color: yellow;">' + highlighted + "</span>";
+          }
+      
+          highlighted = "<span id='line-" + i + "'>" + highlighted + "</span>";
+          high.value += highlighted + "\n";
         }
-        else if (lang) {
-          high = hljs.highlight(lang, res.data);
-        }
-        else {
-          high = hljs.highlightAuto(res.data);
-        }
-      } catch(err) {
+      } catch (err) {
         // failed highlight, fall back on auto
         high = hljs.highlightAuto(res.data);
-      }
+      }      
       callback({
         value: high.value,
         key: key,
@@ -104,6 +120,7 @@ var haste = function(appName, options) {
     $('#box2 .twitter').hide();
   };
   this.baseUrl = options.baseUrl || '/';
+  this.selectedLines = options.selectedLines;
 };
 
 // Set the page title - include the appName

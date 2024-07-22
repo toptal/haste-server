@@ -19,7 +19,7 @@
 			var handlePop = function(evt) {
 				var path = evt.target.location.href;
 				if (path === app.baseUrl) { app.newDocument(true); }
-				else { app.loadDocument(path.split('/').slice(-1)[0]); }
+				else { app.loadDocument(path.split('#')[0].split('/').slice(-1)[0]); }
 			};
 			// Set up the pop state to handle loads, skipping the first load
 			// to make chrome behave like others:
@@ -29,11 +29,41 @@
 					try { handlePop(evt); } catch(err) { /* not loaded yet */ }
 				};
 			}, 1000);
+			
+			
+			/**
+			 * Function to parse the URL fragment and extract line numbers
+			 * @returns {Object} Object with parsed startLine, endLine
+			 */
+			function getSelectedLinesFromURL() {
+				const urlHash = window.location.hash.substring(1); // Remove the '#' from the hash
+				if (!urlHash) return {}; // Return an empty object if there's no hash
+
+				// Parse the hash into start and end parts
+				const range = urlHash.split("L");
+				let start, end;
+
+				if (range.length > 2) {
+					start = parseInt(range[1], 10);
+					end = parseInt(range[2], 10);
+				} else {
+					start = parseInt(range[1], 10);
+					end = start;
+				}
+				return {
+					startLine: start,
+					endLine: end,
+				};
+			}
+			
 			// Construct app and load initial path
 			$(function() {
-				var baseUrl = window.location.href.split('/');
+				var baseUrl = window.location.href.split('#')[0].split('/');
 				baseUrl = baseUrl.slice(0, baseUrl.length - 1).join('/') + '/';
-				app = new haste('hastebin', { twitter: true, baseUrl: baseUrl });
+				console.log(baseUrl);
+				const selectedLines = getSelectedLinesFromURL();
+				console.log(selectedLines);
+				app = new haste('hastebin', { twitter: true, baseUrl: baseUrl, selectedLines: selectedLines });
 				handlePop({ target: window });
 			});
 		</script>
