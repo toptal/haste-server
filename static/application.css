@@ -25,7 +25,7 @@ textarea {
 
 #linenos {
   color: #7d7d7d;
-	z-index: -1000;
+	/*z-index: -1000;*/
 	position: absolute;
 	top: 20px;
 	left: 0px;
@@ -40,9 +40,9 @@ textarea {
 	/* display: block;*/
 }
 
-.line:hover {
+/*.line:hover {
 	background-color: #cbd387;
-}
+}*/
 
 .lineHighlight {
 	background-color: yellow;

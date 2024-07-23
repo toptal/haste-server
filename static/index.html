@@ -15,8 +15,16 @@
 
 	<script type="text/javascript">
 		var app = null;
+		var isHashChange=false;
+		var isDragging=false;
 		// Handle pops
 		var handlePop = function (evt) {
+			if (isHashChange||isDragging) {
+				evt.preventDefault();
+				// reset
+				isHashChange = false;
+				return false;
+			}
 			var path = evt.target.location.href;
 			if (path === app.baseUrl) { app.newDocument(true); }
 			else { app.loadDocument(path.split('#')[0].split('/').slice(-1)[0]); }
@@ -66,23 +74,57 @@
 			app = new haste('hastebin', { twitter: false, baseUrl: baseUrl, selectedLines: selectedLines });
 			handlePop({ target: window });
 		});
+		
+		$(window).on('hashchange', function() {
+			isHashChange = true;
+		});
 
-		function handleLineClick(event, lineId) {
-			var lineNumber = lineId + 1;
-			if (event.shiftKey && app.selectedLines.startLine != undefined && lineNumber != app.selectedLines.startLine) {
-				if (lineNumber > app.selectedLines.startLine) {
-					app.selectedLines.endLine = lineNumber;
-				} else {
-					app.selectedLines.endLine = this.app.selectedLines.startLine;
-					app.selectedLines.startLine = lineNumber;
-				}
-				window.location.hash = "#L" + (app.selectedLines.startLine) + "-L" + (app.selectedLines.endLine);
-			} else {
-				// no shift range to consider
-				app.selectedLines.startLine = lineNumber;
-				app.selectedLines.endLine = lineNumber;
-				window.location.hash = "#L" + (lineNumber);
+		function updateWindowLineHash(lineId){
+			console.log('updateWindowLineHash', lineId, app.selectedLines.startLine, app.selectedLines.endLine);
+			app.selectedLines.startLine = Math.min(lineId,app.selectedLines.startLine);
+			app.selectedLines.endLine = Math.max(lineId,app.selectedLines.endLine);
+			window.location.hash = "#L" + (app.selectedLines.startLine) + "-L" + (app.selectedLines.endLine);
+		}
+
+		function handleMouseEnter(lineId) {
+			lineId = lineId + 1;
+			console.log('lineId', lineId);
+			$('#line-number-' + lineId).css('background-color', '#cbd387');
+			$('#line-' + lineId).css('background-color', '#cbd387');
+			if(isDragging){
+				$('#line-' + lineId).addClass("lineHighlight");
+				updateWindowLineHash(lineId);
 			}
+		}
+
+		function handleMouseLeave(lineId) {
+			lineId = lineId + 1;
+			$('#line-number-' + lineId).css('background-color', '');
+			$('#line-' + lineId).css('background-color', '');
+		}
+
+		function unHighlightCurrent(){
+			startLine = app.selectedLines.startLine;
+			endLine = app.selectedLines.endLine;
+			for (var i = startLine; i <= endLine; i++) {
+				$('#line-' + i).removeClass("lineHighlight");
+			}
+			app.selectedLines.startLine = Number.MAX_SAFE_INTEGER;
+			app.selectedLines.endLine = Number.MIN_SAFE_INTEGER;
+		}
+		function handleMouseDown(lineId) {
+			unHighlightCurrent();
+			lineId = lineId + 1;
+			$('#line-' + lineId).addClass("lineHighlight");
+			isDragging = true;
+			updateWindowLineHash(lineId);
+		}
+
+		function handleMouseUp(lineId) {
+			lineId = lineId + 1;
+			isDragging = false;
+			updateWindowLineHash(lineId);
+
 		}
 	</script>
 

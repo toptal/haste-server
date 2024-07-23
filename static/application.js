@@ -42,17 +42,17 @@ haste_document.prototype.load = function(key, callback, lang) {
           }
       
           var currentLine = i + 1;
+          var spanClass = "";
           if (
             currentLine >= selectedLines.startLine &&
             currentLine <= selectedLines.endLine
           ) {
-            highlighted =
-              "<span class='lineHighlight'>" + highlighted + "</span>";
+            spanClass = "lineHighlight";
           }
-          highlighted = "<span onclick='handleLineClick(event," + i + ")' class='line' id='line-" + i + "'>" + highlighted + "</span>";
+          highlighted = "<span id='line-" + (i+1) + "' class="+spanClass+">" + highlighted + "</span>";
           high.value += highlighted + "\n";
         }
-        // scroll to position in document after ensuring components h"ve had time to render
+        //// scroll to position in document after ensuring components h"ve had time to render
         setTimeout(function() {
           // show current line and the one before it
           if (selectedLines.startLine >= 3) {
@@ -217,11 +217,11 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 };
 
 // Add line numbers to the document
-// For the specified number of lines
+// For the specified number of lines, each with a class and id
 haste.prototype.addLineNumbers = function(lineCount) {
   var h = '';
   for (var i = 0; i < lineCount; i++) {
-    h += (i + 1).toString() + '<br/>';
+    h += '<span onclick="handleLineClick(' + i.toString() + ')" onmouseenter="handleMouseEnter(' + i.toString() + ')" onmouseleave="handleMouseLeave(' + i.toString() + ')" onmousedown="handleMouseDown(' + i.toString() + ')" onmouseup="handleMouseUp(' + i.toString() + ')" id="line-number-' + (i + 1) + '">' + (i + 1) + '</span><br/>';
   }
   $('#linenos').html(h);
 };
