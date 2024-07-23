@@ -121,16 +121,22 @@
 		}
 
 		function handleMouseUp(lineId) {
-			lineId = lineId + 1;
-			isDragging = false;
+			if(!isDragging){
+				return;
+			}
+			if(isNaN(lineId)){
+				lineId = app.selectedLines.endLine;
+			}else {
+				lineId = lineId + 1;
+			}
 			updateWindowLineHash(lineId);
-
+			isDragging = false;
 		}
 	</script>
 
 </head>
 
-<body>
+<body onmouseup="handleMouseUp(NaN)" >
 	<ul id="messages"></ul>
 
 	<div id="key">
@@ -151,8 +157,8 @@
 		</div>
 	</div>
 
-	<div id="linenos"></div>
-	<pre id="box" style="display:none;" class="hljs" tabindex="0"><code></code></pre>
+	<div id="linenos" onmouseup="handleMouseUp(NaN)"></div>
+	<pre id="box" onmouseup="handleMouseUp(NaN)" style="display:none;" class="hljs" tabindex="0"><code></code></pre>
 	<textarea spellcheck="false" style="display:none;"></textarea>
 
 </body>
