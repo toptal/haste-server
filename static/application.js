@@ -49,7 +49,7 @@ haste_document.prototype.load = function(key, callback, lang) {
             highlighted =
               "<span class='lineHighlight'>" + highlighted + "</span>";
           }
-          highlighted = "<span onclick='handleLineClick(" + i + ")' class='line' id='line-" + i + "'>" + highlighted + "</span>";
+          highlighted = "<span onclick='handleLineClick(event," + i + ")' class='line' id='line-" + i + "'>" + highlighted + "</span>";
           high.value += highlighted + "\n";
         }
         // scroll to position in document after ensuring components h"ve had time to render

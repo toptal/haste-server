@@ -67,9 +67,22 @@
 			handlePop({ target: window });
 		});
 
-		function handleLineClick(lineId) {
-			/* TODO */
-			window.location.hash = "#L" + (lineId + 1);
+		function handleLineClick(event, lineId) {
+			var lineNumber = lineId + 1;
+			if (event.shiftKey && app.selectedLines.startLine != undefined && lineNumber != app.selectedLines.startLine) {
+				if (lineNumber > app.selectedLines.startLine) {
+					app.selectedLines.endLine = lineNumber;
+				} else {
+					app.selectedLines.endLine = this.app.selectedLines.startLine;
+					app.selectedLines.startLine = lineNumber;
+				}
+				window.location.hash = "#L" + (app.selectedLines.startLine) + "-L" + (app.selectedLines.endLine);
+			} else {
+				// no shift range to consider
+				app.selectedLines.startLine = lineNumber;
+				app.selectedLines.endLine = lineNumber;
+				window.location.hash = "#L" + (lineNumber);
+			}
 		}
 	</script>
 
