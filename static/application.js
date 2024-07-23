@@ -47,20 +47,19 @@ haste_document.prototype.load = function(key, callback, lang) {
             currentLine <= selectedLines.endLine
           ) {
             highlighted =
-              '<span style="background-color: yellow;">' + highlighted + "</span>";
+              "<span class='lineHighlight'>" + highlighted + "</span>";
           }
-      
-          highlighted = "<span id='line-" + i + "'>" + highlighted + "</span>";
+          highlighted = "<span onclick='handleLineClick(" + i + ")' class='line' id='line-" + i + "'>" + highlighted + "</span>";
           high.value += highlighted + "\n";
         }
-        // scroll to position in document after ensuring components have had time to render
+        // scroll to position in document after ensuring components h"ve had time to render
         setTimeout(function() {
           // show current line and the one before it
           if (selectedLines.startLine >= 3) {
             document.body.scrollTo(0, $("#line-" + (selectedLines.startLine - 2)).offset().top)
           } else {
             // if lines 1-2, go to top of file
-            document.body.scrollTop(0);
+            document.body.scrollTo(0, 0);
           }
         }, 0);
       } catch (err) {
@@ -423,5 +422,4 @@ $(function() {
       }
     }
   });
-
 });

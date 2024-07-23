@@ -36,6 +36,18 @@ textarea {
 	user-select: none;
 }
 
+.line {
+	/* display: block;*/
+}
+
+.line:hover {
+	background-color: #cbd387;
+}
+
+.lineHighlight {
+	background-color: yellow;
+}
+
 /* code box when locked */
 
 #box {
