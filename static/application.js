@@ -219,27 +219,36 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 
 // Add line numbers to the document
 // For the specified number of lines
-haste.prototype.addLineNumbers = function(lineCount) {
-  var h = '';
+haste.prototype.addLineNumbers = function (lineCount) {
+  var container = document.getElementById("linenos");
+  container.innerHTML = "";
   for (var i = 0; i < lineCount; i++) {
-      h +=
-          '<span onclick="handleLineClick(' +
-          i.toString() +
-          ')" onmouseenter="handleMouseEnter(' +
-          i.toString() +
-          ')" onmouseleave="handleMouseLeave(' +
-          i.toString() +
-          ')" onmousedown="handleMouseDown(' +
-          i.toString() +
-          ')" onmouseup="handleMouseUp(' +
-          i.toString() +
-          ')" id="line-number-' +
-          (i + 1) +
-          '">' +
-          (i + 1) +
-          "</span><br/>";
+    var span = document.createElement("span");
+    span.id = "line-number-" + (i + 1);
+    span.textContent = (i + 1);
+    span.addEventListener("mouseenter",(function (index) {
+        return function () {
+          handleMouseEnter(index);
+        };
+      })(i));
+    span.addEventListener("mouseleave",(function (index) {
+        return function () {
+          handleMouseLeave(index);
+        };
+      })(i));
+    span.addEventListener("mousedown",(function (index) {
+        return function () {
+          handleMouseDown(index);
+        };
+      })(i));
+    span.addEventListener("mouseup",(function (index) {
+        return function () {
+          handleMouseUp(index);
+        };
+      })(i));
+    container.appendChild(span);
+    container.appendChild(document.createElement("br"));
   }
-  $('#linenos').html(h);
 };
 
 // Remove the line numbers

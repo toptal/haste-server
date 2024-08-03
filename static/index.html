@@ -128,11 +128,26 @@
                 updateWindowLineHash(lineId);
                 isDragging = false;
             }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                // Handle MouseUp Event for Body
+                document.body.addEventListener("mouseup", function() {
+                    handleMouseUp(NaN);
+                });
+                // Handle MouseUp Event for Linenos
+                document.getElementById('linenos').addEventListener("mouseup", function() {
+                    handleMouseUp(NaN);
+                });
+                // Handle MouseUp Event for Pre Element
+                document.getElementById('box').addEventListener("mouseup", function() {
+                    handleMouseUp(NaN);
+                });
+            });
 		</script>
 
 	</head>
 
-	<body onmouseup="handleMouseUp(NaN)">
+	<body>
 		<ul id="messages"></ul>
 
 		<div id="key">
@@ -153,8 +168,8 @@
 			</div>
 		</div>
 
-		<div id="linenos" onmouseup="handleMouseUp(NaN)"></div>
-		<pre id="box" onmouseup="handleMouseUp(NaN)" style="display:none;" class="hljs" tabindex="0"><code></code></pre>
+		<div id="linenos"></div>
+		<pre id="box" style="display:none;" class="hljs" tabindex="0"><code></code></pre>
 		<textarea spellcheck="false" style="display:none;"></textarea>
 
 	</body>
