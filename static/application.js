@@ -19,6 +19,7 @@ haste_document.prototype.htmlEscape = function(s) {
 // Get this document from the server and lock it here
 haste_document.prototype.load = function(key, callback, lang) {
   var _this = this;
+  var selectedLines = this.app.selectedLines;
   $.ajax(_this.app.baseUrl + 'documents/' + key, {
     type: 'get',
     dataType: 'json',
@@ -27,17 +28,41 @@ haste_document.prototype.load = function(key, callback, lang) {
       _this.key = key;
       _this.data = res.data;
       try {
-        var high;
-        if (lang === 'txt') {
-          high = { value: _this.htmlEscape(res.data) };
-        }
-        else if (lang) {
-          high = hljs.highlight(lang, res.data);
-        }
-        else {
-          high = hljs.highlightAuto(res.data);
-        }
-      } catch(err) {
+          var high = { value: "", language: null};
+          var lines = res.data.split("\n");
+          for (var i = 0; i < lines.length; i++) {
+            if (lang === "txt") {
+              highlighted = _this.htmlEscape(res.data);
+            } else if (lang) {
+              highlighted = hljs.highlight(lang, lines[i]).value;
+            } else {
+              var highlightedData = hljs.highlightAuto(lines[i]);
+              high.language = highlightedData.language;
+              highlighted = highlightedData.value;
+            }
+        
+            var currentLine = i + 1;
+            var spanClass = "";
+            if (
+              currentLine >= selectedLines.startLine &&
+              currentLine <= selectedLines.endLine
+            ) {
+              spanClass = "lineHighlight";
+            }
+            highlighted = "<span id='line-" + (i+1) + "' class="+spanClass+">" + highlighted + "</span>";
+            high.value += highlighted + "\n";
+          }
+          //// scroll to position in document after ensuring components h"ve had time to render
+          setTimeout(function() {
+            // show current line and the one before it
+            if (selectedLines.startLine >= 3) {
+              document.body.scrollTo(0, $("#line-" + (selectedLines.startLine - 2)).offset().top);
+            } else {
+              // if lines 1-2, go to top of file
+              document.body.scrollTo(0, 0);
+            }
+          }, 0);
+        } catch(err) {
         // failed highlight, fall back on auto
         high = hljs.highlightAuto(res.data);
       }
@@ -104,6 +129,7 @@ var haste = function(appName, options) {
     $('#box2 .twitter').hide();
   };
   this.baseUrl = options.baseUrl || '/';
+  this.selectedLines = options.selectedLines;
 };
 
 // Set the page title - include the appName
@@ -159,6 +185,7 @@ haste.prototype.newDocument = function(hideHistory) {
   this.$textarea.val('').show('fast', function() {
     this.focus();
   });
+  this.selectedLines = { startLine: null, endLine: null };
   this.removeLineNumbers();
 };
 
@@ -192,12 +219,36 @@ haste.prototype.lookupTypeByExtension = function(ext) {
 
 // Add line numbers to the document
 // For the specified number of lines
-haste.prototype.addLineNumbers = function(lineCount) {
-  var h = '';
+haste.prototype.addLineNumbers = function (lineCount) {
+  var container = document.getElementById("linenos");
+  container.innerHTML = "";
   for (var i = 0; i < lineCount; i++) {
-    h += (i + 1).toString() + '<br/>';
+    var span = document.createElement("span");
+    span.id = "line-number-" + (i + 1);
+    span.textContent = (i + 1);
+    span.addEventListener("mouseenter",(function (index) {
+        return function () {
+          handleMouseEnter(index);
+        };
+      })(i));
+    span.addEventListener("mouseleave",(function (index) {
+        return function () {
+          handleMouseLeave(index);
+        };
+      })(i));
+    span.addEventListener("mousedown",(function (index) {
+        return function () {
+          handleMouseDown(index);
+        };
+      })(i));
+    span.addEventListener("mouseup",(function (index) {
+        return function () {
+          handleMouseUp(index);
+        };
+      })(i));
+    container.appendChild(span);
+    container.appendChild(document.createElement("br"));
   }
-  $('#linenos').html(h);
 };
 
 // Remove the line numbers
@@ -255,6 +306,9 @@ haste.prototype.lockDocument = function() {
       _this.$textarea.val('').hide();
       _this.$box.show().focus();
       _this.addLineNumbers(ret.lineCount);
+      // Load Document Again
+      var path = window.location.href;
+      _this.loadDocument(path.split('#')[0].split('/').slice(-1)[0]);
     }
   });
 };

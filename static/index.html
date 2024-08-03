@@ -15,12 +15,20 @@
 
 		<script type="text/javascript">
 			var app = null;
-			// Handle pops
-			var handlePop = function(evt) {
-				var path = evt.target.location.href;
-				if (path === app.baseUrl) { app.newDocument(true); }
-				else { app.loadDocument(path.split('/').slice(-1)[0]); }
-			};
+            var isHashChange=false;
+            var isDragging=false;
+            // Handle pops
+            var handlePop = function(evt) {
+                if (isHashChange||isDragging) {
+                    evt.preventDefault();
+                    // reset
+                    isHashChange = false;
+                    return false;
+                }
+                var path = evt.target.location.href;
+                if (path === app.baseUrl) { app.newDocument(true); }
+                else { app.loadDocument(path.split('#')[0].split('/').slice(-1)[0]); }
+            };
 			// Set up the pop state to handle loads, skipping the first load
 			// to make chrome behave like others:
 			// http://code.google.com/p/chromium/issues/detail?id=63040
@@ -29,13 +37,112 @@
 					try { handlePop(evt); } catch(err) { /* not loaded yet */ }
 				};
 			}, 1000);
+
+            /**
+             * Function to parse the URL fragment and extract line numbers
+             * @returns {Object} Object with parsed startLine, endLine
+             */
+            function getSelectedLinesFromURL() {
+                const urlHash = window.location.hash.substring(1); // Remove the '#' from the hash
+                if (!urlHash) return {}; // Return an empty object if there's no hash
+
+                // Parse the hash into start and end parts
+                const range = urlHash.split("L");
+                let start, end;
+
+                if (range.length > 2) {
+                    start = parseInt(range[1], 10);
+                    end = parseInt(range[2], 10);
+                } else {
+                    start = parseInt(range[1], 10);
+                    end = start;
+                }
+                return {
+                    startLine: start,
+                    endLine: end,
+                };
+            }
+
 			// Construct app and load initial path
 			$(function() {
-				var baseUrl = window.location.href.split('/');
-				baseUrl = baseUrl.slice(0, baseUrl.length - 1).join('/') + '/';
-				app = new haste('hastebin', { twitter: true, baseUrl: baseUrl });
+				var baseUrl = window.location.href.split('#')[0].split('/');
+			    baseUrl = baseUrl.slice(0, baseUrl.length - 1).join('/') + '/';
+                const selectedLines = getSelectedLinesFromURL();
+				app = new haste('hastebin', { twitter: true, baseUrl: baseUrl, selectedLines: selectedLines });
 				handlePop({ target: window });
 			});
+
+            // Update the window hash with the selected lines
+            function updateWindowLineHash(lineId){
+                app.selectedLines.startLine = Math.min(lineId,app.selectedLines.startLine);
+                app.selectedLines.endLine = Math.max(lineId,app.selectedLines.endLine);
+                window.location.hash = "#L" + (app.selectedLines.startLine) + "-L" + (app.selectedLines.endLine);
+            }
+
+            // Handle mouse enter
+            function handleMouseEnter(lineId) {
+                lineId = lineId + 1;
+                $('#line-number-' + lineId).css('background-color', '#cbd387');
+                $('#line-' + lineId).css('background-color', '#cbd387');
+                if(isDragging){
+                    $('#line-' + lineId).addClass("lineHighlight");
+                    updateWindowLineHash(lineId);
+                }
+            }
+
+            // Handle mouse leave
+            function handleMouseLeave(lineId) {
+                lineId = lineId + 1;
+                $('#line-number-' + lineId).css('background-color', '');
+                $('#line-' + lineId).css('background-color', '');
+            }
+
+            // Handle mouse down, unhighlight current lines first
+            function unHighlightCurrent(){
+                startLine = app.selectedLines.startLine;
+                endLine = app.selectedLines.endLine;
+                for (var i = startLine; i <= endLine; i++) {
+                    $('#line-' + i).removeClass("lineHighlight");
+                }
+                app.selectedLines.startLine = Number.MAX_SAFE_INTEGER;
+                app.selectedLines.endLine = Number.MIN_SAFE_INTEGER;
+            }
+            function handleMouseDown(lineId) {
+                unHighlightCurrent();
+                lineId = lineId + 1;
+                $('#line-' + lineId).addClass("lineHighlight");
+                isDragging = true;
+                updateWindowLineHash(lineId);
+            }
+
+            // Handle mouse up
+            function handleMouseUp(lineId) {
+                if(!isDragging){
+                    return;
+                }
+                if(isNaN(lineId)){
+                    lineId = app.selectedLines.endLine;
+                }else {
+                    lineId = lineId + 1;
+                }
+                updateWindowLineHash(lineId);
+                isDragging = false;
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                // Handle MouseUp Event for Body
+                document.body.addEventListener("mouseup", function() {
+                    handleMouseUp(NaN);
+                });
+                // Handle MouseUp Event for Linenos
+                document.getElementById('linenos').addEventListener("mouseup", function() {
+                    handleMouseUp(NaN);
+                });
+                // Handle MouseUp Event for Pre Element
+                document.getElementById('box').addEventListener("mouseup", function() {
+                    handleMouseUp(NaN);
+                });
+            });
 		</script>
 
 	</head>

@@ -25,7 +25,7 @@ textarea {
 
 #linenos {
   color: #7d7d7d;
-	z-index: -1000;
+	/*z-index: -1000;*/
 	position: absolute;
 	top: 20px;
 	left: 0px;
@@ -34,6 +34,10 @@ textarea {
 	font-family: monospace;
 	text-align: right;
 	user-select: none;
+}
+
+.lineHighlight {
+	background-color: yellow;
 }
 
 /* code box when locked */
@@ -172,4 +176,3 @@ textarea {
 #messages li.error {
 	background:rgba(102,8,0,0.8);
 }
-
